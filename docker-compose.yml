@@ -1,0 +1,11 @@
+version:  '3'
+services:
+  image:
+     image: "joequant/key4hep-container"
+     volumes:
+       - home:/home
+       - opt:/opt
+
+volumes:
+      home:
+      opt:

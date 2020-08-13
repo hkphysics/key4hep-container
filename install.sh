@@ -2,7 +2,7 @@
 set -e -v
 
 scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-container=$(buildah from joequant/cauldron-minimal)
+container=$(buildah from joequant/cauldron)
 buildah config --label maintainer="Joseph C Wang <joequant@gmail.com>" $container
 buildah config --user root $container
 mountpoint=$(buildah mount $container)
@@ -23,27 +23,19 @@ fi
 reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$buildarch"
 
 (
-dnf --installroot="$rootfsDir" \
-    --forcearch="$buildarch" \
+    dnf --installroot="$rootfsDir" \
+	install \
     --setopt=install_weak_deps=False --best -v -y \
     --nodocs --allowerasing \
     --releasever="$releasever" \
     --nogpgcheck \
-    --refresh \
-    install \
     gcc-c++ \
     nodejs \
-    spack-repos-k4
-
-dnf --installroot="$rootfsDir" \
-    --forcearch="$buildarch" \
-    --setopt=install_weak_deps=False --best -v -y \
-    --nodocs --allowerasing \
-    --releasever="$releasever" \
-    --nogpgcheck \
-    install \
+    spack \
+    spack-repos \
+    spack-repos-k4 \
     git \
-    lsb-release
+    sudo
 )
 
 rpm --rebuilddb --root $rootfsDir
@@ -57,6 +49,11 @@ rm -rf usr/lib/gcc/*/*/32
 #https://github.com/verdaccio/verdaccio/issues/1883
 popd
 
+/usr/sbin/useradd -G wheel -R $rootfsDir user || true
+cat <<EOF > $rootfsDir/etc/sudoers.d/user
+%wheel        ALL=(ALL)       NOPASSWD: ALL
+EOF
+buildah config --user "user" $container
 buildah config --cmd "/bin/bash" $container
 buildah commit --format docker --rm $container $name
 buildah push $name:latest docker-daemon:$name:latest

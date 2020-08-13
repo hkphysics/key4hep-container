@@ -35,13 +35,18 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     spack-repos \
     spack-repos-k4 \
     git \
-    sudo
+    curl \
+    sudo \
+    tar \
+    make \
+    glibc-static-devel \
+    glibc-devel
 )
 
 rpm --rebuilddb --root $rootfsDir
 pushd $rootfsDir
 rm -rf var/cache/*
-rm -f lib/*.so lib/*.so.* lib64/*.a lib/*.a lib/*.o
+rm -f lib/*.so lib/*.so.* lib/*.a lib/*.o
 rm -rf usr/lib/.build-id usr/lib64/mesa
 rm -rf usr/local usr/games
 rm -rf usr/lib/gcc/*/*/32
@@ -53,6 +58,11 @@ popd
 cat <<EOF > $rootfsDir/etc/sudoers.d/user
 %wheel        ALL=(ALL)       NOPASSWD: ALL
 EOF
+buildah run $container -- usermod -a -G wheel user
+buildah run $container -- usermod -a -G spack user
+buildah run $container -- mkdir -p /opt/spack
+buildah run $container -- chown spack:spack /opt/spack
+buildah run $container -- chmod ug+rw /opt/spack
 buildah config --user "user" $container
 buildah config --cmd "/bin/bash" $container
 buildah commit --format docker --rm $container $name

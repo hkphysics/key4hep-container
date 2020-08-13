@@ -33,14 +33,16 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     nodejs \
     spack \
     spack-repos \
-    spack-repos-k4 \
     git \
     curl \
     sudo \
     tar \
     make \
     glibc-static-devel \
-    glibc-devel
+    glibc-devel \
+    patch \
+    spack-repos-k4
+
 )
 
 rpm --rebuilddb --root $rootfsDir
@@ -63,6 +65,8 @@ buildah run $container -- usermod -a -G spack user
 buildah run $container -- mkdir -p /opt/spack
 buildah run $container -- chown spack:spack /opt/spack
 buildah run $container -- chmod ug+rw /opt/spack
+buildah run $container -- sudo -u user spack repo add /var/spack/repos/k4
+
 buildah config --user "user" $container
 buildah config --cmd "/bin/bash" $container
 buildah commit --format docker --rm $container $name

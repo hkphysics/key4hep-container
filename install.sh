@@ -41,8 +41,8 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     glibc-static-devel \
     glibc-devel \
     patch \
-    spack-repos-k4
-
+    spack-repos-k4 \
+    distcc
 )
 
 rpm --rebuilddb --root $rootfsDir
@@ -66,6 +66,9 @@ buildah run $container -- mkdir -p /opt/spack
 buildah run $container -- chown spack:spack /opt/spack
 buildah run $container -- chmod ug+rw /opt/spack
 buildah run $container -- sudo -u user spack repo add /var/spack/repos/k4
+buildah copy $container $scriptDir/proxy.sh /usr/sbin
+buildah copy $container $scriptDir/build-spack.sh /usr/sbin
+#buildah run $container -- sudo -u user /usr/sbin/build-spack.sh
 
 buildah config --user "user" $container
 buildah config --cmd "/bin/bash" $container

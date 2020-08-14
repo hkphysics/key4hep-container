@@ -1,7 +1,8 @@
 {
-    "name": "cacher",
+    "name": "key4hep-container",
     "scripts": {
 	"build": "buildah unshare ./install.sh",
-	"shell": "docker run -ti -u user joequant/key4hep-container /bin/bash"
+	"shell": "docker run -ti -u user -v key4hep-container_home:/home -v key4hep-container_opt:/opt joequant/key4hep-container /bin/bash",
+	"shell-podman": "docker run -ti -u user -v key4hep-container_home:/home -v key4hep-container_opt:/opt joequant/key4hep-container /bin/bash"
     }
 }

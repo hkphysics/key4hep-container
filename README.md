@@ -6,6 +6,8 @@ to run
 
 This will also work on podman
 
+  podman run -ti -u user --group-add wheel --group-add spack -v key4hep-container_home:/home -v key4hep-container_opt:/opt joequant/key4hep-container /bin/bash
+
 This will give you a shell with user user.  Spack will be saved in /opt/spack
 
 To build the k4 stack

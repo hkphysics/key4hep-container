@@ -42,7 +42,9 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     glibc-devel \
     patch \
     spack-repos-k4 \
-    distcc
+    distcc \
+    unzip \
+    gcc-gfortran
 )
 
 rpm --rebuilddb --root $rootfsDir

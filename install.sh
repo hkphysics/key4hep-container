@@ -63,6 +63,8 @@ popd
 cat <<EOF > $rootfsDir/etc/sudoers.d/user
 %wheel        ALL=(ALL)       NOPASSWD: ALL
 EOF
+
+cp -R repos/* $rootfsDir/var/spack/repos/
 buildah run $container -- usermod -a -G wheel user
 buildah run $container -- usermod -a -G spack user
 buildah run $container -- mkdir -p /opt/spack

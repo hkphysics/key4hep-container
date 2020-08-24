@@ -45,6 +45,7 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     distcc \
     unzip \
     gcc-gfortran \
+    libstdc++-static-devel \
     vim
 )
 

@@ -3,7 +3,6 @@
     "scripts": {
 	"build": "buildah unshare ./install.sh",
 	"build-stack": "buildah unshare ./install-stack.sh",
-	"shell": "docker run -ti -u user -v key4hep-container_home:/home -v key4hep-container_opt:/opt joequant/key4hep-container /bin/bash",
-	"shell-podman": "podman run -ti -u user --group-add wheel --group-add spack -v key4hep-container_home:/home -v key4hep-container_opt:/opt joequant/key4hep-container /bin/bash"
+	"shell": "podman run -ti -u user --group-add wheel --group-add spack -v key4hep-container_home:/home -v key4hep-container_opt:/opt joequant/key4hep-container /bin/bash"
     }
 }

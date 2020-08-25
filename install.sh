@@ -2,7 +2,7 @@
 set -e -v
 
 scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-container=$(buildah from joequant/cauldron)
+container=$(buildah from joequant/cauldron-minimal)
 buildah config --label maintainer="Joseph C Wang <joequant@gmail.com>" $container
 buildah config --user root $container
 mountpoint=$(buildah mount $container)
@@ -46,7 +46,10 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     unzip \
     gcc-gfortran \
     libstdc++-static-devel \
-    vim
+    vim \
+    cmake \
+    gzip \
+    bzip2
 )
 
 rpm --rebuilddb --root $rootfsDir
@@ -79,6 +82,5 @@ buildah copy $container $scriptDir/build-spack.sh /usr/sbin
 buildah config --user "user" $container
 buildah config --cmd "/bin/bash" $container
 buildah commit --format docker --rm $container $name
-buildah push $name:latest docker-daemon:$name:latest
 pump --shutdown
 

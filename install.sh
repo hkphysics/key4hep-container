@@ -75,10 +75,13 @@ buildah run $container -- mkdir -p /opt/spack
 buildah run $container -- chown spack:spack /opt/spack
 buildah run $container -- chmod ug+rw /opt/spack
 buildah run $container -- sudo -u user spack repo add /var/spack/repos/k4
+buildah run $container -- mkdir -p /home/user/.spack/linux
 buildah copy $container $scriptDir/proxy.sh /usr/sbin
 buildah copy $container $scriptDir/build-spack.sh /usr/sbin
 buildah copy $container $scriptDir/mirrors.yaml /etc/spack/defaults
-#buildah run $container -- sudo -u user /usr/sbin/build-spack.sh
+buildah copy $container $scriptDir/compilers.yaml.noproxy /home/user/.spack/linux
+buildah copy $container $scriptDir/compilers.yaml.proxy /home/user/.spack/linux
+buildah run $container -- chown user:user -R /home/user/.spack
 
 buildah config --user "user" $container
 buildah config --cmd "/bin/bash" $container

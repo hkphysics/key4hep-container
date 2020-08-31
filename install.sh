@@ -32,7 +32,6 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     gcc-c++ \
     nodejs \
     spack \
-    spack-repos \
     git \
     curl \
     sudo \
@@ -41,7 +40,6 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     glibc-static-devel \
     glibc-devel \
     patch \
-    spack-repos-k4 \
     distcc \
     unzip \
     gcc-gfortran \
@@ -68,13 +66,24 @@ cat <<EOF > $rootfsDir/etc/sudoers.d/user
 %wheel        ALL=(ALL)       NOPASSWD: ALL
 EOF
 
+mkdir -p $rootfsDir/var/spack/repos/
+pushd $scriptDir
+git clone https://github.com/spack/spack.git
+cp -R spack/var/spack/repos/* $rootfsDir/var/spack/repos/
+popd
+rm -rf spack
+
+pushd $rootfsDir/var/spack/repos
+git clone https://github.com/key4hep/k4-spack.git
+popd
+
 cp -R repos/* $rootfsDir/var/spack/repos/
 buildah run $container -- usermod -a -G wheel user
 buildah run $container -- usermod -a -G spack user
 buildah run $container -- mkdir -p /opt/spack
-buildah run $container -- chown spack:spack /opt/spack
-buildah run $container -- chmod ug+rw /opt/spack
-buildah run $container -- sudo -u user spack repo add /var/spack/repos/k4
+buildah run $container -- chown spack:spack /opt/spack /var/spack
+buildah run $container -- chmod ug+rw /opt/spack  /var/spack
+buildah run $container -- sudo -u user spack repo add /var/spack/repos/k4-spack
 buildah run $container -- mkdir -p /home/user/.spack/linux
 buildah copy $container $scriptDir/proxy.sh /usr/sbin
 buildah copy $container $scriptDir/build-spack.sh /usr/sbin

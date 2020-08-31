@@ -10,7 +10,7 @@ class Fccsw(CMakePackage):
     maintainers = ['vvolkl']
 
     version('master', branch='master')
-    version('0.13', sha256='4b76b28404f02dac09d9b02eb1db9926f5a53b21c6b91e95d3812267d575b116', preferred=True)
+    version('0.13', sha256='4b76b28404f02dac09d9b02eb1db9926f5a53b21c6b91e95d3812267d575b116')
     version('0.12', sha256='a67151c12177882abd8afcf56bee47c2830c44cac749b23d08d005b45096b264')
     version('0.11', 'e3b5aa8f396cffae745305801eb8f7a38a8a7881')
     version('0.10', '40b75f42fb51934cdc3c52049226ac39')
@@ -29,8 +29,7 @@ class Fccsw(CMakePackage):
             description='Use the specified C++ standard when building.')
 
     depends_on('acts@0.10.5 +identification +dd4hep +tgeo +digitization', when="@0.12:")
-    depends_on('clhep cxxstd=17', when='@0.13:')
-    depends_on('clhep', when='@:0.12')
+    depends_on('clhep')
     depends_on('dd4hep +geant4 +xercesc', when="@0.12:")
     depends_on('delphes')
     depends_on('fastjet')
@@ -48,10 +47,10 @@ class Fccsw(CMakePackage):
     depends_on('papas', when="@:0.12")
 
     depends_on('podio@0.9.2', when="@:0.12")
-    depends_on('podio@0.10.0', when="@0.13:")
+    depends_on('podio@0.12.0', when="@0.13:")
     depends_on('pythia8', when="@:0.12")
     depends_on('evtgen+pythia8', when="@0.13:")
-    depends_on('root cxxstd=17')
+    depends_on('root')
 
 
     depends_on("K4FWCore", when="@0.13:")
@@ -69,7 +68,7 @@ class Fccsw(CMakePackage):
         args = []
         # C++ Standard
         args.append('-DCMAKE_CXX_STANDARD=%s' % self.spec.variants['cxxstd'].value)
-        if self.spec.satisfies('^gaudi@:33.99'):
+        if self.spec.satisfies('^gaudi@:34.99'):
           args.append('-DHOST_BINARY_TAG=x86_64-linux-gcc9-opt')
         return args
 

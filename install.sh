@@ -47,7 +47,8 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     vim \
     cmake \
     gzip \
-    bzip2
+    bzip2 \
+    which
 )
 
 rpm --rebuilddb --root $rootfsDir

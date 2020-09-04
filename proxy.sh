@@ -37,10 +37,12 @@ else
 fi
 '
 if [ $timeout_exit == 0 ] ; then
-    echo "running distcc (pump mode)"
+    echo "running distcc"
     export PATH=/usr/lib64/distcc:$PATH
-    export DISTCC_HOSTS='172.17.0.1,cpp,lzo'
-    eval `pump --startup`
+    #    export DISTCC_HOSTS='172.17.0.1,cpp,lzo'
+    #    eval `pump --startup`
+    # pump mode breaks bison builds
+    export DISTCC_HOSTS='172.17.0.1'
     if [ -f /home/user/.spack/linux/compilers.yaml.proxy ] ; then
     pushd /home/user/.spack/linux
     cp -f compilers.yaml.proxy compilers.yaml

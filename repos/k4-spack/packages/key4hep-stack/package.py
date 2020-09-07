@@ -35,6 +35,8 @@ class Key4hepStack(BundlePackage):
     depends_on('root cxxstd=17 +root7 +ssl')
     depends_on('boost +python')
     depends_on('clhep cxxstd=17')
+    # gaudi needs 3.7.99
+    depends_on('python@:3.7.99')
 
     conflicts("%gcc@8.3.1",
               msg="There are known issues with compilers from redhat's devtoolsets" \

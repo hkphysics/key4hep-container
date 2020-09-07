@@ -69,13 +69,13 @@ EOF
 
 mkdir -p $rootfsDir/var/spack/repos/
 pushd $scriptDir
-git clone https://github.com/spack/spack.git
-cp -R spack/var/spack/repos/* $rootfsDir/var/spack/repos/
+git clone --depth=1 https://github.com/spack/spack.git spack.$$
+cp -R spack.$$/var/spack/repos/* $rootfsDir/var/spack/repos/
 popd
-rm -rf spack
+rm -rf spack.$$
 
 pushd $rootfsDir/var/spack/repos
-git clone https://github.com/key4hep/k4-spack.git
+git clone --depth=1 https://github.com/key4hep/k4-spack.git
 popd
 
 cp -R repos/* $rootfsDir/var/spack/repos/

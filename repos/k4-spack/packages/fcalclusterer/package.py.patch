@@ -1,0 +1,10 @@
+--- package.py	2020-09-12 23:38:44.369695955 +0800
++++ package.py.new	2020-09-12 23:42:08.730498306 +0800
+@@ -29,6 +29,7 @@
+ 
+     # CMAKE_INSTALL_PREFIX is overwritten by the package
+     patch("install.patch", when="@:1.0.1")
++    patch("random-shuffle-c17.patch")
+ 
+     def cmake_args(self):
+         args = []

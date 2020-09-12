@@ -79,6 +79,10 @@ git clone --depth=1 https://github.com/key4hep/k4-spack.git
 popd
 
 cp -R repos/* $rootfsDir/var/spack/repos/
+pushd $rootfsDir/var/spack/repos/
+find  -name "package.py.patch" -type f -exec sh -c 'f="{}"; patch "${f%.*}" "$f"' \;
+popd
+
 buildah run $container -- usermod -a -G wheel user
 buildah run $container -- usermod -a -G spack user
 buildah run $container -- mkdir -p /opt/spack

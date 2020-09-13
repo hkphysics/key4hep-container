@@ -90,6 +90,7 @@ buildah run $container -- chown spack:spack /opt/spack /var/spack
 buildah run $container -- chmod ug+rw /opt/spack  /var/spack
 buildah run $container -- sudo -u user spack repo add /var/spack/repos/k4-spack
 buildah run $container -- mkdir -p /home/user/.spack/linux
+buildah copy $container $scriptDir/config.yaml /etc/spack
 buildah copy $container $scriptDir/proxy.sh /usr/sbin
 buildah copy $container $scriptDir/build-spack.sh /usr/sbin
 buildah copy $container $scriptDir/mirrors.yaml /etc/spack/defaults

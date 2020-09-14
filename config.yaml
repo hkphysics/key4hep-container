@@ -1,2 +1,4 @@
 config:
     connect_timeout: 300
+    jobs: 12
+

@@ -95,7 +95,7 @@ buildah run $container -- mkdir -p /home/user/.spack/linux
 buildah copy $container $scriptDir/config.yaml /etc/spack
 buildah copy $container $scriptDir/proxy.sh /usr/sbin
 buildah copy $container $scriptDir/build-spack.sh /usr/sbin
-chmod 0755 $rootfsDir/usr/sbin/build-spack.sh
+chmod 0755 $rootfsDir/usr/sbin/*.sh
 buildah copy $container $scriptDir/mirrors.yaml /etc/spack/defaults
 buildah copy $container $scriptDir/compilers.yaml.noproxy /home/user/.spack/linux
 buildah copy $container $scriptDir/compilers.yaml.proxy /home/user/.spack/linux

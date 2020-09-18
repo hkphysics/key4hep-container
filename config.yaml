@@ -1,4 +1,4 @@
 config:
     connect_timeout: 300
-    jobs: 12
-
+    build_jobs: 16
+    override_cpu_limit: True

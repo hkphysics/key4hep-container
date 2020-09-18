@@ -72,6 +72,10 @@ pushd $rootfsDir/var/spack/repos/
 find  -name "package.py.patch" -type f -exec sh -c 'f="{}"; patch "${f%.*}" "$f"' \;
 popd
 
+pushd $rootfsDir/usr
+patch -p1 < $scriptDir/override-cpu-limit.patch
+popd
+
 buildah run $container -- usermod -a -G wheel user
 buildah run $container -- usermod -a -G spack user
 buildah run $container -- mkdir -p /opt/spack

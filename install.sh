@@ -29,26 +29,15 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     --nodocs --allowerasing \
     --releasever="$releasever" \
     --nogpgcheck \
-    gcc-c++ \
     nodejs \
     spack \
     git \
-    curl \
     sudo \
-    tar \
-    make \
     glibc-static-devel \
     glibc-devel \
-    patch \
     distcc \
-    unzip \
-    gcc-gfortran \
     libstdc++-static-devel \
-    vim \
-    cmake \
-    gzip \
-    bzip2 \
-    which
+    vim
 )
 
 rpm --rebuilddb --root $rootfsDir

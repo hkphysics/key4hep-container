@@ -86,15 +86,15 @@ popd
 buildah run $container -- usermod -a -G wheel user
 buildah run $container -- usermod -a -G spack user
 buildah run $container -- mkdir -p /opt/spack
-buildah run $container -- chown -R spack:spack /opt/spack /var/spack
-buildah run $container -- chmod -R ug+rw /opt/spack  /var/spack
-buildah run $container -- chmod -R o+r /opt/spack  /var/spack
-buildah run $container -- find /var/spack /opt/spack -type d -exec chmod 755 {} \;
 buildah run $container -- sudo -u user spack repo add /var/spack/repos/k4-spack
 buildah run $container -- mkdir -p /home/user/.spack/linux
 buildah copy $container $scriptDir/config.yaml /etc/spack
 buildah copy $container $scriptDir/proxy.sh /usr/sbin
 buildah copy $container $scriptDir/build-spack.sh /usr/sbin
+buildah run $container -- chown -R spack:spack /opt/spack /var/spack /etc/spack
+buildah run $container -- chmod -R ug+rw /opt/spack  /var/spack /etc/spack
+buildah run $container -- chmod -R o+r /opt/spack  /var/spack /etc/spack
+buildah run $container -- find /var/spack /opt/spack /etc/spack -type d -exec chmod 755 {} \;
 chmod 0755 $rootfsDir/usr/sbin/*.sh
 buildah copy $container $scriptDir/mirrors.yaml /etc/spack/defaults
 buildah copy $container $scriptDir/compilers.yaml.noproxy /home/user/.spack/linux

@@ -86,8 +86,8 @@ popd
 buildah run $container -- usermod -a -G wheel user
 buildah run $container -- usermod -a -G spack user
 buildah run $container -- mkdir -p /opt/spack
-buildah run $container -- chown spack:spack /opt/spack /var/spack
-buildah run $container -- chmod ug+rw /opt/spack  /var/spack
+buildah run $container -- chown -R spack:spack /opt/spack /var/spack
+buildah run $container -- chmod -R ug+rw /opt/spack  /var/spack
 buildah run $container -- sudo -u user spack repo add /var/spack/repos/k4-spack
 buildah run $container -- mkdir -p /home/user/.spack/linux
 buildah copy $container $scriptDir/config.yaml /etc/spack

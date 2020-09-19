@@ -67,13 +67,16 @@ pushd $rootfsDir/var/spack/repos
 git clone --depth=1 https://github.com/key4hep/k4-spack.git
 popd
 
-cp -R repos/* $rootfsDir/var/spack/repos/
-pushd $rootfsDir/var/spack/repos/
-find  -name "package.py.patch" -type f -exec sh -c 'f="{}"; patch "${f%.*}" "$f"' \;
+pushd $rootfsDir
+patch -p1 < $scriptDir/patches/builtin.patch 
+popd
+
+pushd $rootfsDir/var/spack/repos/k4-spack
+patch -p1 < $scriptDir/patches/k4-spack.patch 
 popd
 
 pushd $rootfsDir/usr
-patch -p1 < $scriptDir/override-cpu-limit.patch
+patch -p1 < $scriptDir/patches/override-cpu-limit.patch
 popd
 
 buildah run $container -- usermod -a -G wheel user

@@ -20,7 +20,7 @@ fi
 
 . $scriptDir/proxy.sh
 
-buildah run $container -- sudo -u user /usr/sbin/build-spack.sh
+buildah run $container -- sudo -u user /usr/sbin/build-spack.sh key4hep-stack
 buildah commit --format docker --rm $container $name
 pump --shutdown
 

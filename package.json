@@ -5,8 +5,8 @@
 	"build-stack": "buildah unshare ./install-stack.sh",
 	"shell": "podman run -ti -u user --group-add wheel --group-add spack -v key4hep-container_home:/home -v key4hep-container_opt:/opt joequant/key4hep-container /bin/bash",
 	"shell-nightly": "podman run -ti -u user --group-add wheel --group-add spack -v key4hep-container-nightly_home:/home -v key4hep-container-nightly_opt:/opt joequant/key4hep-container /bin/bash",
-	"run-incremental": "podman run -ti -u user --group-add wheel --group-add spack -v key4hep-container_home:/home -v key4hep-container_opt:/opt joequant/key4hep-container /usr/sbin/build-spack.sh key4hep-stack",
-	"run-incremental-nightly": "podman run -ti -u user --group-add wheel --group-add spack -v key4hep-container-nightly_home:/home -v key4hep-container-nightly_opt:/opt joequant/key4hep-container /usr/sbin/build-spack.sh key4hep-stack@nightly",
+	"run-incremental": "podman run -ti -u user --rm --group-add wheel --group-add spack -v key4hep-container_home:/home -v key4hep-container_opt:/opt joequant/key4hep-container /usr/sbin/build-spack.sh key4hep-stack",
+	"run-incremental-nightly": "podman run -ti -u user --rm --group-add wheel --group-add spack -v key4hep-container-nightly_home:/home -v key4hep-container-nightly_opt:/opt joequant/key4hep-container /usr/sbin/build-spack.sh key4hep-stack@nightly",
 	"push" : "skopeo copy containers-storage:localhost/joequant/key4hep-container-stack:latest docker://joequant/key4hep-container-stack"
     }
 }

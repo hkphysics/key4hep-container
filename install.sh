@@ -101,7 +101,7 @@ buildah run $container -- chown user:user -R /home/user/.spack
 buildah run $container -- sudo -u user spack repo add /var/spack/repos/k4-spack
 buildah config --user "user" $container
 buildah config --cmd "/bin/bash" $container
-buildah rename $name ${name}:old || true
+buildah tag $name ${name}:old || true
 buildah commit --format docker --rm $container $name
 buildah rmi ${name}:old || true
 pump --shutdown

@@ -1,9 +1,12 @@
 diff --git a/packages/key4hep-stack/package.py b/packages/key4hep-stack/package.py
-index e28791e..0f63edd 100644
+index 73eaf99..b531794 100644
 --- a/packages/key4hep-stack/package.py
 +++ b/packages/key4hep-stack/package.py
-@@ -74,8 +74,11 @@ class Key4hepStack(BundlePackage):
+@@ -77,10 +77,14 @@ class Key4hepStack(BundlePackage):
+     depends_on("fccsw", when='@0.1')
      depends_on("podio@0.12.0", when="@0.1")
+     depends_on("dual-readout", when="@0.1")
++    depends_on("pythia8@:8299", when="@0.1")
  
      # be explicit to avoid concretizer errors
 -    depends_on('root cxxstd=17 +root7 +ssl')

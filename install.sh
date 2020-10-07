@@ -103,6 +103,6 @@ buildah config --user "user" $container
 buildah config --cmd "/bin/bash" $container
 buildah tag $name ${name}:old || true
 buildah commit --format docker --rm $container $name
-buildah rmi ${name}:old || true
+buildah rmi --force ${name}:old || true
 pump --shutdown
 

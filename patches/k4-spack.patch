@@ -1,23 +1,3 @@
-diff --git a/packages/key4hep-stack/package.py b/packages/key4hep-stack/package.py
-index 73eaf99..b531794 100644
---- a/packages/key4hep-stack/package.py
-+++ b/packages/key4hep-stack/package.py
-@@ -77,10 +77,14 @@ class Key4hepStack(BundlePackage):
-     depends_on("fccsw", when='@0.1')
-     depends_on("podio@0.12.0", when="@0.1")
-     depends_on("dual-readout", when="@0.1")
-+    depends_on("pythia8@:8299", when="@0.1")
- 
-     # be explicit to avoid concretizer errors
--    depends_on('root cxxstd=17 +root7 +ssl')
-+    # lcfiplus requires root variant +tmva, but spec asked for ~tmva
-+    depends_on('root@6.22.0: cxxstd=17 +root7 +ssl +tmva +mlp')
-     depends_on('boost +python')
-+    # gaudi needs 3.7.99
-+    depends_on('python@:3.7.99')
- 
-     conflicts("%gcc@8.3.1",
-               msg="There are known issues with compilers from redhat's devtoolsets" \
 diff --git a/packages/lccontent/bool-int.patch b/packages/lccontent/bool-int.patch
 new file mode 100644
 index 0000000..d7a62d7
@@ -60,10 +40,10 @@ index 0000000..d7a62d7
 + 
 +         if (isFullyContained)
 diff --git a/packages/lccontent/package.py b/packages/lccontent/package.py
-index 619a2dc..8da70e6 100644
+index d0296fb..bbc6e69 100644
 --- a/packages/lccontent/package.py
 +++ b/packages/lccontent/package.py
-@@ -23,14 +23,18 @@ class Lccontent(CMakePackage):
+@@ -25,14 +25,18 @@ class Lccontent(CMakePackage):
      patch("path2.patch")
      patch("path3.patch")
      patch("path4.patch")

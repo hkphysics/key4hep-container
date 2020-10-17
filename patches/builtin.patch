@@ -1,34 +1,12 @@
-diff --git a/var/spack/repos/builtin/packages/lcio/package.py b/var/spack/repos/builtin/packages/lcio/package.py
-index 004e0d276..551a1676b 100644
---- a/var/spack/repos/builtin/packages/lcio/package.py
-+++ b/var/spack/repos/builtin/packages/lcio/package.py
-@@ -40,6 +40,8 @@ class Lcio(CMakePackage):
-     depends_on('delphes', when="+examples")
-     depends_on('readline', when="+examples")
+diff --git a/var/spack/repos/builtin/packages/delphes/package.py b/var/spack/repos/builtin/packages/delphes/package.py
+index 09163f825..f680cc81e 100644
+--- a/var/spack/repos/builtin/packages/delphes/package.py
++++ b/var/spack/repos/builtin/packages/delphes/package.py
+@@ -19,7 +19,6 @@ class Delphes(CMakePackage):
  
-+    patch('sio-dependencies.patch')
-+
-     def cmake_args(self):
-         args = [
-             self.define('CMAKE_CXX_STANDARD',
-diff --git a/var/spack/repos/builtin/packages/lcio/sio-dependencies.patch b/var/spack/repos/builtin/packages/lcio/sio-dependencies.patch
-new file mode 100755
-index 000000000..784a3f707
---- /dev/null
-+++ b/var/spack/repos/builtin/packages/lcio/sio-dependencies.patch
-@@ -0,0 +1,15 @@
-+diff --git a/CMakeLists.txt b/CMakeLists.txt
-+index 2d6d02ba..6c557691 100644
-+--- a/CMakeLists.txt
-++++ b/CMakeLists.txt
-+@@ -276,7 +276,9 @@ OPTION( BUILD_LCIO_EXAMPLES "Set to ON to build LCIO examples" ON )
-+ # lcio library
-+ ADD_SUBDIRECTORY( ./src/cpp lcio )
-+ 
-+-
-++IF( NOT SIO_FOUND )
-++  ADD_DEPENDENCIES( lcio sio )
-++ENDIF()
-+ 
-+ # fortran examples
-+ OPTION( BUILD_F77_TESTJOBS "Set to ON to build LCIO F77 testjobs" OFF )
+     version('master', branch='master')
+     version('3.4.3pre05', tag='3.4.3pre05')
+-    version('3.4.3pre04', tag='3.4.3pre04')
+     version('3.4.2', sha256='d46a7c5474de650befdb89377115feee31f1743107ceb3d8da699be9d48c097b', preferred=True)
+     version('3.4.1', sha256='4b5a2aeac326643f45b6d45c39ba2302e323eeb86d8cb58843c6e73949b1208a')
+     version('3.4.0', sha256='c0f9500663a0c3a5c1eddcee598a67b5bcfc9318303195c6cacc0590b4023fa1')

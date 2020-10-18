@@ -1,0 +1,41 @@
+packages:
+  all:
+    target: [broadwell]
+  range-v3:
+    # avoid building doxygen
+    variants: ~doc
+  geant4:
+    variants: ~qt~opengl+vecgeom
+  marlin:
+    # avoid building mariadb
+    variants: ~lccd
+  mesa:
+    # avoid building llvm
+    variants: ~llvm+glx+opengl
+  boost:
+    variants: +python
+  dd4hep:
+    variants: +geant4+lcio
+  xercesc:
+    variants: cxxstd=11
+  root:
+    version: [6.20.04]
+    variants: +davix+gsl+asimage+math~memstat+minuit+mlp~mysql+opengl~postgres~pythia6+pythia8+python~qt4+r+root7+rootfit+rpath~shadow+sqlite+ssl~table+tbb+threads+tmva+unuran+vc+vdt+vmc+x+xml+xrootd build_type=RelWithDebInfo cxxstd=17 patches=22af3471f3fd87c0fe8917bf9c811c6d806de6c8b9867d30a1e3d383a1b929d7
+  # avoid issue https://github.com/spack/spack/issues/16803
+  # and use variant that allows to install older versions of whizard
+  ocaml:
+    version: [4.10.0]
+    variants: ~force-safe-string
+  # Avoid concretizer conflict for edm4hep
+  pythia8:
+    version: [8244]
+  # gaudi v34 does not work with python 3.8
+  # setting the version explicitly avoids concretizer errors
+  python:
+    version: [3.7.8, 3.8.6]
+  delphes:
+    # includes some fixes to the trackcovariance module that are
+    # needed in fccsw
+    version: [3.4.3pre05]
+
+

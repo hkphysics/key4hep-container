@@ -80,6 +80,8 @@ pushd $rootfsDir/usr
 patch -p1 < $scriptDir/patches/override-cpu-limit.patch
 popd
 
+cp $scriptDir/packages.yaml $rootfsDir/etc/spack
+
 buildah run $container -- usermod -a -G wheel user
 buildah run $container -- usermod -a -G spack user
 buildah run $container -- mkdir -p /opt/spack

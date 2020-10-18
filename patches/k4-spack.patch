@@ -1,18 +1,3 @@
-diff --git a/packages/key4hep-stack/package.py b/packages/key4hep-stack/package.py
-index 90e4abf..94685c4 100644
---- a/packages/key4hep-stack/package.py
-+++ b/packages/key4hep-stack/package.py
-@@ -232,4 +232,9 @@ class Key4hepStack(BundlePackage):
-               "which are therefore not supported." \
-               "See https://root-forum.cern.ch/t/devtoolset-gcc-toolset-compatibility/38286")
- 
--    
-+    #### concretizer
-+    # edm4hep
-+    depends_on('pythia8@:8299')
-+    depends_on('root@6.22.0: cxxstd=17 +root7 +ssl +tmva +mlp')
-+    #fccsw
-+    depends_on('delphes@3.4.3pre05:')
 diff --git a/packages/lccontent/bool-int.patch b/packages/lccontent/bool-int.patch
 new file mode 100644
 index 0000000..d7a62d7

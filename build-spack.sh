@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 source /usr/sbin/proxy.sh
+# remove locks
+rm -f /opt/spack/.spack-db/prefix_lock
 export DISTCC_HOSTS='172.17.0.1,lzo'
 spack install -j16 -v $1
 if [ -f /home/user/.spack/linux/compilers.yaml.noproxy ] ; then

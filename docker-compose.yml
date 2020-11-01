@@ -5,10 +5,9 @@ services:
      volumes:
        - home:/home
        - opt:/opt
-
-tmpfs:
-     - /run
-     - /tmp
+     tmpfs:
+       - /run
+       - /tmp
 volumes:
       home:
       opt:

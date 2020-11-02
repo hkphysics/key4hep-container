@@ -39,3 +39,6 @@ packages:
     version: [3.4.3pre05]
   mesa:
      variants: +llvm
+# https://github.com/key4hep/k4-spack/issues/95
+  llvm:
+    version: [ 10.0.1 ]

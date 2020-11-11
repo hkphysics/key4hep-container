@@ -1,0 +1,34 @@
+From 4c92fe14baf77035eb78b59b07b3814eba6a7ff7 Mon Sep 17 00:00:00 2001
+From: "Adam J. Stewart" <ajstewart426@gmail.com>
+Date: Tue, 10 Nov 2020 21:08:06 -0600
+Subject: [PATCH] py-matplotlib: set LIBRARY_PATH to locate link deps
+
+---
+ .../builtin/packages/py-matplotlib/package.py      | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/var/spack/repos/builtin/packages/py-matplotlib/package.py b/var/spack/repos/builtin/packages/py-matplotlib/package.py
+index d737f6662413..82b19b2feb83 100644
+--- a/var/spack/repos/builtin/packages/py-matplotlib/package.py
++++ b/var/spack/repos/builtin/packages/py-matplotlib/package.py
+@@ -149,6 +149,20 @@ class PyMatplotlib(PythonPackage):
+     # Patch to pick up correct freetype headers
+     patch('freetype-include-path.patch', when='@2.2.2:2.9.9')
+ 
++    def setup_build_environment(self, env):
++        include = []
++        library = []
++        for dep in self.spec.dependencies(deptype='link'):
++            query = self.spec[dep.name]
++            include.extend(query.headers.directories)
++            library.extend(query.libs.directories)
++
++        # Build uses a mix of Spack's compiler wrapper and the actual compiler,
++        # so this is needed to get parts of the build working.
++        # See https://github.com/spack/spack/issues/19843
++        env.set('CPATH', ':'.join(include))
++        env.set('LIBRARY_PATH', ':'.join(library))
++
+     @run_before('build')
+     def configure(self):
+         """Set build options with regards to backend GUI libraries."""

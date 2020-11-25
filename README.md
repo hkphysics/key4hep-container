@@ -2,6 +2,8 @@
 
 Please contact joequant@bitquant.com.hk
 
+To view continuous integration of key4hep-stack please go to http://dev1.bitquant.com.hk:8011/
+
 to run
 
   docker run -ti -u user -v key4hep-container_home:/home -v key4hep-container_opt:/opt joequant/key4hep-container /bin/bash

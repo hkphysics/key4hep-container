@@ -1,8 +1,12 @@
 # key4hep-container
 
+This is builds a container for the key4hep project.  https://github.com/key4hep/key4hep-spack/
+
 Please contact joequant@bitquant.com.hk
 
 To view continuous integration of key4hep-stack please go to http://dev1.bitquant.com.hk:8011/
+
+This makes heavy use of the compiler caching server - http://github.com/joequant/cacher/
 
 To be notified of build breaks, add yourself to issue #1
 

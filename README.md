@@ -6,6 +6,10 @@ Please contact joequant@bitquant.com.hk
 
 To view continuous integration of key4hep-stack please go to http://dev1.bitquant.com.hk:8011/
 
+To subscribe to the list of build breaks go to https://github.com/joequant/key4hep-container/issues/1
+
+The buildbot server will automatically add a comment when the build breaks.
+
 This makes heavy use of the compiler caching server - http://github.com/joequant/cacher/
 
 To be notified of build breaks, add yourself to issue #1

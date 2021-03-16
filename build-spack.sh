@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 source /usr/sbin/proxy.sh
 # remove locks

@@ -27,13 +27,11 @@ if [ $timeout_exit == 0 ] ; then
     echo "running distcc"
     export PATH=/usr/lib64/distcc:$PATH
     export DISTCC_HOSTS="$cache_server"
-    pushd /home/user/.spack/linux
-    cp -f compilers.yaml.proxy compilers.yaml
-    popd
+    cp -f /home/user/.spack/linux/compilers.yaml.proxy \
+        /home/user/.spack/linux/compilers.yaml
 else
-    pushd /home/user/.spack/linux
-    cp -f compilers.yaml.noproxy compilers.yaml
-    popd
+    cp -f /home/user/.spack/linux/compilers.yaml.noproxy \
+        /home/user/.spack/linux/compilers.yaml
 fi
 '
 if [ $timeout_exit == 0 ] ; then
@@ -42,14 +40,12 @@ if [ $timeout_exit == 0 ] ; then
     export DISTCC_HOSTS='172.17.0.1,cpp,lzo'
     eval `pump --startup`
     if [ -f /home/user/.spack/linux/compilers.yaml.proxy ] ; then
-    pushd /home/user/.spack/linux
-    cp -f compilers.yaml.proxy compilers.yaml
-    popd
+    cp -f /home/user/.spack/linux/compilers.yaml.proxy \
+       /home/user/.spack/linux/compilers.yaml
     fi
 else
     if [ -f /home/user/.spack/linux/compilers.yaml.noproxy ] ; then
-    pushd /home/user/.spack/linux
-    cp -f compilers.yaml.noproxy compilers.yaml
-    popd
+    cp -f /home/user/.spack/linux/compilers.yaml.noproxy \
+       /home/user/.spack/linux/compilers.yaml
     fi
 fi

@@ -88,6 +88,10 @@ buildah run $container -- usermod -a -G wheel user
 buildah run $container -- usermod -a -G spack user
 buildah run $container -- mkdir -p /opt/spack
 
+# there is an odd permission error with avoid by using ksh
+buildah run $container -- rm -f /bin/sh
+buildah run $container -- ln -s /bin/ksh /bin/sh
+
 buildah run $container -- mkdir -p /home/user/.spack/linux
 buildah copy $container $scriptDir/config.yaml /etc/spack
 buildah copy $container $scriptDir/proxy.sh /usr/sbin

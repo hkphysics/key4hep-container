@@ -38,7 +38,9 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     distcc \
     procps-ng \
     libstdc++-static-devel \
-    vim
+    vim \
+    bash \
+    ksh
 )
 
 rpm --rebuilddb --root $rootfsDir

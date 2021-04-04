@@ -77,10 +77,6 @@ pushd $rootfsDir/var/spack/repos/key4hep-spack
 patch -p1 < $scriptDir/patches/key4hep-spack.patch
 popd
 
-pushd $rootfsDir/usr
-patch -p1 < $scriptDir/patches/override-cpu-limit.patch
-popd
-
 cp $scriptDir/packages.yaml $rootfsDir/etc/spack
 
 buildah run $container -- usermod -a -G wheel user

@@ -1,0 +1,12 @@
+diff --git a/var/spack/repos/builtin/packages/numactl/package.py b/var/spack/repos/builtin/packages/numactl/package.py
+index f6c82f5522..d0fe04e53e 100644
+--- a/var/spack/repos/builtin/packages/numactl/package.py
++++ b/var/spack/repos/builtin/packages/numactl/package.py
+@@ -30,6 +30,7 @@ class Numactl(AutotoolsPackage):
+ 
+     def autoreconf(self, spec, prefix):
+         bash = which('bash')
++        bash('libtoolize')
+         bash('./autogen.sh')
+ 
+     def patch(self):

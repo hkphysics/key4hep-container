@@ -57,6 +57,9 @@ popd
 cat <<EOF > $rootfsDir/etc/sudoers.d/user
 %wheel        ALL=(ALL)       NOPASSWD: ALL
 EOF
+cat <<EOF >> $rootfsDir/etc/distcc/hosts
+172.17.0.1
+EOF
 
 mkdir -p $rootfsDir/var/spack/repos/
 pushd $scriptDir

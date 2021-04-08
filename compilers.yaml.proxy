@@ -6,7 +6,8 @@ compilers:
       cxx: /usr/lib64/distcc/g++
       f77: /bin/gfortran
       fc: /bin/gfortran
-    flags: {}
+    flags:
+      fflags: -fallow-argument-mismatch
     operating_system: mageia9
     target: x86_64
     modules: []

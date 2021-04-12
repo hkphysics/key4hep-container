@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e -v
-
+export BUILDAH_RUNTIME=/usr/bin/runc
 scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 container=$(buildah from joequant/cauldron-minimal)
 buildah config --label maintainer="Joseph C Wang <joequant@gmail.com>" $container

@@ -42,7 +42,7 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     bash
 )
 
-rpm --rebuilddb --root $rootfsDir
+#rpm --rebuilddb --root $rootfsDir
 pushd $rootfsDir
 rm -rf var/cache/*
 rm -f lib/*.so lib/*.so.* lib/*.a lib/*.o

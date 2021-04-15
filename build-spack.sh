@@ -1,5 +1,4 @@
 #!/bin/sh
-set -e
 . /usr/sbin/proxy.sh
 # remove locks
 rm -f /opt/spack/.spack-db/prefix_lock

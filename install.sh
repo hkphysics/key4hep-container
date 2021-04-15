@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e -v
-export BUILDAH_RUNTIME=/usr/bin/runc
 scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 container=$(buildah from joequant/cauldron-minimal)
 buildah config --label maintainer="Joseph C Wang <joequant@gmail.com>" $container
@@ -100,7 +99,6 @@ buildah run $container -- chmod -R o+r /opt/spack  /var/spack /etc/spack
 buildah run $container -- find /var/spack /opt/spack /etc/spack -type d -exec chmod 775 {} \;
 chmod 0755 $rootfsDir/usr/sbin/*.sh
 buildah run $container -- chown user:user -R /home/user/.spack
-
 buildah run $container -- sudo -u user spack repo add /var/spack/repos/key4hep-spack
 buildah config --user "user" $container
 buildah config --cmd "/bin/sh" $container

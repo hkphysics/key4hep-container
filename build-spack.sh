@@ -1,6 +1,7 @@
 #!/bin/sh
 . /usr/sbin/proxy.sh
 # remove locks
+set -e
 rm -f /opt/spack/.spack-db/prefix_lock
 export DISTCC_HOSTS='172.17.0.1,lzo'
 for pkg in "$@"

@@ -36,6 +36,7 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     glibc-devel \
     distcc \
     procps-ng \
+    libstdc++-devel \
     libstdc++-static-devel \
     vim \
     bash

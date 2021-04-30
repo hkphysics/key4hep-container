@@ -1,6 +1,6 @@
 compilers:
 - compiler:
-    spec: gcc@10.3.0
+    spec: gcc@11.1.0
     paths:
       cc: /usr/lib64/distcc/gcc
       cxx: /usr/lib64/distcc/g++
@@ -8,7 +8,7 @@ compilers:
       fc: /bin/gfortran
     flags:
       fflags: -fallow-argument-mismatch
-      cxxflags: -I/usr/include/c++/10
+      cxxflags: -I/usr/include/c++/11
     operating_system: mageia9
     target: x86_64
     modules: []

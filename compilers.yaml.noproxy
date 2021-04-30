@@ -1,6 +1,6 @@
 compilers:
 - compiler:
-    spec: gcc@10.3.0
+    spec: gcc@11.1cd.0
     paths:
       cc: /bin/gcc
       cxx: /bin/g++

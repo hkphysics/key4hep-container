@@ -30,8 +30,8 @@ packages:
     version: [8244]
   # gaudi v34 does not work with python 3.8
   # setting the version explicitly avoids concretizer errors
-  python:
-    version: [3.7.8, 3.8.6]
+#  python:
+#    version: [3.7.8, 3.8.6]
   delphes:
     # includes some fixes to the trackcovariance module that are
     # needed in fccsw

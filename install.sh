@@ -38,6 +38,7 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     procps-ng \
     libstdc++-devel \
     libstdc++-static-devel \
+    kernel-userspace-headers \
     vim \
     bash
 )

@@ -40,8 +40,8 @@ packages:
   mesa:
     variants: -llvm swr=none
 # needed for gaudimarlinwrapper
-#  gaudi:
-#    version: [34.0]
+  gaudi:
+    version: [master]
 # avoid error for fccanalyses
   acts:
     version: [ 5.00.0 ]

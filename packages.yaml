@@ -45,3 +45,6 @@ packages:
 # avoid error for fccanalyses
   acts:
     version: [ 5.00.0 ]
+  whizzard:
+    version: [ 3.0.0_alpha ]
+ 

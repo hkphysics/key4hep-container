@@ -32,7 +32,6 @@ packages:
   # setting the version explicitly avoids concretizer errors
   python:
     variants: +debug
-    version: [3.7.8, 3.8.6]
   delphes:
     # includes some fixes to the trackcovariance module that are
     # needed in fccsw
@@ -45,6 +44,4 @@ packages:
 # avoid error for fccanalyses
   acts:
     version: [ 5.00.0 ]
-  whizzard:
-    version: [ 3.0.0_alpha ]
- 
+  

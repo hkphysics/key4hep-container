@@ -77,3 +77,18 @@ index eb6b6de671..f18aa4090b 100644
  
      def url_for_version(self, version):
          url = 'https://download.gnome.org/sources/gtk+/{0}/gtk+-{1}.tar.xz'
+diff --git a/var/spack/repos/builtin/packages/yoda/package.py b/var/spack/repos/builtin/packages/yoda/package.py
+index df7273389b..b449766d75 100644
+--- a/var/spack/repos/builtin/packages/yoda/package.py
++++ b/var/spack/repos/builtin/packages/yoda/package.py
+@@ -81,10 +81,6 @@ class Yoda(AutotoolsPackage):
+     patch('yoda-1.6.6.patch', level=0, when='@1.6.6')
+     patch('yoda-1.6.7.patch', level=0, when='@1.6.7')
+ 
+-    conflicts("%gcc@10:", when="@:1.8.5",
+-              msg="yoda up to 1.8.5 is missing a <limits> include in AnalysisObject.h."
+-              "Use version 1.9.0 or later, or patch earlier versions if needed.")
+-
+     def configure_args(self):
+         args = []
+         if self.spec.satisfies('@:1.6.0'):

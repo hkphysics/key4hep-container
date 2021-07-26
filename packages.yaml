@@ -28,8 +28,6 @@ packages:
   # Avoid concretizer conflict for edm4hep
   pythia8:
     version: [8244]
-  # gaudi v34 does not work with python 3.8
-  # setting the version explicitly avoids concretizer errors
   python:
     variants: +debug
   delphes:
@@ -44,4 +42,7 @@ packages:
 # avoid error for fccanalyses
   acts:
     version: [ 5.00.0 ]
-  
+  freetype:
+    version: [ 2.10.2, 2.11.0 ]
+  yoda:
+    version: [ 1.9.0 ]

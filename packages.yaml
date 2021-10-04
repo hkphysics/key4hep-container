@@ -26,8 +26,8 @@ packages:
 #    version: [4.10.0]
 #    variants: ~force-safe-string
   # Avoid concretizer conflict for edm4hep
-  pythia8:
-    version: [8244]
+#  pythia8:
+#    version: [8244]
   python:
     variants: +debug
   delphes:

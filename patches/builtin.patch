@@ -23,3 +23,15 @@ index 5f7fe77cfd..629751f7a0 100644
      version('4.11.0', sha256='b5bd04bf794a676389b167633f01f8275acdd853149b137f7575f2c2ddef1377')
      version('4.10.0', sha256='58d431dde66f5750ebe9b15d5a1c4872f80d283dec23448689b0d1a498b7e4c7')
      version('4.09.0', sha256='2b728f8a0e90da14f22fdc04660f2ab33819cdbb12bff0ceae3fdbb0133cf7a6')
+diff --git a/var/spack/repos/builtin/packages/yoda/package.py b/var/spack/repos/builtin/packages/yoda/package.py
+index 45ae109040..69841e5da3 100644
+--- a/var/spack/repos/builtin/packages/yoda/package.py
++++ b/var/spack/repos/builtin/packages/yoda/package.py
+@@ -63,6 +63,7 @@ class Yoda(AutotoolsPackage):
+ 
+     depends_on('python', type=('build', 'run'))
+     depends_on('py-future', type=('build', 'run'))
++    depends_on('zlib', type=('build', 'run'))
+     depends_on('boost', when='@:1.6.0', type=('build', 'run'))
+     depends_on('py-cython@0.18:', type='build', when='@:1.4.0')
+     depends_on('py-cython@0.20:', type='build', when='@1.4.0:1.6.5')

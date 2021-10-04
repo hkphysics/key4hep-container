@@ -30,7 +30,6 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     --nogpgcheck \
     nodejs \
     spack \
-    spack-repos \
     git \
     sudo \
     glibc-static-devel \
@@ -63,12 +62,12 @@ cat <<EOF >> $rootfsDir/etc/distcc/hosts
 172.17.0.1
 EOF
 
-#mkdir -p $rootfsDir/var/spack/repos/
-#pushd $scriptDir
-#git clone --depth=1 https://github.com/spack/spack.git spack.$$
-#cp -R spack.$$/var/spack/repos/* $rootfsDir/var/spack/repos/
-#popd
-#rm -rf spack.$$
+mkdir -p $rootfsDir/var/spack/repos/
+pushd $scriptDir
+git clone --depth=1 https://github.com/spack/spack.git spack.$$
+cp -R spack.$$/var/spack/repos/* $rootfsDir/var/spack/repos/
+popd
+rm -rf spack.$$
 
 pushd $rootfsDir/var/spack/repos
 git clone --depth=1 https://github.com/key4hep/key4hep-spack.git

@@ -35,3 +35,42 @@ index 45ae109040..69841e5da3 100644
      depends_on('boost', when='@:1.6.0', type=('build', 'run'))
      depends_on('py-cython@0.18:', type='build', when='@:1.4.0')
      depends_on('py-cython@0.20:', type='build', when='@1.4.0:1.6.5')
+diff --git a/var/spack/repos/builtin/packages/emacs/glibc-2.34.patch b/var/spack/repos/builtin/packages/emacs/glibc-2.34.patch
+new file mode 100644
+index 0000000000..793503db5a
+--- /dev/null
++++ b/var/spack/repos/builtin/packages/emacs/glibc-2.34.patch
+@@ -0,0 +1,20 @@
++Fix compilation with glibc-2.34
++https://bugs.gentoo.org/803644
++
++In glibc-2.34, definition of SIGSTKSZ has changed from a fixed value
++to sysconf(_SC_SIGSTKSZ), which cannot be used in the definition of a
++static array. In 2.33, the default SIGSTKSZ was 8192, but apparently
++some arches (e.g. aarch64 and sparc) used 16384. Hardcode the larger
++of these values.
++
++--- emacs-27.2/src/sysdep.c
+++++ emacs-27.2/src/sysdep.c
++@@ -1818,7 +1818,7 @@
++ 
++ /* Alternate stack used by SIGSEGV handler below.  */
++ 
++-static unsigned char sigsegv_stack[SIGSTKSZ];
+++static unsigned char sigsegv_stack[16384];
++ 
++ 
++ /* Return true if SIGINFO indicates a stack overflow.  */
+diff --git a/var/spack/repos/builtin/packages/emacs/package.py b/var/spack/repos/builtin/packages/emacs/package.py
+index a45d726fd0..c9d708e194 100644
+--- a/var/spack/repos/builtin/packages/emacs/package.py
++++ b/var/spack/repos/builtin/packages/emacs/package.py
+@@ -61,6 +61,8 @@ class Emacs(AutotoolsPackage, GNUMirrorPackage):
+     conflicts('@:26.3', when='platform=darwin os=catalina')
+     conflicts('+native', when='@:27', msg="native compilation require @master")
+ 
++    patch('glibc-2.34.patch')
++
+     @when('platform=darwin')
+     def setup_build_environment(self, env):
+         # on macOS, emacs' config does search hard enough for ncurses'

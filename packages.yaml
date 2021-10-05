@@ -42,7 +42,5 @@ packages:
 # avoid error for fccanalyses
   acts:
     version: [ 5.00.0 ]
-  freetype:
-    version: [ 2.10.2, 2.11.0 ]
-  yoda:
-    version: [ 1.9.0 ]
+  ninja:
+    version: [ 1.10.2 ]

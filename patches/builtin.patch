@@ -61,3 +61,15 @@ index a45d726fd0..c9d708e194 100644
      @when('platform=darwin')
      def setup_build_environment(self, env):
          # on macOS, emacs' config does search hard enough for ncurses'
+diff --git a/var/spack/repos/builtin/packages/cppgsl/package.py b/var/spack/repos/builtin/packages/cppgsl/package.py
+index 1695283f0a..16c2cf25bd 100644
+--- a/var/spack/repos/builtin/packages/cppgsl/package.py
++++ b/var/spack/repos/builtin/packages/cppgsl/package.py
+@@ -30,4 +30,7 @@ def cmake_args(self):
+         args = [
+             '-DGSL_CXX_STANDARD={0}'.format(self.spec.variants['cxxstd'].value)
+         ]
++        # test triggers array out of bounds errors on gcc11
++        if self.spec.satisfies('%gcc@11:'):
++            args.append('-DGSL_TEST:BOOL=OFF')
+         return args

@@ -61,18 +61,6 @@ index a45d726fd0..c9d708e194 100644
      @when('platform=darwin')
      def setup_build_environment(self, env):
          # on macOS, emacs' config does search hard enough for ncurses'
-diff --git a/var/spack/repos/builtin/packages/py-awkward/package.py b/var/spack/repos/builtin/packages/py-awkward/package.py
-index 3a9ad343c2..623f016897 100644
---- a/var/spack/repos/builtin/packages/py-awkward/package.py
-+++ b/var/spack/repos/builtin/packages/py-awkward/package.py
-@@ -26,6 +26,7 @@ class PyAwkward(PythonPackage):
-     patch('pybind11_02.patch', when="@1.2.3:")
- 
-     depends_on('py-setuptools', type='build')
-+    depends_on('py-pyyaml', type='build')
- 
-     depends_on('python@2.7:2.8,3.5:', type=('build', 'run'))
-     depends_on('py-numpy@1.13.1:', type=('build', 'run'))
 diff --git a/var/spack/repos/builtin/packages/whizard/package.py b/var/spack/repos/builtin/packages/whizard/package.py
 index 883a18c983..f4ef68b674 100644
 --- a/var/spack/repos/builtin/packages/whizard/package.py

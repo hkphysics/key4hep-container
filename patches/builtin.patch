@@ -74,3 +74,15 @@ index 0809a4ba1a..85f80e03e5 100644
  
      depends_on('hepmc', when='~hepmc3')
      depends_on('hepmc3', when='+hepmc3')
+diff --git a/var/spack/repos/builtin/packages/py-awkward/package.py b/var/spack/repos/builtin/packages/py-awkward/package.py
+index 3a9ad343c2..623f016897 100644
+--- a/var/spack/repos/builtin/packages/py-awkward/package.py
++++ b/var/spack/repos/builtin/packages/py-awkward/package.py
+@@ -26,6 +26,7 @@ class PyAwkward(PythonPackage):
+     patch('pybind11_02.patch', when="@1.2.3:")
+ 
+     depends_on('py-setuptools', type='build')
++    depends_on('py-pyyaml', type='build')
+ 
+     depends_on('python@2.7:2.8,3.5:', type=('build', 'run'))
+     depends_on('py-numpy@1.13.1:', type=('build', 'run'))

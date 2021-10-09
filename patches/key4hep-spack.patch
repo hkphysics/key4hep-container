@@ -26,6 +26,48 @@ index 7f95918..0abb299 100644
 +            '-DCMAKE_CXX_STANDARD=%s'
 +            % self.spec['root'].variants['cxxstd'].value
 +        ]
+diff --git a/packages/clicperformance/package.py b/packages/clicperformance/package.py
+index 9928c2a..0c8472d 100644
+--- a/packages/clicperformance/package.py
++++ b/packages/clicperformance/package.py
+@@ -34,3 +34,9 @@ class Clicperformance(CMakePackage, Ilcsoftpackage):
+ 
+     def setup_run_environment(self, spack_env):
+         spack_env.prepend_path('MARLIN_DLL', self.prefix.lib + "/libClicPerformance.so")
++
++    def cmake_args(self):
++        # C++ Standard
++        return [
++            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
++        ]
+diff --git a/packages/clupatra/package.py b/packages/clupatra/package.py
+index fa5e920..4ce9d3d 100644
+--- a/packages/clupatra/package.py
++++ b/packages/clupatra/package.py
+@@ -33,3 +33,9 @@ class Clupatra(CMakePackage, Ilcsoftpackage):
+ 
+     def setup_run_environment(self, spack_env):
+         spack_env.prepend_path('MARLIN_DLL', self.prefix.lib + "/libClupatra.so")
++
++    def cmake_args(self):
++        # C++ Standard
++        return [
++            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
++        ]
+diff --git a/packages/conformaltracking/package.py b/packages/conformaltracking/package.py
+index 72dcb17..3d525e6 100644
+--- a/packages/conformaltracking/package.py
++++ b/packages/conformaltracking/package.py
+@@ -42,3 +42,9 @@ class Conformaltracking(CMakePackage, Ilcsoftpackage):
+ 
+     def setup_run_environment(self, spack_env):
+         spack_env.prepend_path('MARLIN_DLL', self.prefix.lib + "/libConformalTracking.so")
++
++    def cmake_args(self):
++        # C++ Standard
++        return [
++            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
++        ]
 diff --git a/packages/ddkaltest/package.py b/packages/ddkaltest/package.py
 index 552c11a..4565af2 100644
 --- a/packages/ddkaltest/package.py
@@ -34,6 +76,20 @@ index 552c11a..4565af2 100644
      def installheaders(self):
        #make('install')
        install_tree('.', self.prefix)
++    def cmake_args(self):
++        # C++ Standard
++        return [
++            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
++        ]
+diff --git a/packages/ddmarlinpandora/package.py b/packages/ddmarlinpandora/package.py
+index c8bef7c..91b069e 100644
+--- a/packages/ddmarlinpandora/package.py
++++ b/packages/ddmarlinpandora/package.py
+@@ -32,3 +32,9 @@ class Ddmarlinpandora(CMakePackage, Ilcsoftpackage):
+ 
+     def setup_run_environment(self, spack_env):
+         spack_env.prepend_path('MARLIN_DLL', self.prefix.lib + "/libDDMarlinPandora.so")
++
 +    def cmake_args(self):
 +        # C++ Standard
 +        return [
@@ -61,6 +117,34 @@ index 7d569b6..2c9fa81 100644
      version('1.6', sha256='09083890721704f39a3e902dc660db5326027cc38446b813233d04ec3233ba2e')
  
      patch("installdoc.patch", when="@:1.6.1")
++
++    def cmake_args(self):
++        # C++ Standard
++        return [
++            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
++        ]
+diff --git a/packages/ildperformance/package.py b/packages/ildperformance/package.py
+index 434d1ee..f7af1b1 100644
+--- a/packages/ildperformance/package.py
++++ b/packages/ildperformance/package.py
+@@ -35,3 +35,9 @@ class Ildperformance(CMakePackage, Ilcsoftpackage):
+ 
+     def setup_run_environment(self, spack_env):
+         spack_env.prepend_path('MARLIN_DLL', self.prefix.lib + "/libILDPerformance.so")
++
++    def cmake_args(self):
++        # C++ Standard
++        return [
++            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
++        ]
+diff --git a/packages/kitrackmarlin/package.py b/packages/kitrackmarlin/package.py
+index e22bbab..1993fa0 100644
+--- a/packages/kitrackmarlin/package.py
++++ b/packages/kitrackmarlin/package.py
+@@ -28,3 +28,9 @@ class Kitrackmarlin(CMakePackage, Ilcsoftpackage):
+     depends_on('gsl')
+     depends_on('dd4hep')
+     depends_on('clhep')
 +
 +    def cmake_args(self):
 +        # C++ Standard
@@ -139,6 +223,20 @@ index d947a95..796cc51 100644
 +        return [
 +            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
 +        ]
+diff --git a/packages/marlinreco/package.py b/packages/marlinreco/package.py
+index e435d95..2a4e655 100644
+--- a/packages/marlinreco/package.py
++++ b/packages/marlinreco/package.py
+@@ -37,3 +37,9 @@ class Marlinreco(CMakePackage, Ilcsoftpackage):
+ 
+     def setup_run_environment(self, spack_env):
+         spack_env.prepend_path('MARLIN_DLL', self.prefix.lib + "/libMarlinReco.so")
++
++    def cmake_args(self):
++        # C++ Standard
++        return [
++            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
++        ]
 diff --git a/packages/marlintrk/package.py b/packages/marlintrk/package.py
 index bce389c..b079dc3 100644
 --- a/packages/marlintrk/package.py
@@ -170,6 +268,20 @@ index bffd435..4ee343f 100644
 +        return [
 +            '-DCMAKE_CXX_STANDARD={0}'.format(cxxstd),
 +            '-DGSL_DIR={}'.format(self.spec['gsl'].prefix)]
+diff --git a/packages/overlay/package.py b/packages/overlay/package.py
+index 6b72a5c..69b45a0 100644
+--- a/packages/overlay/package.py
++++ b/packages/overlay/package.py
+@@ -38,3 +38,9 @@ class Overlay(CMakePackage, Ilcsoftpackage):
+ 
+     def setup_run_environment(self, spack_env):
+         spack_env.prepend_path('MARLIN_DLL', self.prefix.lib + "/libOverlay.so")
++
++    def cmake_args(self):
++        # C++ Standard
++        return [
++            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
++        ]
 diff --git a/packages/pandoraanalysis/package.py b/packages/pandoraanalysis/package.py
 index 806e09d..81a2320 100644
 --- a/packages/pandoraanalysis/package.py

@@ -54,7 +54,7 @@ index 7d569b6..2c9fa81 100644
 +            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
 +        ]
 diff --git a/packages/lcfivertex/package.py b/packages/lcfivertex/package.py
-index 2467619..a9350fc 100644
+index 2467619..dd3df61 100644
 --- a/packages/lcfivertex/package.py
 +++ b/packages/lcfivertex/package.py
 @@ -30,5 +30,7 @@ class Lcfivertex(CMakePackage, Ilcsoftpackage):
@@ -63,7 +63,7 @@ index 2467619..a9350fc 100644
      def cmake_args(self):
 -        args = [self.define('INSTALL_DOC', False)]
 +        args = [self.define('INSTALL_DOC', False),
-+                '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value)
++                '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
 +        ]
          return args
 diff --git a/packages/lich/package.py b/packages/lich/package.py

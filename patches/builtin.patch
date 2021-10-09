@@ -61,18 +61,3 @@ index a45d726fd0..c9d708e194 100644
      @when('platform=darwin')
      def setup_build_environment(self, env):
          # on macOS, emacs' config does search hard enough for ncurses'
-diff --git a/var/spack/repos/builtin/packages/cppgsl/package.py b/var/spack/repos/builtin/packages/cppgsl/package.py
-index fe5b2c4e4d..ce1a8f53e0 100644
---- a/var/spack/repos/builtin/packages/cppgsl/package.py
-+++ b/var/spack/repos/builtin/packages/cppgsl/package.py
-@@ -27,6 +27,10 @@ class Cppgsl(CMakePackage):
- 
-     depends_on('cmake@3.1.3:', type='build')
- 
-+    patch('https://github.com/microsoft/GSL/pull/958.patch',
-+          sha256='89971a2957ff20ee5d98507af36d9427ca734a3949618df24bde4b4eca695be6',
-+          when='@3.1.0')
-+
-     def cmake_args(self):
-         args = [
-             '-DGSL_CXX_STANDARD={0}'.format(self.spec.variants['cxxstd'].value)

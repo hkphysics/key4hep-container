@@ -1,0 +1,56 @@
+diff --git a/packages/aidatt/package.py b/packages/aidatt/package.py
+index 7e84d02..4109558 100644
+--- a/packages/aidatt/package.py
++++ b/packages/aidatt/package.py
+@@ -26,3 +26,14 @@ class Aidatt(CMakePackage, Ilcsoftpackage):
+     depends_on('generalbrokenlines')
+     depends_on('dd4hep')
+     depends_on('lcio')
++
++    def cmake_args(self):
++        spec = self.spec
++        cxxstd = spec['root'].variants['cxxstd'].value
++        # root can be built with cxxstd=11, but dd4hep requires 14
++        if cxxstd == "11":
++            cxxstd = "14"
++        # Make sure that we pick the right GSL
++        return [
++            '-DCMAKE_CXX_STANDARD={0}'.format(cxxstd)
++        ]
+diff --git a/packages/marlindd4hep/package.py b/packages/marlindd4hep/package.py
+index c5f8289..a3f95e2 100644
+--- a/packages/marlindd4hep/package.py
++++ b/packages/marlindd4hep/package.py
+@@ -26,7 +26,12 @@ class Marlindd4hep(CMakePackage, Ilcsoftpackage):
+     depends_on('dd4hep')
+ 
+     def cmake_args(self):
+-        args = []  
++        spec = self.spec
++        cxxstd = spec['root'].variants['cxxstd'].value
++        # root can be built with cxxstd=11, but dd4hep requires 14
++        if cxxstd == "11":
++            cxxstd = "14"
++        args = ['-DCMAKE_CXX_STANDARD={0}'.format(cxxstd)]
+         # todo: add variant
+         args.append(self.define('INSTALL_DOC', False))
+         return args
+diff --git a/packages/marlinutil/package.py b/packages/marlinutil/package.py
+index bffd435..2867ce9 100644
+--- a/packages/marlinutil/package.py
++++ b/packages/marlinutil/package.py
+@@ -33,5 +33,13 @@ class Marlinutil(CMakePackage, Ilcsoftpackage):
+     depends_on('root')
+ 
+     def cmake_args(self):
++        spec = self.spec
++        cxxstd = spec['root'].variants['cxxstd'].value
++        # root can be built with cxxstd=11, but dd4hep requires 14
++        if cxxstd == "11":
++            cxxstd = "14"
++
+         # Make sure that we pick the right GSL
+-        return ['-DGSL_DIR={}'.format(self.spec['gsl'].prefix)]
++        return [
++            '-DCMAKE_CXX_STANDARD={0}'.format(cxxstd),
++            '-DGSL_DIR={}'.format(self.spec['gsl'].prefix)]

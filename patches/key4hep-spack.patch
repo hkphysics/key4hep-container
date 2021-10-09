@@ -12,6 +12,20 @@ index 7e84d02..7bc59d9 100644
 +        return [
 +            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
 +        ]
+diff --git a/packages/cedviewer/package.py b/packages/cedviewer/package.py
+index 7f95918..0abb299 100644
+--- a/packages/cedviewer/package.py
++++ b/packages/cedviewer/package.py
+@@ -29,3 +29,9 @@ class Cedviewer(CMakePackage, Ilcsoftpackage):
+ 
+     def setup_run_environment(self, spack_env):
+         spack_env.prepend_path('MARLIN_DLL', self.prefix.lib + "/libCEDViewer.so")
++
++    def cmake_args(self):
++        return [
++            '-DCMAKE_CXX_STANDARD=%s'
++            % self.spec['root'].variants['cxxstd'].value
++        ]
 diff --git a/packages/ddkaltest/package.py b/packages/ddkaltest/package.py
 index 552c11a..4565af2 100644
 --- a/packages/ddkaltest/package.py
@@ -53,6 +67,24 @@ index 7d569b6..2c9fa81 100644
 +        return [
 +            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
 +        ]
+diff --git a/packages/lcfiplus/package.py b/packages/lcfiplus/package.py
+index 48a2130..9f1c222 100644
+--- a/packages/lcfiplus/package.py
++++ b/packages/lcfiplus/package.py
+@@ -29,9 +29,12 @@ class Lcfiplus(CMakePackage, Ilcsoftpackage):
+     patch("dict.patch")
+ 
+     def cmake_args(self):
+-        args = []  
++        args = []
+         # todo: add variant
+         args.append(self.define('INSTALL_DOC', False))
++        args.append(
++            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
++        )
+         return args
+ 
+     @run_after('install')
 diff --git a/packages/lcfivertex/package.py b/packages/lcfivertex/package.py
 index 2467619..dd3df61 100644
 --- a/packages/lcfivertex/package.py
@@ -107,6 +139,22 @@ index d947a95..796cc51 100644
 +        return [
 +            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
 +        ]
+diff --git a/packages/marlintrk/package.py b/packages/marlintrk/package.py
+index bce389c..b079dc3 100644
+--- a/packages/marlintrk/package.py
++++ b/packages/marlintrk/package.py
+@@ -45,8 +45,9 @@ class Marlintrk(CMakePackage):
+     depends_on('generalbrokenlines')
+ 
+     def cmake_args(self):
+-        args = [self.define_from_variant("MARLINTRK_USE_GEAR", "gear")]
++        args = [self.define_from_variant("MARLINTRK_USE_GEAR", "gear"),
++                '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value]
+         return args
+-        
++
+     def url_for_version(self, version):
+        return ilc_url_for_version(self, version)
 diff --git a/packages/marlinutil/package.py b/packages/marlinutil/package.py
 index bffd435..4ee343f 100644
 --- a/packages/marlinutil/package.py

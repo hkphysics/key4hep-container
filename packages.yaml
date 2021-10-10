@@ -38,7 +38,7 @@ packages:
     variants: -llvm swr=none
 # needed for gaudimarlinwrapper
   gaudi:
-    version: [master]
+    version: [ 36.0 ]
 # avoid error for fccanalyses
   acts:
     version: [ 5.00.0 ]

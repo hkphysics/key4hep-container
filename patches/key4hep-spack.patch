@@ -335,3 +335,16 @@ index 806e09d..81a2320 100644
 +        return [
 +            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
 +        ]
+diff --git a/packages/kkmcee/package.py b/packages/kkmcee/package.py
+index 88fd835..4694fb9 100644
+--- a/packages/kkmcee/package.py
++++ b/packages/kkmcee/package.py
+@@ -12,7 +12,7 @@ class Kkmcee(AutotoolsPackage):
+     """KKMCee is the state of art Monte Carlo for e+e- -> ffbar."""
+ 
+     homepage = "https://github.com/KrakowHEPSoft/KKMCee"
+-    url      = "https://github.com/KrakowHEPSoft/KKMCee/archive/v4.30.tar.gz"
++    url      = "https://github.com/KrakowHEPSoft/KKMCee/archive/V4.30.tar.gz"
+     git      = "https://github.com/KrakowHEPSoft/KKMCee.git"
+ 
+     tags = ['hep']

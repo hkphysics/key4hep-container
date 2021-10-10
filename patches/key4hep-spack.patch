@@ -95,6 +95,19 @@ index c8bef7c..91b069e 100644
 +        return [
 +            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
 +        ]
+diff --git a/packages/forwardtracking/package.py b/packages/forwardtracking/package.py
+index d54fe27..b83dfe7 100644
+--- a/packages/forwardtracking/package.py
++++ b/packages/forwardtracking/package.py
+@@ -37,6 +37,8 @@ class Forwardtracking(CMakePackage, Ilcsoftpackage):
+     def cmake_args(self):
+         args = []
+         args.append(self.define('BUILD_TESTING', self.run_tests))
++        args.append(self.define('CMAKE_CXX_STANDARD',
++                                self.spec['root'].variants['cxxstd'].value))
+         return args
+ 
+ 
 diff --git a/packages/garlic/package.py b/packages/garlic/package.py
 index b1ddfda..637a2a9 100644
 --- a/packages/garlic/package.py

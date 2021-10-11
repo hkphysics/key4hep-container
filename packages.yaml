@@ -60,3 +60,6 @@ packages:
     version: [ main ]
   edm4hep:
     version: [ master ]
+  key4hep-stack:
+    variants: -generators
+ 

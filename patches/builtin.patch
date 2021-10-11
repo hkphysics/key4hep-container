@@ -218,10 +218,17 @@ index d4c8653bd6..fcfcbc1f8e 100644
      patch('madgraph5amc-2.7.3.atlas.patch', level=0, when='@2.7.3.py2+atlas')
      patch('madgraph5amc-2.7.3.atlas.patch', level=0, when='@2.7.3.py3+atlas')
 diff --git a/var/spack/repos/builtin/packages/herwig3/package.py b/var/spack/repos/builtin/packages/herwig3/package.py
-index f80eb4d46a..56481eb8bc 100644
+index f80eb4d46a..56e6a86101 100644
 --- a/var/spack/repos/builtin/packages/herwig3/package.py
 +++ b/var/spack/repos/builtin/packages/herwig3/package.py
-@@ -22,7 +22,7 @@ class Herwig3(AutotoolsPackage):
+@@ -16,13 +16,14 @@ class Herwig3(AutotoolsPackage):
+ 
+     tags = ['hep']
+ 
++    version('7.2.2', sha256='53e06b386df5bc20fe268b6c8ba50f1e62b6744e577d383ec836ea3fc672c383')
+     version('7.2.1', sha256='d4fff32f21c5c08a4b2e563c476b079859c2c8e3b78d853a8a60da96d5eea686')
+ 
+     depends_on('autoconf', type='build')
      depends_on('automake', type='build')
      depends_on('libtool',  type='build')
      depends_on('m4',       type='build')

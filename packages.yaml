@@ -38,11 +38,13 @@ packages:
     variants: -llvm swr=none
 # needed for gaudimarlinwrapper
   gaudi:
-    version: [ 36.0 ]
+    version: [ master ]
 # avoid error for fccanalyses
   acts:
     version: [ 5.00.0 ]
   ninja:
     version: [ 1.10.2 ]
   k4fwcore:
+    version: [ master ]
+  podio:
     version: [ master ]

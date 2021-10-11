@@ -48,3 +48,11 @@ packages:
     version: [ master ]
   podio:
     version: [ master ]
+  k4simgeant4:
+    version: [ master ]
+  cepcsw:
+    version: [ master ]
+  k4marlinwrapper:
+    version: [ master ]
+  k4reccalorimeter:
+    version: [ master ]

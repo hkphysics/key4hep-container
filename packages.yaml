@@ -58,4 +58,5 @@ packages:
     version: [ main ]
   k4simdelphes:
     version: [ master ]
- 
+  edm4hep:
+    version: [ master ]

@@ -45,4 +45,4 @@ packages:
   ninja:
     version: [ 1.10.2 ]
   k4fwcore:
-    version: [ 1.0pre12 ]
+    version: [ master ]

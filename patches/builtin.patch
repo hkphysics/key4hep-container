@@ -218,7 +218,7 @@ index d4c8653bd6..fcfcbc1f8e 100644
      patch('madgraph5amc-2.7.3.atlas.patch', level=0, when='@2.7.3.py2+atlas')
      patch('madgraph5amc-2.7.3.atlas.patch', level=0, when='@2.7.3.py3+atlas')
 diff --git a/var/spack/repos/builtin/packages/herwig3/package.py b/var/spack/repos/builtin/packages/herwig3/package.py
-index f80eb4d46a..d6f5f68159 100644
+index f80eb4d46a..5304ac88ba 100644
 --- a/var/spack/repos/builtin/packages/herwig3/package.py
 +++ b/var/spack/repos/builtin/packages/herwig3/package.py
 @@ -16,14 +16,15 @@ class Herwig3(AutotoolsPackage):
@@ -239,3 +239,36 @@ index f80eb4d46a..d6f5f68159 100644
      depends_on('boost', type='link')
      depends_on('python', type=('build', 'run'))
      depends_on('gsl', type='link')
+@@ -42,10 +43,11 @@ def autoreconf(self, spec, prefix):
+ 
+     @run_before('build')
+     def install_lhapdfsets(self):
+-        mkdirp(self.prefix.tmppdfsets)
++        tmppdfsets = join_path(self.build_directory, 'tmppdfsets')
++        mkdirp(tmppdfsets)
+         lhapdf = which('lhapdf')
+         if self.spec.satisfies('@7.2.0:'):
+-            lhapdf("--pdfdir=" + self.prefix.tmppdfsets,
++            lhapdf("--pdfdir=" + tmppdfsets,
+                    # "--source=/cvmfs/sft.cern.ch/lcg/external/lhapdfsets/current",
+                    # "--listdir=/cvmfs/sft.cern.ch/lcg/external/lhapdfsets/current",
+                    "install", "MHT2014lo68cl", "MMHT2014nlo68cl",
+@@ -78,9 +80,10 @@ def flag_handler(self, name, flags):
+         return (flags, None, None)
+ 
+     def setup_build_environment(self, env):
++        tmppdfsets = join_path(self.build_directory, 'tmppdfsets')
+         thepeg_home = self.spec['thepeg'].prefix
+         env.prepend_path('LD_LIBRARY_PATH', thepeg_home.lib.ThePEG)
+-        env.set('LHAPDF_DATA_PATH', self.prefix.tmppdfsets)
++        env.set('LHAPDF_DATA_PATH', tmppdfsets)
+         env.set('HERWIGINCLUDE', '-I' + self.prefix.include)
+         env.set('BOOSTINCLUDE', '-I' + self.spec['boost'].prefix.include)
+         env.set('HERWIGINSTALL', self.prefix)
+@@ -97,4 +100,5 @@ def install(self, spec, prefix):
+ 
+     @run_after('install')
+     def remove_lhapdfsets(self):
+-        shutil.rmtree(self.prefix.tmppdfsets)
++        tmppdfsets = join_path(self.build_directory, 'tmppdfsets')
++        shutil.rmtree(tmppdfsets)

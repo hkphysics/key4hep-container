@@ -1,0 +1,13 @@
+diff --git a/packages/k4reccalorimeter/package.py b/packages/k4reccalorimeter/package.py
+index 55f474e..496fbf0 100644
+--- a/packages/k4reccalorimeter/package.py
++++ b/packages/k4reccalorimeter/package.py
+@@ -10,7 +10,7 @@ class K4reccalorimeter(CMakePackage, Key4hepPackage):
+ 
+     maintainers = ['vvolkl']
+ 
+-    version('master', branch='master')
++    version('main', branch='main')
+     version("0.1.0pre05", tag="v0.1.0pre05")
+ 
+     generator = 'Ninja'

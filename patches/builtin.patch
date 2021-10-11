@@ -218,10 +218,10 @@ index d4c8653bd6..fcfcbc1f8e 100644
      patch('madgraph5amc-2.7.3.atlas.patch', level=0, when='@2.7.3.py2+atlas')
      patch('madgraph5amc-2.7.3.atlas.patch', level=0, when='@2.7.3.py3+atlas')
 diff --git a/var/spack/repos/builtin/packages/herwig3/package.py b/var/spack/repos/builtin/packages/herwig3/package.py
-index f80eb4d46a..56e6a86101 100644
+index f80eb4d46a..d6f5f68159 100644
 --- a/var/spack/repos/builtin/packages/herwig3/package.py
 +++ b/var/spack/repos/builtin/packages/herwig3/package.py
-@@ -16,13 +16,14 @@ class Herwig3(AutotoolsPackage):
+@@ -16,14 +16,15 @@ class Herwig3(AutotoolsPackage):
  
      tags = ['hep']
  
@@ -233,7 +233,9 @@ index f80eb4d46a..56e6a86101 100644
      depends_on('libtool',  type='build')
      depends_on('m4',       type='build')
 -    depends_on('lhapdf',   type='link')
+-    depends_on('thepeg@2.2.1', when='@7.2.1', type='link')
 +    depends_on('lhapdf')
-     depends_on('thepeg@2.2.1', when='@7.2.1', type='link')
++    depends_on('thepeg@2.2.1', when='@7.2.1:', type='link')
      depends_on('boost', type='link')
      depends_on('python', type=('build', 'run'))
+     depends_on('gsl', type='link')

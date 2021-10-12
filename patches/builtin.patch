@@ -218,7 +218,7 @@ index d4c8653bd6..fcfcbc1f8e 100644
      patch('madgraph5amc-2.7.3.atlas.patch', level=0, when='@2.7.3.py2+atlas')
      patch('madgraph5amc-2.7.3.atlas.patch', level=0, when='@2.7.3.py3+atlas')
 diff --git a/var/spack/repos/builtin/packages/herwig3/package.py b/var/spack/repos/builtin/packages/herwig3/package.py
-index f80eb4d46a..cae628eb95 100644
+index f80eb4d46a..6fa9086749 100644
 --- a/var/spack/repos/builtin/packages/herwig3/package.py
 +++ b/var/spack/repos/builtin/packages/herwig3/package.py
 @@ -6,7 +6,7 @@
@@ -253,7 +253,7 @@ index f80eb4d46a..cae628eb95 100644
          lhapdf = which('lhapdf')
          if self.spec.satisfies('@7.2.0:'):
 +            copyfile(join_path(self.spec['lhapdf'].prefix.share, 'LHAPDF', 'pdfsets.index'),
-+                     self.prefix.tmppdfsets)
++                     join_path(self.prefix.tmppdfsets, 'pdfsets.index'))
              lhapdf("--pdfdir=" + self.prefix.tmppdfsets,
                     # "--source=/cvmfs/sft.cern.ch/lcg/external/lhapdfsets/current",
                     # "--listdir=/cvmfs/sft.cern.ch/lcg/external/lhapdfsets/current",

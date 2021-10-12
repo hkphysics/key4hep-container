@@ -218,9 +218,18 @@ index d4c8653bd6..fcfcbc1f8e 100644
      patch('madgraph5amc-2.7.3.atlas.patch', level=0, when='@2.7.3.py2+atlas')
      patch('madgraph5amc-2.7.3.atlas.patch', level=0, when='@2.7.3.py3+atlas')
 diff --git a/var/spack/repos/builtin/packages/herwig3/package.py b/var/spack/repos/builtin/packages/herwig3/package.py
-index f80eb4d46a..cdfaed0ea7 100644
+index f80eb4d46a..cae628eb95 100644
 --- a/var/spack/repos/builtin/packages/herwig3/package.py
 +++ b/var/spack/repos/builtin/packages/herwig3/package.py
+@@ -6,7 +6,7 @@
+ import shutil
+ 
+ from spack import *
+-
++from shutil import copyfile
+ 
+ class Herwig3(AutotoolsPackage):
+     """Herwig is a multi-purpose particle physics event generator."""
 @@ -16,14 +16,15 @@ class Herwig3(AutotoolsPackage):
  
      tags = ['hep']

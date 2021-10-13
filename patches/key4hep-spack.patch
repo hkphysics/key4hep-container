@@ -28,3 +28,23 @@ index 4f7babe..135cf0a 100644
  
      def setup_dependent_build_environment(self, spack_env, dependent_spec):
          spack_env.prepend_path('PYTHONPATH', self.prefix.python)
+diff --git a/packages/ilcutil/package.py b/packages/ilcutil/package.py
+index 2c9fa81..d9d9ef1 100644
+--- a/packages/ilcutil/package.py
++++ b/packages/ilcutil/package.py
+@@ -22,8 +22,14 @@ class Ilcutil(CMakePackage, Ilcsoftpackage):
+ 
+     patch("installdoc.patch", when="@:1.6.1")
+ 
++    variant('cxxstd',
++            default='11',
++            values=('11', '14', '17'),
++            multi=False,
++            description='Use the specified C++ standard when building.')
++
+     def cmake_args(self):
+         # C++ Standard
+         return [
+-            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
++            self.define_from_variant('CMAKE_CXX_STANDARD', 'cxxstd')
+         ]

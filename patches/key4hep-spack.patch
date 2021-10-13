@@ -70,17 +70,3 @@ index 55f474e..ecc5837 100644
      depends_on("edm4hep")
      depends_on('k4fwcore@1:')
      depends_on("dd4hep +geant4")
-diff --git a/packages/ilcsoft/package.py b/packages/ilcsoft/package.py
-index 1399a86..a7a3a1e 100644
---- a/packages/ilcsoft/package.py
-+++ b/packages/ilcsoft/package.py
-@@ -225,7 +225,8 @@ class Ilcsoft(BundlePackage, Key4hepPackage):
-       tty.msg('* **Spack:**', get_version())
-       tty.msg('* **Python:**', platform.python_version())
-       tty.msg('* **Platform:**', spack.spec.ArchSpec(
--          spack.platforms.host(), 'frontend', 'frontend'))
-+          spack.platforms.host()
-+      ))
-       # get all dependency specs, including compiler
-       with spack.store.db.read_transaction():
-                specs = [dep for dep in spec.traverse(order='post')]

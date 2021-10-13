@@ -22,12 +22,6 @@ packages:
     variants: cxxstd=17
   # avoid issue https://github.com/spack/spack/issues/16803
   # and use variant that allows to install older versions of whizard
-#  ocaml:
-#    version: [4.10.0]
-#    variants: ~force-safe-string
-  # Avoid concretizer conflict for edm4hep
-#  pythia8:
-#    version: [8244]
   python:
     variants: +debug
   delphes:

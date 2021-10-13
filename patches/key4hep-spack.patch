@@ -1,0 +1,72 @@
+diff --git a/packages/k4simgeant4/package.py b/packages/k4simgeant4/package.py
+index 4f7babe..135cf0a 100644
+--- a/packages/k4simgeant4/package.py
++++ b/packages/k4simgeant4/package.py
+@@ -24,8 +24,6 @@ class K4simgeant4(CMakePackage, Key4hepPackage):
+     depends_on('k4fwcore@1.0:')
+     depends_on('geant4')
+     depends_on('edm4hep')
+-
+-
+     depends_on("g4ensdfstate")
+ 
+ 
+@@ -39,6 +37,16 @@ class K4simgeant4(CMakePackage, Key4hepPackage):
+         spack_env.prepend_path('PYTHONPATH', self.prefix.python)
+         spack_env.prepend_path("PATH", self.prefix.scripts)
+         spack_env.set("K4SIMGEANT4", self.prefix.share.k4SimGeant4)
++        install_path = join_path(self.spec['g4ensdfstate'].prefix.share,
++                                 'data', 'G4ENSDFSTATE{0}'
++                                 .format(self.spec['g4ensdfstate'].version))
++        spack_env.set('G4ENSDFSTATEDATA', install_path)
++
++    def setup_build_environment(self, spack_env):
++        install_path = join_path(self.spec['g4ensdfstate'].prefix.share,
++                                 'data', 'G4ENSDFSTATE{0}'
++                                 .format(self.spec['g4ensdfstate'].version))
++        spack_env.set('G4ENSDFSTATEDATA', install_path)
+ 
+     def setup_dependent_build_environment(self, spack_env, dependent_spec):
+         spack_env.prepend_path('PYTHONPATH', self.prefix.python)
+diff --git a/packages/ilcutil/package.py b/packages/ilcutil/package.py
+index 2c9fa81..d9d9ef1 100644
+--- a/packages/ilcutil/package.py
++++ b/packages/ilcutil/package.py
+@@ -22,8 +22,14 @@ class Ilcutil(CMakePackage, Ilcsoftpackage):
+ 
+     patch("installdoc.patch", when="@:1.6.1")
+ 
++    variant('cxxstd',
++            default='11',
++            values=('11', '14', '17'),
++            multi=False,
++            description='Use the specified C++ standard when building.')
++
+     def cmake_args(self):
+         # C++ Standard
+         return [
+-            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
++            self.define_from_variant('CMAKE_CXX_STANDARD', 'cxxstd')
+         ]
+diff --git a/packages/k4reccalorimeter/package.py b/packages/k4reccalorimeter/package.py
+index 55f474e..ecc5837 100644
+--- a/packages/k4reccalorimeter/package.py
++++ b/packages/k4reccalorimeter/package.py
+@@ -10,7 +10,7 @@ class K4reccalorimeter(CMakePackage, Key4hepPackage):
+ 
+     maintainers = ['vvolkl']
+ 
+-    version('master', branch='master')
++    version('main', branch='main')
+     version("0.1.0pre05", tag="v0.1.0pre05")
+ 
+     generator = 'Ninja'
+@@ -25,7 +25,7 @@ class K4reccalorimeter(CMakePackage, Key4hepPackage):
+             multi=False,
+             description='Use the specified C++ standard when building.')
+ 
+-    depends_on('ninja', type='build')
++    depends_on('ninja')
+     depends_on("edm4hep")
+     depends_on('k4fwcore@1:')
+     depends_on("dd4hep +geant4")

@@ -1311,6 +1311,6 @@ index fe5b2c4e4d..a2299951a2 100644
 -            '-DGSL_CXX_STANDARD={0}'.format(self.spec.variants['cxxstd'].value)
 +        return [
 +            self.define_from_variant('GSL_CXX_STANDARD', 'cxxstd'),
-+            self.define('GSL-TEST', self.run_tests)
++            self.define('GSL_TEST', self.run_tests)
          ]
 -        return args

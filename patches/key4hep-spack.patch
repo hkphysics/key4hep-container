@@ -49,7 +49,7 @@ index 2c9fa81..d9d9ef1 100644
 +            self.define_from_variant('CMAKE_CXX_STANDARD', 'cxxstd')
          ]
 diff --git a/packages/k4reccalorimeter/package.py b/packages/k4reccalorimeter/package.py
-index 55f474e..496fbf0 100644
+index 55f474e..ecc5837 100644
 --- a/packages/k4reccalorimeter/package.py
 +++ b/packages/k4reccalorimeter/package.py
 @@ -10,7 +10,7 @@ class K4reccalorimeter(CMakePackage, Key4hepPackage):
@@ -61,3 +61,12 @@ index 55f474e..496fbf0 100644
      version("0.1.0pre05", tag="v0.1.0pre05")
  
      generator = 'Ninja'
+@@ -25,7 +25,7 @@ class K4reccalorimeter(CMakePackage, Key4hepPackage):
+             multi=False,
+             description='Use the specified C++ standard when building.')
+ 
+-    depends_on('ninja', type='build')
++    depends_on('ninja')
+     depends_on("edm4hep")
+     depends_on('k4fwcore@1:')
+     depends_on("dd4hep +geant4")

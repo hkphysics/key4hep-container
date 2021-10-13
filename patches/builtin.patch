@@ -1300,10 +1300,10 @@ index 8de69352d14e..fa0b9f1c64e5 100644
 +        s.external_path = path
 +        return s if path else None
 diff --git a/var/spack/repos/builtin/packages/cppgsl/package.py b/var/spack/repos/builtin/packages/cppgsl/package.py
-index 1935587417..a2299951a2 100644
+index fe5b2c4e4d..a2299951a2 100644
 --- a/var/spack/repos/builtin/packages/cppgsl/package.py
 +++ b/var/spack/repos/builtin/packages/cppgsl/package.py
-@@ -28,10 +28,7 @@ class Cppgsl(CMakePackage):
+@@ -28,7 +28,7 @@ class Cppgsl(CMakePackage):
      depends_on('cmake@3.1.3:', type='build')
  
      def cmake_args(self):
@@ -1313,7 +1313,4 @@ index 1935587417..a2299951a2 100644
 +            self.define_from_variant('GSL_CXX_STANDARD', 'cxxstd'),
 +            self.define('GSL-TEST', self.run_tests)
          ]
--        # test triggers array out of bounds errors on gcc11
--        if self.spec.satisfies('%gcc@11:'):
--            args.append('-DGSL_TEST:BOOL=OFF')
 -        return args

@@ -1299,3 +1299,28 @@ index 8de69352d14e..fa0b9f1c64e5 100644
 +        s = Spec.from_detection('lhapdfsets@6.3.0')
 +        s.external_path = path
 +        return s if path else None
+diff --git a/var/spack/repos/builtin/packages/gosam-contrib/package.py b/var/spack/repos/builtin/packages/gosam-contrib/package.py
+index 416226b693..8a6d12d7c5 100644
+--- a/var/spack/repos/builtin/packages/gosam-contrib/package.py
++++ b/var/spack/repos/builtin/packages/gosam-contrib/package.py
+@@ -40,3 +40,7 @@ def configure_args(self):
+         args += self.enable_or_disable('libs')
+ 
+         return args
++
++    @property
++    def parallel(self):
++        return False
+diff --git a/var/spack/repos/builtin/packages/groff/package.py b/var/spack/repos/builtin/packages/groff/package.py
+index 3a4afac7d1..ce2cc490bc 100644
+--- a/var/spack/repos/builtin/packages/groff/package.py
++++ b/var/spack/repos/builtin/packages/groff/package.py
+@@ -58,7 +58,7 @@ class Groff(AutotoolsPackage, GNUMirrorPackage):
+ 
+     @property
+     def parallel(self):
+-        return self.spec.satisfies('@1.22.4')
++        return False
+ 
+     @classmethod
+     def determine_version(cls, exe):

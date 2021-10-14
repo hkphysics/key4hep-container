@@ -82,6 +82,7 @@ patch -p1 < $scriptDir/patches/key4hep-spack.patch
 popd
 
 cp $scriptDir/packages.yaml $rootfsDir/etc/spack
+cp $scriptDir/packages-nightly.yaml $rootfsDir/etc/spack
 
 buildah run $container -- usermod -a -G wheel user
 buildah run $container -- usermod -a -G spack user
@@ -91,6 +92,7 @@ buildah run $container -- mkdir -p /home/user/.spack/linux
 buildah copy $container $scriptDir/config.yaml /etc/spack
 buildah copy $container $scriptDir/proxy.sh /usr/sbin
 buildah copy $container $scriptDir/build-spack.sh /usr/sbin
+buildah copy $container $scriptDir/build-spack-nightly.sh /usr/sbin
 buildah copy $container $scriptDir/mirrors.yaml /etc/spack/defaults
 buildah copy $container $scriptDir/compilers.yaml.noproxy /home/user/.spack/linux
 buildah copy $container $scriptDir/compilers.yaml.proxy /home/user/.spack/linux

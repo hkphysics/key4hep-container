@@ -30,3 +30,28 @@ packages:
     version: [3.4.3pre05]
   mesa:
     variants: -llvm swr=none
+# needed for gaudimarlinwrapper
+  gaudi:
+    version: [ master ]
+# avoid error for fccanalyses
+  acts:
+    version: [ 5.00.0 ]
+  ninja:
+    version: [ 1.10.2 ]
+  k4fwcore:
+    version: [ master ]
+  podio:
+    version: [ master ]
+  k4simgeant4:
+    version: [ main ]
+  cepcsw:
+    version: [ master ]
+  k4marlinwrapper:
+    version: [ master ]
+  k4reccalorimeter:
+    version: [ main ]
+  k4simdelphes:
+    version: [ main ]
+  edm4hep:
+    version: [ master ]
+ 

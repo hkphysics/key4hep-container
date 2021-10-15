@@ -30,3 +30,6 @@ packages:
     version: [3.4.3pre05]
   mesa:
     variants: -llvm swr=none
+  k4fwcore:
+    version: [ master ]
+ 

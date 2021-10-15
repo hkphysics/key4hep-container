@@ -42,3 +42,5 @@ packages:
     version: [ master ]
   k4reccalorimeter:
     version: [ main ]
+  edm4hep:
+    version: [ master ]

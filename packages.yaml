@@ -32,4 +32,7 @@ packages:
     variants: -llvm swr=none
   k4fwcore:
     version: [ master ]
- 
+  k4simgeant4:
+    version: [ main ]
+  k4marlinwrapper:
+    version: [ master ]

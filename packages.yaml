@@ -36,3 +36,7 @@ packages:
     version: [ main ]
   k4marlinwrapper:
     version: [ master ]
+  k4simdelphes:
+    version: [ main ]
+  cepcsw:
+    version: [ master ]

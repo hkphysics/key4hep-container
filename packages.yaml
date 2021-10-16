@@ -47,3 +47,5 @@ packages:
     variants: +toml
   binutils:
     variants: +plugins
+  python:
+    variants: +debug

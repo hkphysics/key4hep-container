@@ -1,6 +1,9 @@
 packages:
   all:
     target: [broadwell]
+    variants: build_type=Release cxxstd=17
+  fftw:
+    variants: -mpi
   range-v3:
     # avoid building doxygen
     variants: ~doc
@@ -10,22 +13,22 @@ packages:
     # avoid building mariadb
     variants: ~lccd
   mesa:
-    # avoid building llvm
-    variants: ~llvm+glx+opengl
+    variants: ~llvm+glx+opengl swr=none
   boost:
     variants: +python
   dd4hep:
-    variants: +geant4+lcio
-  root:
-    variants: cxxstd=17
-  # avoid issue https://github.com/spack/spack/issues/16803
+    variants: +assimp+lcio+xercesc+hepmc3+geant4+edm4hep
+   # avoid issue https://github.com/spack/spack/issues/16803
   # and use variant that allows to install older versions of whizard
+  whizard:
+    variants:~fastjet~latex+lcio~lhapdf+openloops~openmp+pythia8 hepmc=2 
   python:
     variants: +debug
   mesa:
     variants: -llvm swr=none
 # needed for gaudimarlinwrapper
   gaudi:
+    variants: +optional
     version: [ master ]
 # avoid error for fccanalyses
   k4fwcore:
@@ -33,6 +36,7 @@ packages:
   podio:
     version: [ master ]
   k4simgeant4:
+    variants: -delphes_hepmc
     version: [ main ]
   cepcsw:
     version: [ master ]
@@ -44,4 +48,11 @@ packages:
     version: [ main ]
   edm4hep:
     version: [ master ]
- 
+   evtgen:
+     variants: +photos
+   gdb:
+     variants: -python
+   py-setuptools-scm:
+     variants: +toml
+   binutils:
+     variants: +plugins

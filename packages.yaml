@@ -2,13 +2,15 @@ packages:
   all:
     target: [broadwell]
     variants: build_type=Release cxxstd=17
+  guinea-pig:
+    variants: +fftw3
   fftw:
     variants: -mpi
   range-v3:
     # avoid building doxygen
     variants: ~doc
   geant4:
-    variants: ~qt~opengl+vecgeom
+    variants: ~qt~opengl+vecgeom cxxstd=17
   marlin:
     # avoid building mariadb
     variants: ~lccd
@@ -18,36 +20,30 @@ packages:
     variants: +python
   dd4hep:
     variants: +assimp+lcio+xercesc+hepmc3+geant4+edm4hep
-  # avoid issue https://github.com/spack/spack/issues/16803
-  # and use variant that allows to install older versions of whizard
   whizard:
-    variants:~fastjet~latex+lcio~lhapdf+openloops~openmp+pythia8 hepmc=2 
-  python:
-    variants: +debug
-  mesa:
-    variants: -llvm swr=none
+    variants: ~fastjet~latex+lcio~lhapdf+openloops~openmp+pythia8 hepmc=2
   k4fwcore:
-    version: [ master ]
+    version: [master]
   k4simgeant4:
     variants: -delphes_hepmc
-    version: [ main ]
+    version: [main]
   cepcsw:
-    version: [ master ]
+    version: [master]
   k4marlinwrapper:
-    version: [ master ]
+    version: [master]
   k4simdelphes:
-    version: [ main ]
+    version: [main]
   k4reccalorimeter:
-    version: [ main ]
+    version: [main]
   edm4hep:
-    version: [ master ]
+    version: [master]
   gaudi:
-     variants: +optional
+    variants: +optional
   evtgen:
-     variants: +photos
+    variants: +photos
   gdb:
-     variants: -python
-   py-setuptools-scm:
-     variants: +toml
-   binutils:
-      variants: +plugins
+    variants: -python
+  py-setuptools-scm:
+    variants: +toml
+  binutils:
+    variants: +plugins

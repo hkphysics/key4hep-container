@@ -32,8 +32,6 @@ packages:
     version: [ master ]
   k4simdelphes:
     version: [ main ]
-  cepcsw:
-    version: [ master ]
   k4reccalorimeter:
     version: [ main ]
   edm4hep:

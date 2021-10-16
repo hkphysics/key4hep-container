@@ -28,6 +28,8 @@ packages:
     version: [ master ]
   k4simgeant4:
     version: [ main ]
+  cepcsw:
+    version: [ master ]
   k4marlinwrapper:
     version: [ master ]
   k4simdelphes:

@@ -21,7 +21,7 @@ packages:
   dd4hep:
     variants: +assimp+lcio+xercesc+hepmc3+geant4+edm4hep
   whizard:
-    variants:~fastjet~latex+lcio~lhapdf+openloops~openmp+pythia8 hepmc=2
+    variants: ~fastjet~latex+lcio~lhapdf+openloops~openmp+pythia8 hepmc=2
   gaudi:
     variants: +optional
     version: [master]

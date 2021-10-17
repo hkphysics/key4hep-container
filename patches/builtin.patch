@@ -1299,3 +1299,15 @@ index 8de69352d14e..fa0b9f1c64e5 100644
 +        s = Spec.from_detection('lhapdfsets@6.3.0')
 +        s.external_path = path
 +        return s if path else None
+diff --git a/var/spack/repos/builtin/packages/gaudi/package.py b/var/spack/repos/builtin/packages/gaudi/package.py
+index a7d37c8651..a4fc872296 100644
+--- a/var/spack/repos/builtin/packages/gaudi/package.py
++++ b/var/spack/repos/builtin/packages/gaudi/package.py
+@@ -60,6 +60,7 @@ class Gaudi(CMakePackage):
+     depends_on('range-v3')
+     depends_on('root +python +root7 +ssl +tbb +threads')
+     depends_on('zlib')
++    depends_on('py-pytest', when='@36.9:', type=('build', 'run'))
+ 
+     # todo: this should be a test dependency only,
+     depends_on('py-nose', when="@35.0", type=('build', 'run'))

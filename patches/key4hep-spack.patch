@@ -79,3 +79,15 @@ index e26e06d..199da78 100644
        # get all dependency specs, including compiler
        with spack.store.db.read_transaction():
                 specs = [dep for dep in spec.traverse(order='post')]
+diff --git a/packages/kkmcee/package.py b/packages/kkmcee/package.py
+index a673c5c..4f02816 100644
+--- a/packages/kkmcee/package.py
++++ b/packages/kkmcee/package.py
+@@ -26,7 +26,6 @@ class Kkmcee(AutotoolsPackage):
+     depends_on('m4',       type='build')
+     depends_on('root')
+ 
+-    patch('gcc4.patch')
+     patch('gcc6.patch')
+     patch('gcc5.patch')
+     patch('KKMCee-dev-4.30.patch', level=0, when='@:4.30')

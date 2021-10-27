@@ -28,6 +28,7 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     --nodocs --allowerasing \
     --releasever="$releasever" \
     --nogpgcheck \
+    clang \
     nodejs \
     spack \
     git \
@@ -105,6 +106,8 @@ buildah run $container -- find /var/spack /opt/spack /etc/spack -type d -exec ch
 chmod 0755 $rootfsDir/usr/sbin/*.sh
 buildah run $container -- chown user:user -R /home/user/.spack
 buildah run $container -- sudo -u user spack repo add /var/spack/repos/key4hep-spack
+buildah run $container --  update-distcc-symlinks
+
 buildah config --user "user" $container
 buildah config --cmd "/bin/sh" $container
 buildah tag $name ${name}:old || true

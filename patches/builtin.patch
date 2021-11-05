@@ -10,18 +10,6 @@ index f6c82f5522..d0fe04e53e 100644
          bash('./autogen.sh')
  
      def patch(self):
-diff --git a/var/spack/repos/builtin/packages/yoda/package.py b/var/spack/repos/builtin/packages/yoda/package.py
-index 45ae109040..69841e5da3 100644
---- a/var/spack/repos/builtin/packages/yoda/package.py
-+++ b/var/spack/repos/builtin/packages/yoda/package.py
-@@ -63,6 +63,7 @@ class Yoda(AutotoolsPackage):
- 
-     depends_on('python', type=('build', 'run'))
-     depends_on('py-future', type=('build', 'run'))
-+    depends_on('zlib')
-     depends_on('boost', when='@:1.6.0', type=('build', 'run'))
-     depends_on('py-cython@0.18:', type='build', when='@:1.4.0')
-     depends_on('py-cython@0.20:', type='build', when='@1.4.0:1.6.5')
 diff --git a/var/spack/repos/builtin/packages/emacs/glibc-2.34.patch b/var/spack/repos/builtin/packages/emacs/glibc-2.34.patch
 new file mode 100644
 index 0000000000..793503db5a

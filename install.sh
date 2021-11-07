@@ -21,7 +21,6 @@ fi
 
 reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$buildarch"
 
-(
     dnf --installroot="$rootfsDir" \
 	install \
     --setopt=install_weak_deps=False --best -v -y \
@@ -35,14 +34,20 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     sudo \
     glibc-static-devel \
     glibc-devel \
-    distcc \
     procps-ng \
     libstdc++-devel \
     libstdc++-static-devel \
     kernel-userspace-headers \
     vim \
     bash
-)
+
+    dnf --installroot="$rootfsDir" \
+	install \
+    --setopt=install_weak_deps=False --best -v -y \
+    --nodocs --allowerasing \
+    --releasever="$releasever" \
+    --nogpgcheck \
+    distcc
 
 #rpm --rebuilddb --root $rootfsDir
 pushd $rootfsDir

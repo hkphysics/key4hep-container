@@ -1299,3 +1299,15 @@ index a7d37c8651..a4fc872296 100644
  
      # todo: this should be a test dependency only,
      depends_on('py-nose', when="@35.0", type=('build', 'run'))
+diff --git a/var/spack/repos/builtin/packages/gdk-pixbuf/package.py b/var/spack/repos/builtin/packages/gdk-pixbuf/package.py
+index e317d4d706..79497d9b0d 100644
+--- a/var/spack/repos/builtin/packages/gdk-pixbuf/package.py
++++ b/var/spack/repos/builtin/packages/gdk-pixbuf/package.py
+@@ -75,7 +75,6 @@ def install(self, spec, prefix):
+         with working_dir('spack-build', create=True):
+             meson_args = std_meson_args
+             meson_args += [
+-                '-Dx11={0}'.format('+x11' in spec),
+                 '-Dman={0}'.format('+man' in spec),
+             ]
+             meson('..', *meson_args)

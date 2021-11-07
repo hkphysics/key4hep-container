@@ -103,6 +103,7 @@ buildah copy $container $scriptDir/build-spack-clang.sh /usr/sbin
 buildah copy $container $scriptDir/mirrors.yaml /etc/spack/defaults
 buildah copy $container $scriptDir/compilers.yaml.noproxy /home/user/.spack/linux
 buildah copy $container $scriptDir/compilers.yaml.proxy /home/user/.spack/linux
+buildah copy $container $scriptDir/compilers.yaml.clang /home/user/.spack/linux
 
 buildah run $container -- chown -R spack:spack /opt/spack /var/spack /etc/spack
 buildah run $container -- chmod -R ug+rw /opt/spack  /var/spack /etc/spack

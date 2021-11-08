@@ -50,35 +50,6 @@ index 55f474e..ecc5837 100644
      depends_on("edm4hep")
      depends_on('k4fwcore@1:')
      depends_on("dd4hep +geant4")
-diff --git a/packages/ilcsoft/package.py b/packages/ilcsoft/package.py
-index 1399a86..e0dba75 100644
---- a/packages/ilcsoft/package.py
-+++ b/packages/ilcsoft/package.py
-@@ -224,8 +224,8 @@ class Ilcsoft(BundlePackage, Key4hepPackage):
-       # first, log spack version to build-out
-       tty.msg('* **Spack:**', get_version())
-       tty.msg('* **Python:**', platform.python_version())
--      tty.msg('* **Platform:**', spack.spec.ArchSpec(
--          spack.platforms.host(), 'frontend', 'frontend'))
-+      tty.msg('* **Platform:**', spack.platforms.host())
-+
-       # get all dependency specs, including compiler
-       with spack.store.db.read_transaction():
-                specs = [dep for dep in spec.traverse(order='post')]
-diff --git a/packages/key4hep-stack/package.py b/packages/key4hep-stack/package.py
-index e26e06d..199da78 100644
---- a/packages/key4hep-stack/package.py
-+++ b/packages/key4hep-stack/package.py
-@@ -199,8 +199,7 @@ class Key4hepStack(BundlePackage, Key4hepPackage):
-       # first, log spack version to build-out
-       tty.msg('* **Spack:**', get_version())
-       tty.msg('* **Python:**', platform.python_version())
--      tty.msg('* **Platform:**', spack.spec.ArchSpec(
--          spack.platforms.host(), 'frontend', 'frontend'))
-+      tty.msg('* **Platform:**', spack.platforms.host())
-       # get all dependency specs, including compiler
-       with spack.store.db.read_transaction():
-                specs = [dep for dep in spec.traverse(order='post')]
 diff --git a/packages/kkmcee/package.py b/packages/kkmcee/package.py
 index a673c5c..4f02816 100644
 --- a/packages/kkmcee/package.py

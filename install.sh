@@ -39,7 +39,8 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     libstdc++-static-devel \
     kernel-userspace-headers \
     vim \
-    bash
+    bash \
+    compiler-rt
 
     dnf --installroot="$rootfsDir" \
 	install \

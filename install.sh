@@ -21,7 +21,7 @@ fi
 
 reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$buildarch"
 
-    dnf --installroot="$rootfsDir" \
+dnf --installroot="$rootfsDir" \
 	install \
     --setopt=install_weak_deps=False --best -v -y \
     --nodocs --allowerasing \
@@ -40,14 +40,7 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
     kernel-userspace-headers \
     vim \
     bash \
-    compiler-rt
-
-    dnf --installroot="$rootfsDir" \
-	install \
-    --setopt=install_weak_deps=False --best -v -y \
-    --nodocs --allowerasing \
-    --releasever="$releasever" \
-    --nogpgcheck \
+    compiler-rt \
     distcc
 
 #rpm --rebuilddb --root $rootfsDir

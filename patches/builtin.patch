@@ -1320,16 +1320,17 @@ index 0000000000..6c9c03567d
 + libdrm_nouveau_la_LTLIBRARIES = libdrm_nouveau.la
 + libdrm_nouveau_ladir = $(libdir)
 diff --git a/var/spack/repos/builtin/packages/libdrm/package.py b/var/spack/repos/builtin/packages/libdrm/package.py
-index 2d7a4133fb..2802b1999f 100644
+index 2d7a4133fb..c1a2d1c93f 100644
 --- a/var/spack/repos/builtin/packages/libdrm/package.py
 +++ b/var/spack/repos/builtin/packages/libdrm/package.py
-@@ -24,6 +24,9 @@ class Libdrm(AutotoolsPackage):
+@@ -23,6 +23,10 @@ class Libdrm(AutotoolsPackage):
+     depends_on('pkgconfig', type='build')
      depends_on('libpciaccess@0.10:')
      depends_on('libpthread-stubs')
- 
++    depends_on('automake', when='%clang')
++
 +    #clang linker has multiple defines
 +    patch('nouveau-clang.patch', when='%clang')
-+
+ 
      def configure_args(self):
          args = []
-         args.append('--enable-static')

@@ -49,18 +49,6 @@ index a45d726fd0..c9d708e194 100644
      @when('platform=darwin')
      def setup_build_environment(self, env):
          # on macOS, emacs' config does search hard enough for ncurses'
-diff --git a/var/spack/repos/builtin/packages/whizard/package.py b/var/spack/repos/builtin/packages/whizard/package.py
-index 883a18c983..f4ef68b674 100644
---- a/var/spack/repos/builtin/packages/whizard/package.py
-+++ b/var/spack/repos/builtin/packages/whizard/package.py
-@@ -58,6 +58,7 @@ class Whizard(AutotoolsPackage):
-     variant('latex', default=False,
-             description="data visualization with latex")
- 
-+    depends_on('libtirpc')
-     depends_on('ocaml@4.02.3:', type='build', when="@3:")
-     depends_on('ocaml@4.02.3:~force-safe-string', type='build', when="@:2")
-     depends_on('hepmc', when="hepmc=2")
 diff --git a/var/spack/repos/builtin/packages/herwig3/package.py b/var/spack/repos/builtin/packages/herwig3/package.py
 index b7d74012fdca..60a04068ea68 100644
 --- a/var/spack/repos/builtin/packages/herwig3/package.py
@@ -1311,3 +1299,17 @@ index e317d4d706..79497d9b0d 100644
                  '-Dman={0}'.format('+man' in spec),
              ]
              meson('..', *meson_args)
+diff --git a/var/spack/repos/builtin/packages/libdrm/package.py b/var/spack/repos/builtin/packages/libdrm/package.py
+index 2d7a4133fb..2802b1999f 100644
+--- a/var/spack/repos/builtin/packages/libdrm/package.py
++++ b/var/spack/repos/builtin/packages/libdrm/package.py
+@@ -24,6 +24,9 @@ class Libdrm(AutotoolsPackage):
+     depends_on('libpciaccess@0.10:')
+     depends_on('libpthread-stubs')
+ 
++    #clang linker has multiple defines
++    patch('nouveau-clang.patch', when='%clang')
++
+     def configure_args(self):
+         args = []
+         args.append('--enable-static')

@@ -1327,7 +1327,7 @@ index 2d7a4133fb..c1a2d1c93f 100644
      depends_on('pkgconfig', type='build')
      depends_on('libpciaccess@0.10:')
      depends_on('libpthread-stubs')
-+    depends_on('automake', when='%clang')
++    depends_on('automake@1.15:1.15.99', type='build',  when='%clang')
 +
 +    #clang linker has multiple defines
 +    patch('nouveau-clang.patch', when='%clang')

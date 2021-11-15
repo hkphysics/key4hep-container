@@ -49,5 +49,3 @@ packages:
     variants: +plugins
   python:
     variants: +debug
-  root:
-    version: [ 6.24.02 ]

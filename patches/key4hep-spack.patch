@@ -62,3 +62,29 @@ index a673c5c..4f02816 100644
      patch('gcc6.patch')
      patch('gcc5.patch')
      patch('KKMCee-dev-4.30.patch', level=0, when='@:4.30')
+diff --git a/packages/larcontent/package.py b/packages/larcontent/package.py
+index 8a04639..30c5502 100644
+--- a/packages/larcontent/package.py
++++ b/packages/larcontent/package.py
+@@ -41,6 +41,8 @@ class Larcontent(CMakePackage):
+         args = [
+                 '-DCMAKE_MODULE_PATH=%s' % self.spec["pandorapfa"].prefix.cmakemodules,
+                 "-DCMAKE_CXX_FLAGS=-std=c++17"]
++        if self.spec.satisfies('%clang'):
++            args.append('-DCMAKE_CXX_FLAGS=-Wno-error')
+         return args
+ 
+     def url_for_version(self, version):
+diff --git a/packages/lccontent/package.py b/packages/lccontent/package.py
+index 0161946..f7f47cd 100644
+--- a/packages/lccontent/package.py
++++ b/packages/lccontent/package.py
+@@ -36,6 +36,8 @@ class Lccontent(CMakePackage):
+                 '-DCMAKE_CXX_STANDARD=17',
+                 '-DCMAKE_MODULE_PATH=%s' % self.spec["pandorapfa"].prefix.cmakemodules
+         ]
++        if self.spec.satisfies('%clang'):
++            args.append('-DCMAKE_CXX_FLAGS=-Wno-error')
+         return args
+ 
+     def url_for_version(self, version):

@@ -1349,3 +1349,22 @@ index fcfcbc1f8e..8d5ef29444 100644
              make(parallel=False)
  
          if '+atlas' in spec:
+diff --git a/var/spack/repos/builtin/packages/xgboost/package.py b/var/spack/repos/builtin/packages/xgboost/package.py
+index 85e9c26de0..5f0062fe47 100644
+--- a/var/spack/repos/builtin/packages/xgboost/package.py
++++ b/var/spack/repos/builtin/packages/xgboost/package.py
+@@ -45,8 +45,13 @@ def cmake_args(self):
+         args = [
+             self.define_from_variant('USE_CUDA', 'cuda'),
+             self.define_from_variant('USE_NCCL', 'nccl'),
+-            self.define_from_variant('USE_OPENMP', 'openmp'),
+         ]
++        # disable openmp when using clang
++        # cmake file does not detect openmp correctly for clang
++        if not self.spec.satisfies('%clang'):
++            args.append(self.define_from_variant('USE_OPENMP', 'openmp'))
++        else:
++            args.append('-DUSE_OPENMP=False')
+ 
+         if '+cuda' in self.spec and 'cuda_arch=none' not in self.spec:
+             args.append(self.define(

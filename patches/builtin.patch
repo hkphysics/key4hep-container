@@ -1335,3 +1335,17 @@ index 2d7a4133fb..c1a2d1c93f 100644
  
      def configure_args(self):
          args = []
+diff --git a/var/spack/repos/builtin/packages/madgraph5amc/package.py b/var/spack/repos/builtin/packages/madgraph5amc/package.py
+index fcfcbc1f8e..8d5ef29444 100644
+--- a/var/spack/repos/builtin/packages/madgraph5amc/package.py
++++ b/var/spack/repos/builtin/packages/madgraph5amc/package.py
+@@ -90,6 +90,9 @@ def build(self, spec, prefix):
+             make(parallel=False)
+ 
+         with working_dir(join_path('vendor', 'StdHEP')):
++            for m in ['mcfio/arch_mcfio', 'src/stdhep_arch']:
++                arch = FileFilter(m)
++                arch.filter('CC.*=.*', 'CC = {0}'.format(spack_cc))
+             make(parallel=False)
+ 
+         if '+atlas' in spec:

@@ -32,8 +32,6 @@ packages:
     version: [main]
   cepcsw:
     version: [master]
-  k4marlinwrapper:
-    version: [master]
   k4reccalorimeter:
     version: [main]
   k4simdelphes:

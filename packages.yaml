@@ -47,3 +47,5 @@ packages:
     variants: +plugins
   python:
     variants: +debug
+  k4marlinwrapper:
+    version: [master]

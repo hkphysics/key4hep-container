@@ -26,7 +26,7 @@ packages:
     variants: +optional
     version: [master]
   k4fwcore:
-    version: [master]
+    version: [1.0pre13]
   k4simgeant4:
     variants: -delphes_hepmc
     version: [main]

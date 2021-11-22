@@ -1382,3 +1382,15 @@ index 2ca4014449..0f01914b4f 100644
  
      def flag_handler(self, name, flags):
          if self.spec.satisfies('@3.1.2:') and name == 'cxxflags':
+diff --git a/packages/k4fwcore/package.py b/packages/k4fwcore/package.py
+index dbc4782..d1c0d1d 100644
+--- a/packages/k4fwcore/package.py
++++ b/packages/k4fwcore/package.py
+@@ -9,6 +9,7 @@ class K4fwcore(CMakePackage):
+ 
+     version('master', branch='master')
+     k4_add_latest_commit_as_version(git)
++    version('1.0pre13', tag='v01-00pre13')
+     version('0.1.0', sha256='05326d0f3d222f4a195baebf9c9fc60651621ec293e4384de3aaa81281cbea7a')
+ 
+     variant('build_type', default='Release',

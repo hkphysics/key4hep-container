@@ -23,7 +23,7 @@ packages:
   whizard:
     variants: ~fastjet~latex+lcio~lhapdf+openloops~openmp+pythia8 hepmc=2
   k4fwcore:
-    version: [master]
+    version: [1.0pre13]
   k4simgeant4:
     variants: -delphes_hepmc
     version: [main]

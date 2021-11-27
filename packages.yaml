@@ -22,6 +22,9 @@ packages:
     variants: +assimp+lcio+xercesc+hepmc3+geant4+edm4hep
   whizard:
     variants: ~fastjet~latex+lcio~lhapdf+openloops~openmp+pythia8 hepmc=2
+  gaudi:
+    variants: +optional
+    version: [master]
   k4fwcore:
     version: [master]
   k4simgeant4:
@@ -29,14 +32,12 @@ packages:
     version: [main]
   cepcsw:
     version: [master]
-  k4simdelphes:
-    version: [main]
   k4reccalorimeter:
+    version: [main]
+  k4simdelphes:
     version: [main]
   edm4hep:
     version: [master]
-  gaudi:
-    variants: +optional
   evtgen:
     variants: +photos
   gdb:

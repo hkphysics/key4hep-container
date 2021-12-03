@@ -53,15 +53,6 @@ diff --git a/packages/fccanalyses/package.py b/packages/fccanalyses/package.py
 index efdc97e..0e5733b 100644
 --- a/packages/fccanalyses/package.py
 +++ b/packages/fccanalyses/package.py
-@@ -23,7 +23,7 @@ class Fccanalyses(CMakePackage, Key4hepPackage):
-     depends_on('edm4hep')
-     depends_on('py-awkward')
-     depends_on('fcc-edm', when="@:0.2.9")
--    depends_on('acts@5.00.0', when="@0.3.0:")
-+    depends_on('acts+dd4hep+tgeo+identification', when="@0.3.0:")
-     depends_on('eigen', when="@0.3.0:")
- 
-     # todo: update the cmake config to remove this
 @@ -32,8 +32,10 @@ class Fccanalyses(CMakePackage, Key4hepPackage):
        spack_env.prepend_path('CPATH', self.spec['edm4hep'].prefix.include)
        spack_env.prepend_path('CPATH', self.spec['podio'].prefix.include)

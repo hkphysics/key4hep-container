@@ -49,3 +49,39 @@ index 14f8cc9..1132b8a 100644
      version('0.2.0', sha256='7d1a6e7494f08c2b25901cab2138795f21b6c4e84f05c4f8b9a6839787874b72')
      version('0.1.1', sha256='9c4e4b487f7d9c982547c13570345399505e763fb369b76ceadb35c1d52bf6aa')
      version('0.1.0', sha256='aef682649f3fcb1d72de897fbf6ec4ed421c8a4836bb3462c4b0049a709374e4')
+diff --git a/packages/fccanalyses/package.py b/packages/fccanalyses/package.py
+index efdc97e..0e5733b 100644
+--- a/packages/fccanalyses/package.py
++++ b/packages/fccanalyses/package.py
+@@ -23,7 +23,7 @@ class Fccanalyses(CMakePackage, Key4hepPackage):
+     depends_on('edm4hep')
+     depends_on('py-awkward')
+     depends_on('fcc-edm', when="@:0.2.9")
+-    depends_on('acts@5.00.0', when="@0.3.0:")
++    depends_on('acts+dd4hep+tgeo+identification', when="@0.3.0:")
+     depends_on('eigen', when="@0.3.0:")
+ 
+     # todo: update the cmake config to remove this
+@@ -32,8 +32,10 @@ class Fccanalyses(CMakePackage, Key4hepPackage):
+       spack_env.prepend_path('CPATH', self.spec['edm4hep'].prefix.include)
+       spack_env.prepend_path('CPATH', self.spec['podio'].prefix.include)
+       spack_env.prepend_path('CPATH', self.spec['fastjet'].prefix.include)
+-      spack_env.prepend_path('CPATH', self.spec['acts'].prefix.include)
+-      spack_env.prepend_path('CPATH', self.spec['eigen'].prefix.include)
++      spack_env.prepend_path('CPATH', self.spec['acts'].prefix.include,
++                             when="@0.3.0:")
++      spack_env.prepend_path('CPATH', self.spec['eigen'].prefix.include,
++                             when="@0.3.0:")
+ 
+     def setup_run_environment(self, spack_env):
+       spack_env.prepend_path('ROOT_INCLUDE_PATH', self.prefix.include.FCCAnalyses)
+@@ -41,3 +43,9 @@ class Fccanalyses(CMakePackage, Key4hepPackage):
+       # this should point to share/ by key4hep convention
+       #  but we want to make it work with the tutorials
+       spack_env.set("FCCANALYSES", self.prefix.python)
++
++    def cmake_args(self):
++        return [
++            self.define('CMAKE_CXX_STANDARD',
++                        self.spec['root'].variants['cxxstd'].value)
++        ]

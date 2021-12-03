@@ -59,7 +59,7 @@ index efdc97e..b968ba2 100644
        spack_env.prepend_path('CPATH', self.spec['fastjet'].prefix.include)
 -      spack_env.prepend_path('CPATH', self.spec['acts'].prefix.include)
 -      spack_env.prepend_path('CPATH', self.spec['eigen'].prefix.include)
-+      if spec.satisfies("@0.3.0:"):
++      if self.spec.satisfies("@0.3.0:"):
 +        spack_env.prepend_path('CPATH', self.spec['acts'].prefix.include)
 +        spack_env.prepend_path('CPATH', self.spec['eigen'].prefix.include)
  

@@ -50,3 +50,5 @@ packages:
     variants: +debug
   k4marlinwrapper:
     version: [master]
+  fccanalyses:
+    version: [master]

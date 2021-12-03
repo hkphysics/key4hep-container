@@ -27,9 +27,6 @@ packages:
     version: [master]
   k4fwcore:
     version: [master]
-  k4simgeant4:
-    variants: -delphes_hepmc
-    version: [main]
   cepcsw:
     version: [master]
   k4reccalorimeter:
@@ -49,6 +46,4 @@ packages:
   python:
     variants: +debug
   k4marlinwrapper:
-    version: [master]
-  fccanalyses:
     version: [master]

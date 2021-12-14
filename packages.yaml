@@ -19,7 +19,7 @@ packages:
   boost:
     variants: +python
   dd4hep:
-    variants: +assimp+lcio+xercesc+hepmc3+geant4+edm4hep
+    variants: +assimp+lcio+xercesc+hepmc3+edm4hep
   whizard:
     variants: ~fastjet~latex+lcio~lhapdf+openloops~openmp+pythia8 hepmc=2
   k4fwcore:

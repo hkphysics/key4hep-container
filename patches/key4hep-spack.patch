@@ -37,3 +37,94 @@ index efdc97e..b968ba2 100644
 +            self.define('CMAKE_CXX_STANDARD',
 +                        self.spec['root'].variants['cxxstd'].value)
 +        ]
+diff --git a/packages/cepcsw/package.py b/packages/cepcsw/package.py
+index 08f17da..653be1e 100644
+--- a/packages/cepcsw/package.py
++++ b/packages/cepcsw/package.py
+@@ -29,7 +29,7 @@ class Cepcsw(CMakePackage, Key4hepPackage):
+           sha256='87bf94536f5fd7fb675ca4eff25277331b7de94ef541f2bd8ea178a5e61fd20d', when="@0.2.1")
+ 
+     depends_on('clhep')
+-    depends_on('dd4hep +geant4')
++    depends_on('dd4hep')
+     depends_on('edm4hep')
+     depends_on('k4fwcore@0.3.0:', when='@0.2:')
+     depends_on('k4fwcore@0.2.0', when='@:0.1.99')
+diff --git a/packages/dual-readout/package.py b/packages/dual-readout/package.py
+index 2b18b39..acf434b 100644
+--- a/packages/dual-readout/package.py
++++ b/packages/dual-readout/package.py
+@@ -20,7 +20,7 @@ class DualReadout(CMakePackage, Key4hepPackage):
+     version('0.0.3', sha256='d35e7193c11385505494f11328d54a595b3ff953563bae06b8954c1ef24209b3')
+     version('0.0.2', sha256='f76c1febf3d8e29d5287ba03eacbc244f8c615502295f7471579245376da91ad')
+ 
+-    depends_on('dd4hep+geant4')
++    depends_on('dd4hep')
+     depends_on('hepmc3+rootio')
+     depends_on('fccsw')
+     depends_on('fastjet')
+diff --git a/packages/fccdetectors/package.py b/packages/fccdetectors/package.py
+index c12aab9..94e03e1 100644
+--- a/packages/fccdetectors/package.py
++++ b/packages/fccdetectors/package.py
+@@ -21,7 +21,7 @@ class Fccdetectors(CMakePackage, Key4hepPackage):
+             multi=False,
+             description='Use the specified C++ standard when building.')
+ 
+-    depends_on('dd4hep +geant4')
++    depends_on('dd4hep')
+     depends_on('lcgeo')
+     depends_on('lcio')
+ 
+diff --git a/packages/k4pandora/package.py b/packages/k4pandora/package.py
+index 0b6c943..c71134e 100644
+--- a/packages/k4pandora/package.py
++++ b/packages/k4pandora/package.py
+@@ -26,7 +26,7 @@ class K4pandora(CMakePackage, Key4hepPackage):
+     version('master', branch='master')
+ 
+     depends_on('clhep')
+-    depends_on('dd4hep +geant4')
++    depends_on('dd4hep')
+     depends_on('edm4hep')
+     depends_on('k4fwcore@0.3.0:')
+     depends_on('gaudi@35.0:')
+diff --git a/packages/k4reccalorimeter/package.py b/packages/k4reccalorimeter/package.py
+index 3b83ecf..0e56df7 100644
+--- a/packages/k4reccalorimeter/package.py
++++ b/packages/k4reccalorimeter/package.py
+@@ -27,7 +27,7 @@ class K4reccalorimeter(CMakePackage, Key4hepPackage):
+     depends_on('ninja', type='build')
+     depends_on("edm4hep")
+     depends_on('k4fwcore@1:')
+-    depends_on("dd4hep +geant4")
++    depends_on("dd4hep")
+     depends_on("fccdetectors")
+ 
+     # todo: remove when ready
+diff --git a/packages/k4simgeant4/package.py b/packages/k4simgeant4/package.py
+index 199af36..1357d2d 100644
+--- a/packages/k4simgeant4/package.py
++++ b/packages/k4simgeant4/package.py
+@@ -19,7 +19,7 @@ class K4simgeant4(CMakePackage, Key4hepPackage):
+             description='Use the specified C++ standard when building.')
+ 
+     depends_on('clhep')
+-    depends_on('dd4hep +geant4')
++    depends_on('dd4hep')
+     depends_on('k4fwcore@1.0:')
+     depends_on('geant4')
+     depends_on('edm4hep')
+diff --git a/packages/lcgeo/package.py b/packages/lcgeo/package.py
+index 6319ad4..da39bea 100644
+--- a/packages/lcgeo/package.py
++++ b/packages/lcgeo/package.py
+@@ -27,7 +27,7 @@ class Lcgeo(CMakePackage, Ilcsoftpackage):
+             description='Use the specified C++ standard when building.')
+ 
+     depends_on('lcio')
+-    depends_on('dd4hep +geant4')
++    depends_on('dd4hep')
+     depends_on('boost')
+     depends_on('root')
+ 

@@ -1356,3 +1356,48 @@ index 2ca4014449..0f01914b4f 100644
  
      def flag_handler(self, name, flags):
          if self.spec.satisfies('@3.1.2:') and name == 'cxxflags':
+diff --git a/var/spack/repos/builtin/packages/harfbuzz/fix-unused-variable.patch b/var/spack/repos/builtin/packages/harfbuzz/fix-unused-variable.patch
+new file mode 100644
+index 0000000000..925510c8f4
+--- /dev/null
++++ b/var/spack/repos/builtin/packages/harfbuzz/fix-unused-variable.patch
+@@ -0,0 +1,26 @@
++diff --git a/src/hb-subset-cff1.cc b/src/hb-subset-cff1.cc
++index f3ed518..029ccf6 100644
++--- a/src/hb-subset-cff1.cc
+++++ b/src/hb-subset-cff1.cc
++@@ -402,12 +402,11 @@ struct cff_subset_plan {
++   void plan_subset_encoding (const OT::cff1::accelerator_subset_t &acc, hb_subset_plan_t *plan)
++   {
++     const Encoding *encoding = acc.encoding;
++-    unsigned int  size0, size1, supp_size;
+++    unsigned int  size0, size1;
++     hb_codepoint_t  code, last_code = CFF_UNDEF_CODE;
++     hb_vector_t<hb_codepoint_t> supp_codes;
++ 
++     subset_enc_code_ranges.resize (0);
++-    supp_size = 0;
++     supp_codes.init ();
++ 
++     subset_enc_num_codes = plan->num_output_glyphs () - 1;
++@@ -443,7 +442,6 @@ struct cff_subset_plan {
++ 	  code_pair_t pair = { supp_codes[i], sid };
++ 	  subset_enc_supp_codes.push (pair);
++ 	}
++-	supp_size += SuppEncoding::static_size * supp_codes.length;
++       }
++     }
++     supp_codes.fini ();
+diff --git a/var/spack/repos/builtin/packages/harfbuzz/package.py b/var/spack/repos/builtin/packages/harfbuzz/package.py
+index fa384bca57..36ad2d2a79 100644
+--- a/var/spack/repos/builtin/packages/harfbuzz/package.py
++++ b/var/spack/repos/builtin/packages/harfbuzz/package.py
+@@ -32,6 +32,8 @@ class Harfbuzz(AutotoolsPackage):
+     conflicts('%intel', when='@2.3.1:',
+               msg='harfbuzz-2.3.1 does not build with the Intel compiler')
+ 
++    # This removed an unused variable that is flagged by clang
++    patch('fix-unused-variable.patch')
+     def url_for_version(self, version):
+         if version > Version('2.3.1'):
+             url = "https://github.com/harfbuzz/harfbuzz/releases/download/{0}/harfbuzz-{0}.tar.xz"

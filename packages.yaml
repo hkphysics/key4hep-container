@@ -10,6 +10,7 @@ packages:
     # avoid building doxygen
     variants: ~doc
   geant4:
+    version: [ 10.7.3 ]
     variants: ~qt~opengl+vecgeom cxxstd=17
   marlin:
     # avoid building mariadb

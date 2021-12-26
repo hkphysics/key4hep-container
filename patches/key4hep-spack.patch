@@ -128,3 +128,36 @@ index 6319ad4..da39bea 100644
      depends_on('boost')
      depends_on('root')
  
+diff --git a/packages/ced/glut-link.patch b/packages/ced/glut-link.patch
+new file mode 100644
+index 0000000..5963ef3
+--- /dev/null
++++ b/packages/ced/glut-link.patch
+@@ -0,0 +1,15 @@
++diff --git a/CMakeLists.txt b/CMakeLists.txt
++index 504edf4..d7cb4c4 100644
++--- a/CMakeLists.txt
+++++ b/CMakeLists.txt
++@@ -62,7 +62,9 @@ INSTALL_SHARED_LIBRARY( CED DESTINATION lib )
++ 
++ # link CED client library to the math library
++ FIND_LIBRARY( c_math_lib NAMES m )
++-TARGET_LINK_LIBRARIES( CED ${c_math_lib} )
+++FIND_LIBRARY( glut_lib NAMES glut )
+++TARGET_LINK_LIBRARIES( CED ${glut_lib} ${c_math_lib} )
+++MARK_AS_ADVANCED( glut_lib )
++ MARK_AS_ADVANCED( c_math_lib )
++ 
++ 
+diff --git a/packages/ced/package.py b/packages/ced/package.py
+index fecccca..f9bd841 100644
+--- a/packages/ced/package.py
++++ b/packages/ced/package.py
+@@ -30,6 +30,7 @@ class Ced(CMakePackage, Ilcsoftpackage):
+ 
+     depends_on('freeglut')
+     depends_on('ilcutil')
++    patch('glut-link.patch')
+ 
+     def cmake_args(self):
+         # install error if build_testing is on

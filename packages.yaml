@@ -20,6 +20,7 @@ packages:
   boost:
     variants: +python
   dd4hep:
+    version: [master]
     variants: +assimp+lcio+xercesc+hepmc3+edm4hep
   whizard:
     variants: ~fastjet~latex+lcio~lhapdf+openloops~openmp+pythia8 hepmc=2

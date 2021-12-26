@@ -161,3 +161,16 @@ index fecccca..f9bd841 100644
  
      def cmake_args(self):
          # install error if build_testing is on
+diff --git a/packages/larcontent/package.py b/packages/larcontent/package.py
+index 60cc4f3..0707d87 100644
+--- a/packages/larcontent/package.py
++++ b/packages/larcontent/package.py
+@@ -39,7 +39,7 @@ class Larcontent(CMakePackage):
+     def cmake_args(self):
+         args = [
+                 '-DCMAKE_MODULE_PATH=%s' % self.spec["pandorapfa"].prefix.cmakemodules,
+-                "-DCMAKE_CXX_FLAGS=-std=c++17 -Wno-unused-private-field"]
++                "-DCMAKE_CXX_FLAGS=-std=c++17 -Wno-unused-private-field -Wno-unused-but-set-variable"]
+         return args
+ 
+     def url_for_version(self, version):

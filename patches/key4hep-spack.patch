@@ -210,7 +210,7 @@ index e73abff..56040f8 100644
          return args
  
 diff --git a/packages/raida/package.py b/packages/raida/package.py
-index 27d70c0..a37b7b4 100644
+index 27d70c0..b64bfaf 100644
 --- a/packages/raida/package.py
 +++ b/packages/raida/package.py
 @@ -20,12 +20,11 @@ class Raida(CMakePackage, Ilcsoftpackage):
@@ -225,6 +225,6 @@ index 27d70c0..a37b7b4 100644
          # C++ Standard
 -        args.append('-DCMAKE_CXX_STANDARD=%s'
 -                    % self.spec['root'].variants['cxxstd'].value)
-+        args.append('-DCMAKE_CXX_STANDARD=17')
++        args.append('-DCMAKE_CXX_FLAGS=-std=c++17')
          args.append('-DBUILD_TESTING=%s' % self.run_tests)
          return args

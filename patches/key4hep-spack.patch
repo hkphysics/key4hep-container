@@ -174,8 +174,21 @@ index 60cc4f3..0707d87 100644
          return args
  
      def url_for_version(self, version):
+diff --git a/packages/gear/package.py b/packages/gear/package.py
+index d08adf0..9635232 100644
+--- a/packages/gear/package.py
++++ b/packages/gear/package.py
+@@ -30,7 +30,7 @@ class Gear(CMakePackage, Ilcsoftpackage):
+     depends_on("ilcutil")
+     depends_on("clhep")
+ 
+-    depends_on("root", when="+tgeo")
++    depends_on("root +cxxstd=17", when="+tgeo")
+     depends_on("doxygen", when="+doc")
+ 
+     depends_on("root", type="test")
 diff --git a/packages/kaltest/package.py b/packages/kaltest/package.py
-index e73abff..56d60b1 100644
+index e73abff..56040f8 100644
 --- a/packages/kaltest/package.py
 +++ b/packages/kaltest/package.py
 @@ -25,15 +25,14 @@ class Kaltest(CMakePackage, Ilcsoftpackage):
@@ -183,7 +196,7 @@ index e73abff..56d60b1 100644
  
      depends_on('ilcutil')
 -    depends_on('root')
-+    depends_on('root +stdcxx=17')
++    depends_on('root +cxxstd=17')
  
      patch("dict.patch")
  
@@ -197,7 +210,7 @@ index e73abff..56d60b1 100644
          return args
  
 diff --git a/packages/raida/package.py b/packages/raida/package.py
-index 27d70c0..726ee17 100644
+index 27d70c0..a37b7b4 100644
 --- a/packages/raida/package.py
 +++ b/packages/raida/package.py
 @@ -20,12 +20,11 @@ class Raida(CMakePackage, Ilcsoftpackage):
@@ -205,7 +218,7 @@ index 27d70c0..726ee17 100644
  
      depends_on('ilcutil')
 -    depends_on("root")
-+    depends_on("root +stdcxx=17")
++    depends_on("root +cxxstd=17")
  
      def cmake_args(self):
          args = []

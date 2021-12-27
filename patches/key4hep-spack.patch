@@ -242,3 +242,14 @@ index 37b6664..4fb5a57 100644
          args.append('-DBUILD_TESTING=%s' % self.run_tests)
          return args
  
+diff --git a/packages/aidatt/package.py b/packages/aidatt/package.py
+index a2ad49a..4698f63 100644
+--- a/packages/aidatt/package.py
++++ b/packages/aidatt/package.py
+@@ -26,5 +26,5 @@ class Aidatt(CMakePackage, Ilcsoftpackage):
+     def cmake_args(self):
+         # C++ Standard
+         return [
+-            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
++            '-DCMAKE_CXX_STANDARD=17'
+         ]

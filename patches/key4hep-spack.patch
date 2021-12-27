@@ -174,82 +174,43 @@ index 60cc4f3..0707d87 100644
          return args
  
      def url_for_version(self, version):
-diff --git a/packages/gear/package.py b/packages/gear/package.py
-index d08adf0..9635232 100644
---- a/packages/gear/package.py
-+++ b/packages/gear/package.py
-@@ -30,7 +30,7 @@ class Gear(CMakePackage, Ilcsoftpackage):
-     depends_on("ilcutil")
-     depends_on("clhep")
+--- a/packages/ilcutil/package.py
++++ b/packages/ilcutil/package.py
+@@ -21,6 +21,8 @@ class Ilcutil(CMakePackage, Ilcsoftpackage):
+     version('1.6', sha256='09083890721704f39a3e902dc660db5326027cc38446b813233d04ec3233ba2e')
  
--    depends_on("root", when="+tgeo")
-+    depends_on("root cxxstd=17", when="+tgeo")
-     depends_on("doxygen", when="+doc")
+     patch("installdoc.patch", when="@:1.6.1")
++    # Remove use_cxx11 patch since this conflicts with cxxstd
++    patch("remove-set-cxx-standard.patch")
  
-     depends_on("root", type="test")
-diff --git a/packages/kaltest/package.py b/packages/kaltest/package.py
-index e73abff..56040f8 100644
---- a/packages/kaltest/package.py
-+++ b/packages/kaltest/package.py
-@@ -25,15 +25,14 @@ class Kaltest(CMakePackage, Ilcsoftpackage):
-     version('2.0',      sha256='46b02bbea72e44c4309faa7e6d419b7ae103845125c8e4e9f3de864cba766e58')
- 
-     depends_on('ilcutil')
--    depends_on('root')
-+    depends_on('root cxxstd=17')
- 
-     patch("dict.patch")
- 
-     def cmake_args(self):
-         args = []
-         # C++ Standard
--        args.append('-DCMAKE_CXX_STANDARD=%s'
--                    % self.spec['root'].variants['cxxstd'].value)
-+        args.append('-DCMAKE_CXX_STANDARD=17')
-         args.append('-DBUILD_TESTING=%s' % self.run_tests)
-         return args
- 
-diff --git a/packages/raida/package.py b/packages/raida/package.py
-index 27d70c0..b64bfaf 100644
---- a/packages/raida/package.py
-+++ b/packages/raida/package.py
-@@ -20,12 +20,11 @@ class Raida(CMakePackage, Ilcsoftpackage):
- 
- 
-     depends_on('ilcutil')
--    depends_on("root")
-+    depends_on("root cxxstd=17")
- 
-     def cmake_args(self):
-         args = []
-         # C++ Standard
--        args.append('-DCMAKE_CXX_STANDARD=%s'
--                    % self.spec['root'].variants['cxxstd'].value)
-+        args.append('-DCMAKE_CXX_FLAGS=-std=c++17')
-         args.append('-DBUILD_TESTING=%s' % self.run_tests)
-         return args
-diff --git a/packages/physsim/package.py b/packages/physsim/package.py
-index 37b6664..4fb5a57 100644
---- a/packages/physsim/package.py
-+++ b/packages/physsim/package.py
-@@ -34,8 +34,7 @@ class Physsim(CMakePackage, Ilcsoftpackage):
-     def cmake_args(self):
-         args = []
-         # C++ Standard
--        args.append('-DCMAKE_CXX_STANDARD=%s'
--                    % self.spec['root'].variants['cxxstd'].value)
-+        args.append('-DCMAKE_CXX_STANDARD=17')
-         args.append('-DBUILD_TESTING=%s' % self.run_tests)
-         return args
- 
-diff --git a/packages/aidatt/package.py b/packages/aidatt/package.py
-index a2ad49a..4698f63 100644
---- a/packages/aidatt/package.py
-+++ b/packages/aidatt/package.py
-@@ -26,5 +26,5 @@ class Aidatt(CMakePackage, Ilcsoftpackage):
-     def cmake_args(self):
-         # C++ Standard
-         return [
--            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
-+            '-DCMAKE_CXX_STANDARD=17'
-         ]
+     variant('cxxstd',
+             default='17',
+diff --git a/packages/ilcutil/remove-set-cxx-standard.patch b/packages/ilcutil/remove-set-cxx-standard.patch
+new file mode 100644
+index 0000000..6a1f812
+--- /dev/null
++++ b/packages/ilcutil/remove-set-cxx-standard.patch
+@@ -0,0 +1,23 @@
++diff --git a/cmakemodules/ilcsoft_default_cxx_flags.cmake b/cmakemodules/ilcsoft_default_cxx_flags.cmake
++index 9660784..4002353 100644
++--- a/cmakemodules/ilcsoft_default_cxx_flags.cmake
+++++ b/cmakemodules/ilcsoft_default_cxx_flags.cmake
++@@ -31,18 +31,6 @@ FOREACH( FLAG ${COMPILER_FLAGS} )
++ ENDFOREACH()
++ 
++ OPTION( USE_CXX11 "Use CXX Standard 2011" True )
++-IF( USE_CXX11 )
++-  SET( FLAG "-std=c++11" )
++-  SET( FLAG_WORD "stdCXX11" )
++-  CHECK_CXX_COMPILER_FLAG( ${FLAG} CXX_FLAG_WORKS_${FLAG_WORD} )
++-  IF( ${CXX_FLAG_WORKS_${FLAG_WORD}} )
++-    SET( CMAKE_CXX_FLAGS "${FLAG} ${CMAKE_CXX_FLAGS}")
++-  ELSE()
++-    MESSAGE( FATAL_ERROR "Cannot add ${FLAG} to CMAKE_CXX_FLAGS, but c++11 was requested, check your compiler" )
++-  ENDIF()
++-ELSE()
++-  MESSAGE( STATUS "NOT building with CXX11 standard" )
++-ENDIF()
++ 
++ IF( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.9 )
++   SET( CMAKE_CXX_FLAGS "-fdiagnostics-color=auto ${CMAKE_CXX_FLAGS}" )

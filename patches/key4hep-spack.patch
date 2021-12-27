@@ -183,7 +183,7 @@ index d08adf0..9635232 100644
      depends_on("clhep")
  
 -    depends_on("root", when="+tgeo")
-+    depends_on("root +cxxstd=17", when="+tgeo")
++    depends_on("root cxxstd=17", when="+tgeo")
      depends_on("doxygen", when="+doc")
  
      depends_on("root", type="test")
@@ -196,7 +196,7 @@ index e73abff..56040f8 100644
  
      depends_on('ilcutil')
 -    depends_on('root')
-+    depends_on('root +cxxstd=17')
++    depends_on('root cxxstd=17')
  
      patch("dict.patch")
  
@@ -218,7 +218,7 @@ index 27d70c0..a37b7b4 100644
  
      depends_on('ilcutil')
 -    depends_on("root")
-+    depends_on("root +cxxstd=17")
++    depends_on("root cxxstd=17")
  
      def cmake_args(self):
          args = []

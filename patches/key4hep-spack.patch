@@ -174,3 +174,30 @@ index 60cc4f3..0707d87 100644
          return args
  
      def url_for_version(self, version):
+diff --git a/packages/kaltest/package.py b/packages/kaltest/package.py
+index e73abff..a72cdc0 100644
+--- a/packages/kaltest/package.py
++++ b/packages/kaltest/package.py
+@@ -32,8 +32,7 @@ class Kaltest(CMakePackage, Ilcsoftpackage):
+     def cmake_args(self):
+         args = []
+         # C++ Standard
+-        args.append('-DCMAKE_CXX_STANDARD=%s'
+-                    % self.spec['root'].variants['cxxstd'].value)
++        args.append('-DCMAKE_CXX_STANDARD=17')
+         args.append('-DBUILD_TESTING=%s' % self.run_tests)
+         return args
+ 
+diff --git a/packages/raida/package.py b/packages/raida/package.py
+index 27d70c0..fe9187f 100644
+--- a/packages/raida/package.py
++++ b/packages/raida/package.py
+@@ -25,7 +25,6 @@ class Raida(CMakePackage, Ilcsoftpackage):
+     def cmake_args(self):
+         args = []
+         # C++ Standard
+-        args.append('-DCMAKE_CXX_STANDARD=%s'
+-                    % self.spec['root'].variants['cxxstd'].value)
++        args.append('-DCMAKE_CXX_STANDARD=17')
+         args.append('-DBUILD_TESTING=%s' % self.run_tests)
+         return args

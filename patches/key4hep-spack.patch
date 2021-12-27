@@ -253,3 +253,15 @@ index 0000000..0a4a34c
 +-ELSE()
 +-  MESSAGE( STATUS "NOT building with CXX11 standard" )
 +-ENDIF()
+diff --git a/packages/marlinpandora/package.py b/packages/marlinpandora/package.py
+index 5cd7c03..5899a29 100644
+--- a/packages/marlinpandora/package.py
++++ b/packages/marlinpandora/package.py
+@@ -32,5 +32,6 @@ class Marlinpandora(CMakePackage, Ilcsoftpackage):
+ 
+     def cmake_args(self):
+         return [
+-            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
++            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value,
++            '-DCMAKE_CXX_FLAGS=-std=c++%s' % self.spec['root'].variants['cxxstd'].value
+         ]

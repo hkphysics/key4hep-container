@@ -214,3 +214,42 @@ index 0000000..6a1f812
 + 
 + IF( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.9 )
 +   SET( CMAKE_CXX_FLAGS "-fdiagnostics-color=auto ${CMAKE_CXX_FLAGS}" )
+diff --git a/packages/aidatt/package.py b/packages/aidatt/package.py
+index a2ad49a..7c92749 100644
+--- a/packages/aidatt/package.py
++++ b/packages/aidatt/package.py
+@@ -17,6 +17,8 @@ class Aidatt(CMakePackage, Ilcsoftpackage):
+     version('master', branch='master')
+     version('0.10',     sha256='5379a369ee29bebeece7e814c0595bac9f08f2737ce03ae529b4b4e84dea1283')
+ 
++    # this cmake option conflicts with newer cxx compilers
++    remove('remove-usecxx11.patch')
+     depends_on('ilcutil')
+     depends_on('eigen')
+     depends_on('generalbrokenlines')
+diff --git a/packages/aidatt/remove-usecxx11.patch b/packages/aidatt/remove-usecxx11.patch
+new file mode 100644
+index 0000000..0a4a34c
+--- /dev/null
++++ b/packages/aidatt/remove-usecxx11.patch
+@@ -0,0 +1,20 @@
++diff --git a/cmake/aidaTT_default_cxx_flags.cmake b/cmake/aidaTT_default_cxx_flags.cmake
++index 726f47d..9a0e38e 100644
++--- a/cmake/aidaTT_default_cxx_flags.cmake
+++++ b/cmake/aidaTT_default_cxx_flags.cmake
++@@ -23,15 +23,3 @@ FOREACH( FLAG ${COMPILER_FLAGS} )
++   ENDIF()
++ ENDFOREACH()
++ 
++-OPTION( USE_CXX11 "Use CXX Standard 2011" True )
++-IF( USE_CXX11 )
++-  SET( FLAG "-std=c++11" )
++-  CHECK_CXX_COMPILER_FLAG( ${FLAG} CXX_FLAG_WORKS_${FLAG} )
++-  IF( ${CXX_FLAG_WORKS_${FLAG}} )
++-    SET( CMAKE_CXX_FLAGS " ${FLAG} ${CMAKE_CXX_FLAGS}")
++-  ELSE()
++-    MESSAGE( FATAL_ERROR "Cannot add ${FLAG} to CMAKE_CXX_FLAGS, but c++11 was requested, check your compiler" )
++-  ENDIF()
++-ELSE()
++-  MESSAGE( STATUS "NOT building with CXX11 standard" )
++-ENDIF()

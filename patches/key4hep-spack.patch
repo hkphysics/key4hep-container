@@ -175,10 +175,18 @@ index 60cc4f3..0707d87 100644
  
      def url_for_version(self, version):
 diff --git a/packages/kaltest/package.py b/packages/kaltest/package.py
-index e73abff..a72cdc0 100644
+index e73abff..56d60b1 100644
 --- a/packages/kaltest/package.py
 +++ b/packages/kaltest/package.py
-@@ -32,8 +32,7 @@ class Kaltest(CMakePackage, Ilcsoftpackage):
+@@ -25,15 +25,14 @@ class Kaltest(CMakePackage, Ilcsoftpackage):
+     version('2.0',      sha256='46b02bbea72e44c4309faa7e6d419b7ae103845125c8e4e9f3de864cba766e58')
+ 
+     depends_on('ilcutil')
+-    depends_on('root')
++    depends_on('root +stdcxx=17')
+ 
+     patch("dict.patch")
+ 
      def cmake_args(self):
          args = []
          # C++ Standard
@@ -189,10 +197,16 @@ index e73abff..a72cdc0 100644
          return args
  
 diff --git a/packages/raida/package.py b/packages/raida/package.py
-index 27d70c0..fe9187f 100644
+index 27d70c0..726ee17 100644
 --- a/packages/raida/package.py
 +++ b/packages/raida/package.py
-@@ -25,7 +25,6 @@ class Raida(CMakePackage, Ilcsoftpackage):
+@@ -20,12 +20,11 @@ class Raida(CMakePackage, Ilcsoftpackage):
+ 
+ 
+     depends_on('ilcutil')
+-    depends_on("root")
++    depends_on("root +stdcxx=17")
+ 
      def cmake_args(self):
          args = []
          # C++ Standard

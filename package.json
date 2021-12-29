@@ -9,6 +9,9 @@
 	"run-incremental": "podman run -u user --rm --group-add wheel --group-add spack -v key4hep-container_home:/home -v key4hep-container_opt:/opt --tmpfs /tmp --tmpfs /run joequant/key4hep-container /usr/sbin/build-spack.sh key4hep-stack",
 	"run-incremental-nightly": "podman run -u user --rm --group-add wheel --group-add spack -v key4hep-container-nightly_home:/home -v key4hep-container-nightly_opt:/opt --tmpfs /tmp --tmpfs /run joequant/key4hep-container /usr/sbin/build-spack-nightly.sh key4hep-stack@nightly",
       	"run-incremental-clang": "podman run -u user --rm --group-add wheel --group-add spack -v key4hep-container-clang_home:/home -v key4hep-container-clang_opt:/opt --tmpfs /tmp --tmpfs /run joequant/key4hep-container /usr/sbin/build-spack-clang.sh key4hep-stack",
+	"gc": "podman run -u user --rm --group-add wheel --group-add spack -v key4hep-container_home:/home -v key4hep-container_opt:/opt --tmpfs /tmp --tmpfs /run joequant/key4hep-container spack gc",
+	"gc:nightly": "podman run -u user --rm --group-add wheel --group-add spack -v key4hep-container-nightly_home:/home -v key4hep-container-nightly_opt:/opt --tmpfs /tmp --tmpfs /run joequant/key4hep-container spack gc -y",
+      	"gc:clang": "podman run -u user --rm --group-add wheel --group-add spack -v key4hep-container-clang_home:/home -v key4hep-container-clang_opt:/opt --tmpfs /tmp --tmpfs /run joequant/key4hep-container spack gc -y",
 	"push" : "skopeo copy containers-storage:localhost/joequant/key4hep-container-stack:latest docker://joequant/key4hep-container-stack"
     }
 }

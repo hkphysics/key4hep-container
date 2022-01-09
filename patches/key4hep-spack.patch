@@ -265,3 +265,17 @@ index 5cd7c03..5899a29 100644
 +            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value,
 +            '-DCMAKE_CXX_FLAGS=-std=c++%s' % self.spec['root'].variants['cxxstd'].value
          ]
+diff --git a/packages/key4hep-stack/package.py b/packages/key4hep-stack/package.py
+index 8a4f87d..360a5b3 100644
+--- a/packages/key4hep-stack/package.py
++++ b/packages/key4hep-stack/package.py
+@@ -93,8 +93,7 @@ class Key4hepStack(BundlePackage, Key4hepPackage):
+     #######################################################
+     depends_on("madgraph5amc", when="+generators")
+     depends_on("herwig3", when="+generators")
+-    # todo: investigate build failure with newer versions
+-    depends_on("lhapdf@6.2.3", when="+generators")
++    depends_on("lhapdf", when="+generators")
+ 
+ 
+     ############################### ilcsoft ###############

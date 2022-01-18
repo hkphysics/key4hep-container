@@ -1356,35 +1356,3 @@ index 2ca4014449..0f01914b4f 100644
  
      def flag_handler(self, name, flags):
          if self.spec.satisfies('@3.1.2:') and name == 'cxxflags':
-diff --git a/var/spack/repos/builtin/packages/py-tomli/package.py b/var/spack/repos/builtin/packages/py-tomli/package.py
-index 53da838e9b..2dbe9e5e08 100644
---- a/var/spack/repos/builtin/packages/py-tomli/package.py
-+++ b/var/spack/repos/builtin/packages/py-tomli/package.py
-@@ -6,7 +6,7 @@
- from spack import *
- 
- 
--class PyTomli(PythonPackage):
-+class PyTomli(Package):
-     """Tomli is a Python library for parsing TOML.
- 
-     Tomli is fully compatible with TOML v1.0.0."""
-@@ -15,7 +15,18 @@ class PyTomli(PythonPackage):
-     url = "https://files.pythonhosted.org/packages/py3/t/tomli/tomli-1.2.2-py3-none-any.whl"
-     list_url = "https://pypi.org/simple/tomli/"
- 
-+    version('2.0.0', sha256='b5bde28da1fed24b9bd1d4d2b8cba62300bfb4ec9a6187a957e8ddb9434c5224', expand=False)
-     version('1.2.2', sha256='f04066f68f5554911363063a30b108d2b5a5b1a010aa8b6132af78489fe3aade', expand=False)
-     version('1.2.1', sha256='8dd0e9524d6f386271a36b41dbf6c57d8e32fd96fd22b6584679dc569d20899f', expand=False)
- 
-     depends_on('python@3.6:', type=('build', 'run'))
-+
-+    # TODO: uses cargo to download and build dozens of dependencies.
-+    # Need to figure out how to manage these with Spack once we have a
-+    # CargoPackage base class.
-+    depends_on('rust', type='build')
-+    depends_on('unwind')
-+
-+    def install(self, spec, prefix):
-+        cargo = which('cargo')
-+        cargo('install', '--root', prefix, '--path', '.')

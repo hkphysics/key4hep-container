@@ -161,19 +161,6 @@ index fecccca..f9bd841 100644
  
      def cmake_args(self):
          # install error if build_testing is on
-diff --git a/packages/larcontent/package.py b/packages/larcontent/package.py
-index 60cc4f3..0707d87 100644
---- a/packages/larcontent/package.py
-+++ b/packages/larcontent/package.py
-@@ -39,7 +39,7 @@ class Larcontent(CMakePackage):
-     def cmake_args(self):
-         args = [
-                 '-DCMAKE_MODULE_PATH=%s' % self.spec["pandorapfa"].prefix.cmakemodules,
--                "-DCMAKE_CXX_FLAGS=-std=c++17 -Wno-unused-private-field"]
-+                "-DCMAKE_CXX_FLAGS=-std=c++17 -Wno-unused-private-field -Wno-unused-but-set-variable"]
-         return args
- 
-     def url_for_version(self, version):
 --- a/packages/ilcutil/package.py
 +++ b/packages/ilcutil/package.py
 @@ -21,6 +21,8 @@ class Ilcutil(CMakePackage, Ilcsoftpackage):
@@ -253,18 +240,6 @@ index 0000000..0a4a34c
 +-ELSE()
 +-  MESSAGE( STATUS "NOT building with CXX11 standard" )
 +-ENDIF()
-diff --git a/packages/marlinpandora/package.py b/packages/marlinpandora/package.py
-index 5cd7c03..5899a29 100644
---- a/packages/marlinpandora/package.py
-+++ b/packages/marlinpandora/package.py
-@@ -32,5 +32,6 @@ class Marlinpandora(CMakePackage, Ilcsoftpackage):
- 
-     def cmake_args(self):
-         return [
--            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value
-+            '-DCMAKE_CXX_STANDARD=%s' % self.spec['root'].variants['cxxstd'].value,
-+            '-DCMAKE_CXX_FLAGS=-std=c++%s' % self.spec['root'].variants['cxxstd'].value
-         ]
 diff --git a/packages/key4hep-stack/package.py b/packages/key4hep-stack/package.py
 index 8a4f87d..360a5b3 100644
 --- a/packages/key4hep-stack/package.py

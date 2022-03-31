@@ -116,17 +116,3 @@ index 85e9c26de0..5f0062fe47 100644
  
          if '+cuda' in self.spec and 'cuda_arch=none' not in self.spec:
              args.append(self.define(
-diff --git a/var/spack/repos/builtin/packages/rivet/package.py b/var/spack/repos/builtin/packages/rivet/package.py
-index 2ca4014449..0f01914b4f 100644
---- a/var/spack/repos/builtin/packages/rivet/package.py
-+++ b/var/spack/repos/builtin/packages/rivet/package.py
-@@ -155,7 +155,9 @@ def setup_build_environment(self, env):
-         # this avoids an "import site" error in the build
-         env.unset('PYTHONHOME')
-         fjcontrib_home = self.spec['fjcontrib'].prefix
-+        fastjet_home = self.spec['fastjet'].prefix
-         env.prepend_path('LD_LIBRARY_PATH', fjcontrib_home.lib)
-+        env.prepend_path('LD_LIBRARY_PATH', fastjet_home.lib)
- 
-     def flag_handler(self, name, flags):
-         if self.spec.satisfies('@3.1.2:') and name == 'cxxflags':

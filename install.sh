@@ -41,7 +41,8 @@ dnf --installroot="$rootfsDir" \
     vim \
     bash \
     compiler-rt \
-    distcc
+    distcc \
+    xz
 
 #rpm --rebuilddb --root $rootfsDir
 pushd $rootfsDir

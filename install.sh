@@ -42,7 +42,8 @@ dnf --installroot="$rootfsDir" \
     bash \
     compiler-rt \
     distcc \
-    xz
+    xz \
+    python-devel
 
 #rpm --rebuilddb --root $rootfsDir
 pushd $rootfsDir

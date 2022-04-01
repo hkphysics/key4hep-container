@@ -110,6 +110,8 @@ chmod 0755 $rootfsDir/usr/sbin/*.sh
 buildah run $container -- chown user:user -R /home/user/.spack
 buildah run $container -- sudo -u user spack repo add /var/spack/repos/key4hep-spack
 buildah run $container --  update-distcc-symlinks
+#bootstrap clingo
+buildah run $container -- pip install clingo
 
 buildah config --user "user" $container
 buildah config --cmd "/bin/sh" $container

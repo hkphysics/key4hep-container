@@ -142,12 +142,15 @@ index b003baa255..fe80a25f5b 100644
      version('10.2',   sha256='b33ad58d687487a821ec8d878daab0f716be60d0936f2e3ac5cf08419ce70350')
      version('10.1',   sha256='f12f388b99e1408c01308c3f753313fafa45517740c81ab7ed0d511b13e2cf55')
 diff --git a/var/spack/repos/builtin/packages/davix/package.py b/var/spack/repos/builtin/packages/davix/package.py
-index e6750919f2..873bc25004 100644
+index e6750919f2..0a470904e5 100644
 --- a/var/spack/repos/builtin/packages/davix/package.py
 +++ b/var/spack/repos/builtin/packages/davix/package.py
-@@ -12,6 +12,8 @@ class Davix(CMakePackage):
+@@ -10,8 +10,10 @@ class Davix(CMakePackage):
+     """High-performance file management over WebDAV/HTTP."""
+ 
      homepage = "https://davix.web.cern.ch/davix/docs/devel/index.html"
-     url      = "https://github.com/cern-fts/davix/releases/download/R_0_8_1/davix-0.8.1.tar.gz"
+-    url      = "https://github.com/cern-fts/davix/releases/download/R_0_7_6/davix-0.7.6.tar.gz"
++    url      = "https://github.com/cern-fts/davix/releases/download/R_0_8_1/davix-0.8.1.tar.gz"
  
 +    version('0.8.1', sha256='3f42f4eadaf560ab80984535ffa096d3e88287d631960b2193e84cf29a5fe3a6')
 +    version('0.8.0', sha256='2f108da0408a83fb5b9f0c68150d360ba733e4b3a0fe298d45b0d32d28ab7124')

@@ -122,16 +122,17 @@ index e6750919f2..0a470904e5 100644
      version('0.7.5', sha256='d920ca976846875d83af4dc50c99280bb3741fcf8351d5733453e70fa5fe6fc8')
      version('0.7.3', sha256='cd46276e72c6a0da1e2ad30eb66ec509a4c023687767c62a66713fa8c23d328a')
 diff --git a/var/spack/repos/builtin/packages/root/package.py b/var/spack/repos/builtin/packages/root/package.py
-index 324fc979b3..94d727f7a2 100644
+index 324fc979b3..e55aac1349 100644
 --- a/var/spack/repos/builtin/packages/root/package.py
 +++ b/var/spack/repos/builtin/packages/root/package.py
-@@ -80,6 +80,10 @@ class Root(CMakePackage):
+@@ -80,6 +80,11 @@ class Root(CMakePackage):
      # https://github.com/root-project/ROOT/commit/e0ae0483985d90a71a6cabd10d3622dfd1c15611.
      patch('root7-webgui.patch', level=1, when='@6.16.00')
  
 +    # gcc12
 +    patch('root-fix-compilation-with-gcc-12.patch', when='@6.26.00%gcc@12')
 +    patch('root-fix-test-failure-on-ppc64le-and-aarch64-with-gcc-12.patch', when='@6.26.00%gcc@12')
++    patch('root-missing-include.patch', when='@6.26.00')
 +
      if sys.platform == 'darwin':
          # Resolve non-standard use of uint, _cf_
@@ -253,4 +254,42 @@ index 0000000000..007c3cd8a5
 + 
 +-- 
 +2.34.1
++
+diff --git a/var/spack/repos/builtin/packages/root/root-missing-include.patch b/var/spack/repos/builtin/packages/root/root-missing-include.patch
+new file mode 100644
+index 0000000000..8c6bc176f8
+--- /dev/null
++++ b/var/spack/repos/builtin/packages/root/root-missing-include.patch
+@@ -0,0 +1,32 @@
++From 235e446b0ac14170e49c15d5725fbe6dd315351f Mon Sep 17 00:00:00 2001
++From: Mattias Ellert <mattias.ellert@physics.uu.se>
++Date: Tue, 15 Mar 2022 09:08:39 +0100
++Subject: [PATCH] Add #include <cstring> for std::memcpy
++
++In file included from /builddir/build/BUILD/root-6.26.00/tmva/sofie/inc/TMVA/RModel.hxx:14,
++                 from /builddir/build/BUILD/root-6.26.00/tmva/sofie/src/RModel.cxx:3:
++/builddir/build/BUILD/root-6.26.00/tmva/sofie/inc/TMVA/SOFIE_common.hxx: In member function 'void TMVA::Experimental::SOFIE::InitializedTensor::CastPersistentToShared()':
++/builddir/build/BUILD/root-6.26.00/tmva/sofie/inc/TMVA/SOFIE_common.hxx:75:12: error: 'memcpy' is not a member of 'std'; did you mean 'wmemcpy'?
++   75 |       std::memcpy(tData.get(), fPersistentData,fSize * sizeof(float));
++      |            ^~~~~~
++      |            wmemcpy
++gmake[2]: *** [tmva/sofie/CMakeFiles/ROOTTMVASofie.dir/build.make:79: tmva/sofie/CMakeFiles/ROOTTMVASofie.dir/src/RModel.cxx.o] Error 1
++---
++ tmva/sofie/inc/TMVA/SOFIE_common.hxx | 1 +
++ 1 file changed, 1 insertion(+)
++
++diff --git a/tmva/sofie/inc/TMVA/SOFIE_common.hxx b/tmva/sofie/inc/TMVA/SOFIE_common.hxx
++index a663855004..7876727eef 100644
++--- a/tmva/sofie/inc/TMVA/SOFIE_common.hxx
+++++ b/tmva/sofie/inc/TMVA/SOFIE_common.hxx
++@@ -6,6 +6,7 @@
++ 
++ #include <type_traits>
++ #include <cstdint>
+++#include <cstring>
++ #include <string>
++ #include <vector>
++ #include <memory>
++-- 
++2.35.1
 +

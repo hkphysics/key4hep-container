@@ -302,3 +302,24 @@ index a3bbf3dcc0..9ade299813 100644
      version('1.5.1', sha256='c0357c62223fefcfc7a7565389dbd4db900623bf10eccf2bc8e87586ec59b38d')
      version('1.4.0', sha256='25ae6114d5962c717cb87e3bc30a2f6eaa232b252cf8c51ba805b8f04664ae0d')
      version('1.3.0', sha256='b6021694adec9813842bad1987b837e439dabaf5b0dff9041201d238fca71fb4')
+diff --git a/packages/fccanalyses/package.py b/packages/fccanalyses/package.py
+index efdc97e..b9305e3 100644
+--- a/packages/fccanalyses/package.py
++++ b/packages/fccanalyses/package.py
+@@ -21,7 +21,7 @@ class Fccanalyses(CMakePackage, Key4hepPackage):
+     depends_on("fastjet")
+     depends_on('python')
+     depends_on('edm4hep')
+-    depends_on('py-awkward')
++    depends_on('py-awkward@1.8.0:')
+     depends_on('fcc-edm', when="@:0.2.9")
+     depends_on('acts@5.00.0', when="@0.3.0:")
+     depends_on('eigen', when="@0.3.0:")
+@@ -34,6 +34,7 @@ class Fccanalyses(CMakePackage, Key4hepPackage):
+       spack_env.prepend_path('CPATH', self.spec['fastjet'].prefix.include)
+       spack_env.prepend_path('CPATH', self.spec['acts'].prefix.include)
+       spack_env.prepend_path('CPATH', self.spec['eigen'].prefix.include)
++      spack_env.prepend_path('CPATH', self.spec['py-awkward'].prefix.include)
+ 
+     def setup_run_environment(self, spack_env):
+       spack_env.prepend_path('ROOT_INCLUDE_PATH', self.prefix.include.FCCAnalyses)

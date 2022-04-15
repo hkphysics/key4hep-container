@@ -290,7 +290,7 @@ index b003baa255..4f67a77280 100644
      depends_on('texinfo', type='build')
  
 diff --git a/var/spack/repos/builtin/packages/py-awkward/package.py b/var/spack/repos/builtin/packages/py-awkward/package.py
-index a3bbf3dcc0..0a5d4b58e2 100644
+index a3bbf3dcc0..6ae4ca2d6d 100644
 --- a/var/spack/repos/builtin/packages/py-awkward/package.py
 +++ b/var/spack/repos/builtin/packages/py-awkward/package.py
 @@ -15,6 +15,8 @@ class PyAwkward(PythonPackage):
@@ -302,3 +302,47 @@ index a3bbf3dcc0..0a5d4b58e2 100644
      version('1.5.1', sha256='c0357c62223fefcfc7a7565389dbd4db900623bf10eccf2bc8e87586ec59b38d')
      version('1.4.0', sha256='25ae6114d5962c717cb87e3bc30a2f6eaa232b252cf8c51ba805b8f04664ae0d')
      version('1.3.0', sha256='b6021694adec9813842bad1987b837e439dabaf5b0dff9041201d238fca71fb4')
+@@ -25,6 +27,7 @@ class PyAwkward(PythonPackage):
+ 
+     patch('pybind11.patch', when="@:1.2.2")
+     patch('pybind11_02.patch', when="@1.2.3:")
++    patch('pydebug.patch', when="@1.5.1:")
+ 
+     depends_on('py-setuptools', type='build')
+     depends_on('py-pyyaml', type='build')
+diff --git a/var/spack/repos/builtin/packages/py-awkward/pydebug.patch b/var/spack/repos/builtin/packages/py-awkward/pydebug.patch
+new file mode 100644
+index 0000000000..97e487ec31
+--- /dev/null
++++ b/var/spack/repos/builtin/packages/py-awkward/pydebug.patch
+@@ -0,0 +1,30 @@
++diff --git a/setup.py b/setup.py
++index e591c85..d4284cb 100644
++--- a/setup.py
+++++ b/setup.py
++@@ -177,10 +177,11 @@ class Install(setuptools.command.install.install):
++         outerdir = os.path.join(
++             os.path.join(
++                 "build",
++-                "lib.{}-{}.{}".format(
+++                "lib.{}-{}.{}{}".format(
++                     get_platform(),
++                     sys.version_info[0],
++                     sys.version_info[1],
+++                    'd' in sys.abiflags ? "-pydebug" : ""
++                 ),
++             )
++         )
++@@ -261,10 +262,11 @@ class Install(setuptools.command.install.install):
++         outerdir = os.path.join(
++             os.path.join(
++                 "build",
++-                "lib.{}-{}.{}".format(
+++                "lib.{}-{}.{}{}".format(
++                     get_platform(),
++                     sys.version_info[0],
++                     sys.version_info[1],
+++                    'd' in sys.abiflags ? "-pydebug" : ""
++                 ),
++             )
++         )

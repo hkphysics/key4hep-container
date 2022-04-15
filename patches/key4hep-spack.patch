@@ -104,15 +104,6 @@ diff --git a/packages/fccanalyses/package.py b/packages/fccanalyses/package.py
 index efdc97e..b9305e3 100644
 --- a/packages/fccanalyses/package.py
 +++ b/packages/fccanalyses/package.py
-@@ -21,7 +21,7 @@ class Fccanalyses(CMakePackage, Key4hepPackage):
-     depends_on("fastjet")
-     depends_on('python')
-     depends_on('edm4hep')
--    depends_on('py-awkward@1.4.0')
-+    depends_on('py-awkward@1.8.0:')
-     depends_on('fcc-edm', when="@:0.2.9")
-     depends_on('acts@5.00.0', when="@0.3.0:")
-     depends_on('eigen', when="@0.3.0:")
 @@ -34,6 +34,7 @@ class Fccanalyses(CMakePackage, Key4hepPackage):
        spack_env.prepend_path('CPATH', self.spec['fastjet'].prefix.include)
        spack_env.prepend_path('CPATH', self.spec['acts'].prefix.include)

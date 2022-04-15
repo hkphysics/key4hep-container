@@ -293,15 +293,6 @@ diff --git a/var/spack/repos/builtin/packages/py-awkward/package.py b/var/spack/
 index a3bbf3dcc0..6ae4ca2d6d 100644
 --- a/var/spack/repos/builtin/packages/py-awkward/package.py
 +++ b/var/spack/repos/builtin/packages/py-awkward/package.py
-@@ -15,6 +15,8 @@ class PyAwkward(PythonPackage):
- 
-     maintainers = ['vvolkl']
- 
-+    version('1.8.0', sha256='6655fa22d1b1d1dcb9ccee0d502350ab90c53467a10b540b7624422b594d2e72')
-+    version('1.7.0', sha256='e4e642dfe496d2acb245c90e37dc18028e25d5e936421e7371ea6ba0fde6435a')
-     version('1.5.1', sha256='c0357c62223fefcfc7a7565389dbd4db900623bf10eccf2bc8e87586ec59b38d')
-     version('1.4.0', sha256='25ae6114d5962c717cb87e3bc30a2f6eaa232b252cf8c51ba805b8f04664ae0d')
-     version('1.3.0', sha256='b6021694adec9813842bad1987b837e439dabaf5b0dff9041201d238fca71fb4')
 @@ -25,6 +27,7 @@ class PyAwkward(PythonPackage):
  
      patch('pybind11.patch', when="@:1.2.2")

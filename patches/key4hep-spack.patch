@@ -112,3 +112,36 @@ index efdc97e..b9305e3 100644
  
      def setup_run_environment(self, spack_env):
        spack_env.prepend_path('ROOT_INCLUDE_PATH', self.prefix.include.FCCAnalyses)
+diff --git a/packages/dual-readout/clang.patch b/packages/dual-readout/clang.patch
+new file mode 100644
+index 0000000..ee45f4c
+--- /dev/null
++++ b/packages/dual-readout/clang.patch
+@@ -0,0 +1,13 @@
++diff --git a/DRreco/src/DRcalib3D.cpp b/DRreco/src/DRcalib3D.cpp
++index 4007386..625aa89 100644
++--- a/DRreco/src/DRcalib3D.cpp
+++++ b/DRreco/src/DRcalib3D.cpp
++@@ -93,7 +93,7 @@ StatusCode DRcalib3D::execute() {
++     double scale = pSeg->IsCerenkov(cID) ? m_cherenScale.value() : m_scintScale.value();
++ 
++     // create a histogram to do FFT and fill it
++-    std::unique_ptr<TH1D> waveHist = std::make_unique<TH1D>("waveHist","waveHist",m_nbins,m_gateStart,m_gateStart+m_gateL);
+++    std::unique_ptr<TH1D> waveHist = std::make_unique<TH1D>("waveHist","waveHist",m_nbins,m_gateStart,m_gateStart.operator+(m_gateL));
++ 
++     for (unsigned int bin = 0; bin < waveform.centers_size(); bin++) {
++       float timeBin = waveform.getCenters(bin);
+diff --git a/packages/dual-readout/package.py b/packages/dual-readout/package.py
+index 4514ef0..8311121 100644
+--- a/packages/dual-readout/package.py
++++ b/packages/dual-readout/package.py
+@@ -35,6 +35,9 @@ class DualReadout(CMakePackage, Key4hepPackage):
+     depends_on('k4fwcore@1.0pre14:', when='@0.1.0:')
+     depends_on('simsipm', when='@0.1.0:')
+ 
++    # fix ambiguous issue on clang
++    # https://stackoverflow.com/questions/40221969/overloaded-operator-ambiguity-on-clang-but-not-on-gcc-which-one-is-correct
++    patch('clang.patch')
+     def cmake_args(self):
+         args = []
+         # C++ Standard

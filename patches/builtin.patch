@@ -342,7 +342,7 @@ new file mode 100644
 index 0000000000..69cc7eb932
 --- /dev/null
 +++ b/var/spack/repos/builtin/packages/prmon/cmake.patch
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,13 @@
 +diff --git a/CMakeLists.txt b/CMakeLists.txt
 +index b67b75e..1290c36 100644
 +--- a/CMakeLists.txt
@@ -353,6 +353,7 @@ index 0000000000..69cc7eb932
 + include(cmake/python-format.cmake)
 ++
 ++#--- spdlog
+++cmake_policy(SET CMP0079 NEW)
 ++find_package(spdlog REQUIRED)
 ++target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE spdlog::spdlog)
 diff --git a/var/spack/repos/builtin/packages/prmon/package.py b/var/spack/repos/builtin/packages/prmon/package.py

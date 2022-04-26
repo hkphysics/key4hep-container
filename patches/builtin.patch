@@ -289,54 +289,6 @@ index b003baa255..4f67a77280 100644
      # Required dependency
      depends_on('texinfo', type='build')
  
-diff --git a/var/spack/repos/builtin/packages/py-awkward/package.py b/var/spack/repos/builtin/packages/py-awkward/package.py
-index a3bbf3dcc0..6ae4ca2d6d 100644
---- a/var/spack/repos/builtin/packages/py-awkward/package.py
-+++ b/var/spack/repos/builtin/packages/py-awkward/package.py
-@@ -25,6 +27,7 @@ class PyAwkward(PythonPackage):
- 
-     patch('pybind11.patch', when="@:1.2.2")
-     patch('pybind11_02.patch', when="@1.2.3:")
-+    patch('pydebug.patch', when="@1.5.1:")
- 
-     depends_on('py-setuptools', type='build')
-     depends_on('py-pyyaml', type='build')
-diff --git a/var/spack/repos/builtin/packages/py-awkward/pydebug.patch b/var/spack/repos/builtin/packages/py-awkward/pydebug.patch
-new file mode 100644
-index 0000000000..97e487ec31
---- /dev/null
-+++ b/var/spack/repos/builtin/packages/py-awkward/pydebug.patch
-@@ -0,0 +1,30 @@
-+diff --git a/setup.py b/setup.py
-+index e591c85..d4284cb 100644
-+--- a/setup.py
-++++ b/setup.py
-+@@ -177,10 +177,11 @@ class Install(setuptools.command.install.install):
-+         outerdir = os.path.join(
-+             os.path.join(
-+                 "build",
-+-                "lib.{}-{}.{}".format(
-++                "lib.{}-{}.{}{}".format(
-+                     get_platform(),
-+                     sys.version_info[0],
-+                     sys.version_info[1],
-++                    "-pydebug" if 'd' in sys.abiflags else ""
-+                 ),
-+             )
-+         )
-+@@ -261,10 +262,11 @@ class Install(setuptools.command.install.install):
-+         outerdir = os.path.join(
-+             os.path.join(
-+                 "build",
-+-                "lib.{}-{}.{}".format(
-++                "lib.{}-{}.{}{}".format(
-+                     get_platform(),
-+                     sys.version_info[0],
-+                     sys.version_info[1],
-++                    "-pydebug" if 'd' in sys.abiflags else ""
-+                 ),
-+             )
-+         )
 diff --git a/var/spack/repos/builtin/packages/prmon/cmake.patch b/var/spack/repos/builtin/packages/prmon/cmake.patch
 index 69cc7eb932..f276d0ce85 100644
 --- a/var/spack/repos/builtin/packages/prmon/cmake.patch

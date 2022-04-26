@@ -289,26 +289,34 @@ index b003baa255..4f67a77280 100644
      # Required dependency
      depends_on('texinfo', type='build')
  
+diff --git a/var/spack/repos/builtin/packages/prmon/package.py b/var/spack/repos/builtin/packages/prmon/package.py
+index 52cc3f3c05..2f5de10f82 100644
+--- a/var/spack/repos/builtin/packages/prmon/package.py
++++ b/var/spack/repos/builtin/packages/prmon/package.py
+@@ -32,6 +32,8 @@ class Prmon(CMakePackage):
+     depends_on('py-matplotlib', type="run", when="+plot")
+     depends_on('spdlog', when='@3.0.0:')
+ 
++    patch('cmake.patch')
++
+     def cmake_args(self):
+         args = [
+             # googletest is fetched and built on the fly
 diff --git a/var/spack/repos/builtin/packages/prmon/cmake.patch b/var/spack/repos/builtin/packages/prmon/cmake.patch
 new file mode 100644
-index 0000000000..f276d0ce85
+index 0000000000..ceadc9be57
 --- /dev/null
 +++ b/var/spack/repos/builtin/packages/prmon/cmake.patch
-@@ -0,0 +1,14 @@
+@@ -0,0 +1,9 @@
 +diff --git a/CMakeLists.txt b/CMakeLists.txt
-+index b67b75e..0f7169a 100644
++index b67b75e..08a0c29 100644
 +--- a/CMakeLists.txt
 ++++ b/CMakeLists.txt
-+@@ -68,7 +68,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
-+ set(CMAKE_CXX_EXTENSIONS OFF)
-+ 
-+ # Set the compiler to be more picky
-+-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -pedantic -Werror")
-++# Require flags for SPDLOG
-++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSPDLOG_FMT_EXTERNAL -Wall -Wno-long-long -pedantic -Werror")
-+ string(REGEX MATCH "^arm" ARM_PROCESSOR ${CMAKE_HOST_SYSTEM_PROCESSOR})
-+ if("${ARM_PROCESSOR}" STREQUAL "arm")
-+   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-psabi")
++@@ -114,3 +114,4 @@ include(cmake/prmonUninstall.cmake)
++ #--- code format targets -------------------------------------------------------
++ include(cmake/clang-format.cmake)
++ include(cmake/python-format.cmake)
+++include(cmake/spdlog/spdlogConfig.cmake)
 diff --git a/var/spack/repos/builtin/packages/prmon/package.py b/var/spack/repos/builtin/packages/prmon/package.py
 index 52cc3f3c05..2f5de10f82 100644
 --- a/var/spack/repos/builtin/packages/prmon/package.py

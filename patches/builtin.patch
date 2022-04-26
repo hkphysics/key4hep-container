@@ -317,16 +317,3 @@ index 0000000000..ceadc9be57
 + include(cmake/clang-format.cmake)
 + include(cmake/python-format.cmake)
 ++include(cmake/spdlog/spdlogConfig.cmake)
-diff --git a/var/spack/repos/builtin/packages/prmon/package.py b/var/spack/repos/builtin/packages/prmon/package.py
-index 52cc3f3c05..2f5de10f82 100644
---- a/var/spack/repos/builtin/packages/prmon/package.py
-+++ b/var/spack/repos/builtin/packages/prmon/package.py
-@@ -32,6 +32,8 @@ class Prmon(CMakePackage):
-     depends_on('py-matplotlib', type="run", when="+plot")
-     depends_on('spdlog', when='@3.0.0:')
- 
-+    patch('cmake.patch')
-+
-     def cmake_args(self):
-         args = [
-             # googletest is fetched and built on the fly

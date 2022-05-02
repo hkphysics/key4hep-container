@@ -329,3 +329,50 @@ index bce3c766a4..24e3fafd2e 100644
                  # tests and examples
                  self.define('SPDLOG_BUILD_TESTS', self.run_tests),
                  self.define('SPDLOG_BUILD_EXAMPLE', self.run_tests),
+commit 330d70093a38af42a6dde9b5464c5feaf2af4882
+Author: Joseph C Wang <joequant@gmail.com>
+Date:   Tue Apr 26 00:09:02 2022 +0800
+
+    change ofstream to fix deprecated boost::filesystem
+
+diff --git a/var/spack/repos/builtin/packages/gaudi/package.py b/var/spack/repos/builtin/packages/gaudi/package.py
+index 43716f4a03..b64597c98c 100644
+--- a/var/spack/repos/builtin/packages/gaudi/package.py
++++ b/var/spack/repos/builtin/packages/gaudi/package.py
+@@ -45,6 +45,8 @@ class Gaudi(CMakePackage):
+     # fixes for the cmake config which could not find newer boost versions
+     patch("link_target_fixes.patch", when="@33.0:34")
+     patch("link_target_fixes32.patch", when="@:32.2")
++    # remove use std::ofstream instead of deprecated boost::filesystem
++    patch("rm-boost-ofstream.patch", when="@34:")
+ 
+     # These dependencies are needed for a minimal Gaudi build
+     depends_on('aida')
+diff --git a/var/spack/repos/builtin/packages/gaudi/rm-boost-ofstream.patch b/var/spack/repos/builtin/packages/gaudi/rm-boost-ofstream.patch
+new file mode 100644
+index 0000000000..35b63ee9b6
+--- /dev/null
++++ b/var/spack/repos/builtin/packages/gaudi/rm-boost-ofstream.patch
+@@ -0,0 +1,22 @@
++diff --git a/GaudiHive/src/PRGraph/PrecedenceRulesGraph.cpp b/GaudiHive/src/PRGraph/PrecedenceRulesGraph.cpp
++index 0f013d0b6..97d5e135c 100644
++--- a/GaudiHive/src/PRGraph/PrecedenceRulesGraph.cpp
+++++ b/GaudiHive/src/PRGraph/PrecedenceRulesGraph.cpp
++@@ -629,7 +629,7 @@ namespace concurrency {
++   //---------------------------------------------------------------------------
++ 
++   void PrecedenceRulesGraph::dumpPrecRules( const boost::filesystem::path& fileName, const EventSlot& slot ) {
++-    boost::filesystem::ofstream myfile;
+++    std::ofstream myfile;
++     myfile.open( fileName, std::ios::app );
++ 
++     // Declare properties to dump
++@@ -670,7 +670,7 @@ namespace concurrency {
++ 
++   //---------------------------------------------------------------------------
++   void PrecedenceRulesGraph::dumpPrecTrace( const boost::filesystem::path& fileName, const EventSlot& slot ) {
++-    boost::filesystem::ofstream myfile;
+++    std::ofstream myfile;
++     myfile.open( fileName, std::ios::app );
++ 
++     // Fill runtimes (as this could not be done on the fly during trace assembling)

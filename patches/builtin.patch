@@ -317,3 +317,15 @@ index 0000000000..ceadc9be57
 + include(cmake/clang-format.cmake)
 + include(cmake/python-format.cmake)
 ++include(cmake/spdlog/spdlogConfig.cmake)
+diff --git a/var/spack/repos/builtin/packages/spdlog/package.py b/var/spack/repos/builtin/packages/spdlog/package.py
+index bce3c766a4..24e3fafd2e 100644
+--- a/var/spack/repos/builtin/packages/spdlog/package.py
++++ b/var/spack/repos/builtin/packages/spdlog/package.py
+@@ -60,6 +60,7 @@ def cmake_args(self):
+             args.extend([
+                 self.define_from_variant('SPDLOG_BUILD_SHARED', 'shared'),
+                 self.define('SPDLOG_FMT_EXTERNAL', 'ON'),
++                self.define('SPDLOG_MASTER_PROJECT', 'ON')
+                 # tests and examples
+                 self.define('SPDLOG_BUILD_TESTS', self.run_tests),
+                 self.define('SPDLOG_BUILD_EXAMPLE', self.run_tests),

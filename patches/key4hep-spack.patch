@@ -100,18 +100,6 @@ index 0000000..0a4a34c
 +-ELSE()
 +-  MESSAGE( STATUS "NOT building with CXX11 standard" )
 +-ENDIF()
-diff --git a/packages/fccanalyses/package.py b/packages/fccanalyses/package.py
-index efdc97e..b9305e3 100644
---- a/packages/fccanalyses/package.py
-+++ b/packages/fccanalyses/package.py
-@@ -34,6 +34,7 @@ class Fccanalyses(CMakePackage, Key4hepPackage):
-       spack_env.prepend_path('CPATH', self.spec['fastjet'].prefix.include)
-       spack_env.prepend_path('CPATH', self.spec['acts'].prefix.include)
-       spack_env.prepend_path('CPATH', self.spec['eigen'].prefix.include)
-+      spack_env.prepend_path('CPATH', self.spec['py-awkward'].prefix.include)
- 
-     def setup_run_environment(self, spack_env):
-       spack_env.prepend_path('ROOT_INCLUDE_PATH', self.prefix.include.FCCAnalyses)
 diff --git a/packages/dual-readout/clang.patch b/packages/dual-readout/clang.patch
 new file mode 100644
 index 0000000..ee45f4c

@@ -382,3 +382,18 @@ index 91a6f6ff08..beaca8066c 100644
      # Required dependency
      depends_on('texinfo', type='build')
  
+diff --git a/var/spack/repos/builtin/packages/pigz/package.py b/var/spack/repos/builtin/packages/pigz/package.py
+index 2252a90fbc..ed2eecce0e 100644
+--- a/var/spack/repos/builtin/packages/pigz/package.py
++++ b/var/spack/repos/builtin/packages/pigz/package.py
+@@ -21,7 +21,9 @@ class Pigz(MakefilePackage):
+     depends_on('zlib')
+ 
+     def build(self, spec, prefix):
+-        make()
++        # force makefile to use cc as C compiler which is set by
++        # spack
++        make('CC=cc')
+ 
+     def install(self, spec, prefix):
+         mkdirp(prefix.bin)

@@ -265,6 +265,22 @@ index 0000000000..8c6bc176f8
 +-- 
 +2.35.1
 +
+diff --git a/var/spack/repos/builtin/packages/gdb/package.py b/var/spack/repos/builtin/packages/gdb/package.py
+index b003baa255..4f67a77280 100644
+--- a/var/spack/repos/builtin/packages/gdb/package.py
++++ b/var/spack/repos/builtin/packages/gdb/package.py
+@@ -62,6 +63,11 @@ class Gdb(AutotoolsPackage, GNUMirrorPackage):
+     # https://sourceware.org/pipermail/gdb-patches/2021-February/176622.html
+     patch('importlib.patch', when="@8.3.1:10.2 ^python@3.4:")
+ 
++    # patch to use decltype instead of typeof
++    patch('https://sourceware.org/git/?p=binutils-gdb.git;a=patch;h=56d9e3c5623d9ebaffb4532a503e67203e4d5488',
++          sha256='cf92f23bacb4ac8ce6e1e1c08590050c5b7ed30ca46d148c631da49a202cf965',
++          when='@11.1:11.2')
++
+     # Required dependency
+     depends_on('texinfo', type='build')
+ 
 diff --git a/var/spack/repos/builtin/packages/prmon/package.py b/var/spack/repos/builtin/packages/prmon/package.py
 index 52cc3f3c05..2f5de10f82 100644
 --- a/var/spack/repos/builtin/packages/prmon/package.py

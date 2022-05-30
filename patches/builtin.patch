@@ -383,80 +383,100 @@ index 91a6f6ff08..beaca8066c 100644
      depends_on('texinfo', type='build')
  
 diff --git a/lib/spack/env/cc b/lib/spack/env/cc
-index 6ce60a87305d..f20de8d174ae 100755
+index 6ce60a87305d..be01c99245b7 100755
 --- a/lib/spack/env/cc
 +++ b/lib/spack/env/cc
-@@ -244,6 +244,7 @@ case "$command" in
-     cc|c89|c99|gcc|clang|armclang|icc|icx|pgcc|nvc|xlc|xlc_r|fcc|amdclang|cl.exe)
-         command="$SPACK_CC"
-         language="C"
-+        suffix=".c"
-         comp="CC"
-         lang_flags=C
-         debug_flags="-g"
-@@ -251,6 +252,7 @@ case "$command" in
-     c++|CC|g++|clang++|armclang++|icpc|icpx|dpcpp|pgc++|nvc++|xlc++|xlc++_r|FCC|amdclang++)
-         command="$SPACK_CXX"
-         language="C++"
-+        suffix=".cxx"
-         comp="CXX"
-         lang_flags=CXX
-         debug_flags="-g"
-@@ -258,6 +260,7 @@ case "$command" in
-     ftn|f90|fc|f95|gfortran|flang|armflang|ifort|ifx|pgfortran|nvfortran|xlf90|xlf90_r|nagfor|frt|amdflang)
-         command="$SPACK_FC"
-         language="Fortran 90"
-+        suffix=".f90"
-         comp="FC"
-         lang_flags=F
-         debug_flags="-g"
-@@ -265,6 +268,7 @@ case "$command" in
-     f77|xlf|xlf_r|pgf77|amdflang)
-         command="$SPACK_F77"
-         language="Fortran 77"
-+        suffix=".f"
-         comp="F77"
-         lang_flags=F
-         debug_flags="-g"
-@@ -428,6 +432,7 @@ isystem_include_dirs_list=""
- libs_list=""
- other_args_list=""
- 
-+removed_flags_list=""
- 
- while [ $# -ne 0 ]; do
- 
-@@ -454,9 +459,11 @@ while [ $# -ne 0 ]; do
+@@ -453,15 +453,33 @@ while [ $# -ne 0 ]; do
+         esac
          "
      fi
-     if [ -n "${SPACK_COMPILER_FLAGS_REMOVE}" ] ; then
-+        found_removal=''
-         eval "\
-         case '$1' in
-             $SPACK_COMPILER_FLAGS_REMOVE)
-+                append removed_flags_list "$1"
-                 shift
+-    if [ -n "${SPACK_COMPILER_FLAGS_REMOVE}" ] ; then
+-        eval "\
+-        case '$1' in
+-            $SPACK_COMPILER_FLAGS_REMOVE)
+-                shift
++    # the replace list is a space-separated list of pipe-separated pairs,
++    # the first in each pair is the original prefix to be matched, the
++    # second is the replacement prefix
++    if [ -n "${SPACK_COMPILER_FLAGS_REPLACE}" ] ; then
++        for rep in ${SPACK_COMPILER_FLAGS_REPLACE} ; do
++            before=${rep%|*}
++            after=${rep#*|}
++            eval "\
++            stripped=\${1##$before}
++            "
++            if [ "$stripped" = "$1" ] ; then
                  continue
-                 ;;
-@@ -591,6 +598,21 @@ while [ $# -ne 0 ]; do
-     shift
- done
- 
-+if [ -n $removed_flags_list ] ; then
-+    # flag have been removed, ensure tool can run with these flags to
-+    # preserve configuration checks
-+    case "$mode" in
-+        cc|ccld)
-+            tmpfile=$(mktemp /tmp/spack-cc-test.XXXXXX$suffix)
-+            IFS="$lsep"; $command $removed_flags_list -Werror -E $tmpfile 2>&1 > /dev/null
-+            res=$?
-+            rm -f "$tmpfile"
-+            if [ $res -ne 0 ] ; then
-+                exit $res
+-                ;;
+-        esac
+-        "
 +            fi
-+    esac
-+fi
 +
- #
- # Add flags from Spack's cppflags, cflags, cxxflags, fcflags, fflags, and
- # ldflags. We stick to the order that gmake puts the flags in by default.
++            replaced="$after$stripped" 
++
++            # it matched, remove it
++            shift
++
++            if [ -z "$replaced" ] ; then
++                # completely removed, continue OUTER loop
++                continue 2
++            fi
++
++            # re-build argument list with replacement
++            set -- "$replaced" "$@"
++        done
+     fi
+ 
+     case "$1" in
+diff --git a/lib/spack/spack/build_environment.py b/lib/spack/spack/build_environment.py
+index c21514091d8f..aaf7fda50534 100644
+--- a/lib/spack/spack/build_environment.py
++++ b/lib/spack/spack/build_environment.py
+@@ -40,6 +40,7 @@
+ import sys
+ import traceback
+ import types
++from typing import Set, Tuple
+ 
+ from six import StringIO
+ 
+@@ -242,16 +243,19 @@ def clean_environment():
+         # show useful matches.
+         env.set('LC_ALL', build_lang)
+ 
+-    remove_flags = set()
+     keep_flags = set()
++    # set of pairs
++    replace_flags = set()  # type: Set[Tuple[str,str]]
+     if spack.config.get('config:flags:keep_werror') == 'all':
+         keep_flags.add('-Werror*')
+     else:
+         if spack.config.get('config:flags:keep_werror') == 'specific':
+             keep_flags.add('-Werror=*')
+-        remove_flags.add('-Werror*')
++        replace_flags.add(('-Werror','-Wno-error'))
+     env.set('SPACK_COMPILER_FLAGS_KEEP', '|'.join(keep_flags))
+-    env.set('SPACK_COMPILER_FLAGS_REMOVE', '|'.join(remove_flags))
++    env.set('SPACK_COMPILER_FLAGS_REPLACE', ' '.join([
++         '|'.join(item) for item in replace_flags
++    ]))
+ 
+     # Remove any macports installs from the PATH.  The macports ld can
+     # cause conflicts with the built-in linker on el capitan.  Solves
+diff --git a/lib/spack/spack/build_environment.py b/lib/spack/spack/build_environment.py
+index aaf7fda50534..ad2dcdd5d944 100644
+--- a/lib/spack/spack/build_environment.py
++++ b/lib/spack/spack/build_environment.py
+@@ -251,10 +251,10 @@ def clean_environment():
+     else:
+         if spack.config.get('config:flags:keep_werror') == 'specific':
+             keep_flags.add('-Werror=*')
+-        replace_flags.add(('-Werror','-Wno-error'))
++        replace_flags.add(('-Werror', '-Wno-error'))
+     env.set('SPACK_COMPILER_FLAGS_KEEP', '|'.join(keep_flags))
+     env.set('SPACK_COMPILER_FLAGS_REPLACE', ' '.join([
+-         '|'.join(item) for item in replace_flags
++        '|'.join(item) for item in replace_flags
+     ]))
+ 
+     # Remove any macports installs from the PATH.  The macports ld can

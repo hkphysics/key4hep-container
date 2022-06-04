@@ -353,19 +353,6 @@ index 0000000000..35b63ee9b6
 +     myfile.open( fileName, std::ios::app );
 + 
 +     // Fill runtimes (as this could not be done on the fly during trace assembling)
-diff --git a/var/spack/repos/builtin/packages/pigz/package.py b/var/spack/repos/builtin/packages/pigz/package.py
-index 36d10b1fe3..6d10d5b01f 100644
---- a/var/spack/repos/builtin/packages/pigz/package.py
-+++ b/var/spack/repos/builtin/packages/pigz/package.py
-@@ -20,7 +20,7 @@ class Pigz(MakefilePackage):
-     depends_on('zlib')
- 
-     def build(self, spec, prefix):
--        make()
-+        make('CC=%s' % os.environ['CC'])
- 
-     def install(self, spec, prefix):
-         mkdirp(prefix.bin)
 diff --git a/var/spack/repos/builtin/packages/gdb/package.py b/var/spack/repos/builtin/packages/gdb/package.py
 index 91a6f6ff08..beaca8066c 100644
 --- a/var/spack/repos/builtin/packages/gdb/package.py

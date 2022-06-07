@@ -29,7 +29,6 @@ dnf --installroot="$rootfsDir" \
     --nogpgcheck \
     clang \
     nodejs \
-    spack \
     git \
     sudo \
     glibc-static-devel \
@@ -46,6 +45,14 @@ dnf --installroot="$rootfsDir" \
     python3-devel \
     patchelf \
     python3-pip
+
+dnf --installroot="$rootfsDir" \
+	install \
+    --setopt=install_weak_deps=False --best -v -y \
+    --nodocs --allowerasing \
+    --releasever="$releasever" \
+    --nogpgcheck \
+    spack
 
 #rpm --rebuilddb --root $rootfsDir
 pushd $rootfsDir

@@ -104,7 +104,7 @@ index 324fc979b3..e55aac1349 100644
 +    # gcc12
 +    patch('root-fix-compilation-with-gcc-12.patch', when='@6.26.00:%gcc@12')
 +    patch('root-fix-test-failure-on-ppc64le-and-aarch64-with-gcc-12.patch', when='@6.26.00:%gcc@12')
-+    patch('root-missing-include.patch', when='@6.26.00:')
++    patch('root-missing-include.patch', when='@6.26.00:6.26.02')
 +
      if sys.platform == 'darwin':
          # Resolve non-standard use of uint, _cf_

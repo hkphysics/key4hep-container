@@ -133,19 +133,3 @@ index 4514ef0..8311121 100644
      def cmake_args(self):
          args = []
          # C++ Standard
-diff --git a/packages/key4hep-stack/common.py b/packages/key4hep-stack/common.py
-index ec3c125..984d1d6 100644
---- a/packages/key4hep-stack/common.py
-+++ b/packages/key4hep-stack/common.py
-@@ -19,7 +19,10 @@ from spack.main import get_version
- import spack.user_environment as uenv
- import spack.store
- 
--from spack.package import PackageBase
-+try:
-+    from spack.package import PackageBase
-+except ImportError:
-+    from spack.package_base import PackageBase
- 
- 
- def k4_setup_env_for_framework_tests(spec, env):

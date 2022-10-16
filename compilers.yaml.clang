@@ -7,6 +7,8 @@ compilers:
       f77: /bin/gfortran
       fc: /bin/gfortran
     flags:
+      cflags: -fPIE
+      cxxflags: -fPIE
       fflags: -fallow-argument-mismatch
     operating_system: mageia9
     target: x86_64

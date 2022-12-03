@@ -11,7 +11,7 @@ compilers:
       cxxflags: -fPIE
       fflags: -fallow-argument-mismatch
     operating_system: mageia9
-    target: broadwell
+    target: x86_64
     modules: []
     environment: {}
     extra_rpaths: []

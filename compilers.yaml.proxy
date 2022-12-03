@@ -10,7 +10,7 @@ compilers:
       fflags: -fallow-argument-mismatch
       cxxflags: -I/usr/include/c++/12 -std=c++17
     operating_system: mageia9
-    target: broadwell
+    target: x86_64
     modules: []
     environment: {}
     extra_rpaths: []

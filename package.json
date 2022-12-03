@@ -1,6 +1,6 @@
 {
     "name": "key4hep-container",
-    "license": "LGPL",
+    "license": "LGPL-2.1-or-latter",
     "scripts": {
 	"build": "buildah unshare ./install.sh",
         "build-stack": "buildah unshare ./install-stack.sh",

@@ -1,6 +1,6 @@
 packages:
   all:
-    target: [broadwell]
+    target: [zen2]
     variants: build_type=Release cxxstd=17
   guinea-pig:
     variants: +fftw3

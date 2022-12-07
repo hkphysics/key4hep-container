@@ -20,59 +20,16 @@ index dac309b699..07f5ef4ac6 100644
      def url_for_version(self, version):
          if version <= Version("4.1.4"):
              url = "http://download.zeromq.org/zeromq-{0}.tar.gz"
-diff --git /dev/null b/var/spack/repos/builtin/packages/openblas/openblas_parallel.patch
-new file mode 100644
-index 00000000..652bbbff
---- /dev/null
-+++ b/var/spack/repos/builtin/packages/openblas/openblas_parallel.patch
-@@ -0,0 +1,37 @@
-+diff --git a/Makefile b/Makefile
-+index 967ab1b..e35a2ff 100644
-+--- a/Makefile
-++++ b/Makefile
-+@@ -119,7 +119,7 @@ endif
-+ 	@echo "To install the library, you can run \"make PREFIX=/path/to/your/installation install\"."
-+ 	@echo
-+ 
-+-shared :
-++shared : $(LIBPREFIX).$(LIBSUFFIX)
-+ ifneq ($(NO_SHARED), 1)
-+ ifeq ($(OSNAME), $(filter $(OSNAME),Linux SunOS Android Haiku FreeBSD DragonFly))
-+ 	@$(MAKE) -C exports so
-+@@ -162,7 +162,10 @@ ifeq ($(CPP_THREAD_SAFETY_TEST), 1)
-+ endif
-+ endif
-+ 
-+-libs :
-++$(SUBDIRS)::
-++	$(MAKE) -C $@ libs
-++
-++libs $(LIBPREFIX).$(LIBSUFFIX) : $(SUBDIRS)
-+ ifeq ($(CORE), UNKNOWN)
-+ 	$(error OpenBLAS: Detecting CPU failed. Please set TARGET explicitly, e.g. make TARGET=your_cpu_target. Please read README for the detail.)
-+ endif
-+@@ -174,11 +177,6 @@ ifeq ($(NO_SHARED), 1)
-+ 	$(error OpenBLAS: neither static nor shared are enabled.)
-+ endif
-+ endif
-+-	@for d in $(SUBDIRS) ; \
-+-	do if test -d $$d; then \
-+-	  $(MAKE) -C $$d $(@F) || exit 1 ; \
-+-	fi; \
-+-	done
-+ #Save the config files for installation
-+ 	@cp Makefile.conf Makefile.conf_last
-+ 	@cp config.h config_last.h
 diff --git a/var/spack/repos/builtin/packages/openblas/package.py b/var/spack/repos/builtin/packages/openblas/package.py
-index 099d00fb..21e2c55f 100644
+index 099d00fb..14fff9f6 100644
 --- a/var/spack/repos/builtin/packages/openblas/package.py
 +++ b/var/spack/repos/builtin/packages/openblas/package.py
-@@ -180,6 +180,8 @@ class Openblas(MakefilePackage):
-         sha256="c20f5188a9145395c37c22ae5c1f72bfc24edfbccbb636cc8f9227345615daa8",
-         when="@0.3.21 %gcc@:9",
-     )
-+    # parallel
-+    patch("openblas_parallel.patch", when="@0.3.21")
+@@ -351,7 +351,7 @@ def make_defs(self):
+         if self.spec.version < Version("0.3"):
+             make_defs.append("MAKE_NO_J=1")  # flag defined by our make.patch
+         else:
+-            make_defs.append("MAKE_NB_JOBS=0")  # flag provided by OpenBLAS
++            make_defs.append("MAKE_NB_JOBS=1")  # flag provided by OpenBLAS
  
-     # See https://github.com/spack/spack/issues/19932#issuecomment-733452619
-     conflicts("%gcc@7.0.0:7.3,8.0.0:8.2", when="@0.3.11:")
+         # Add target and architecture flags
+         make_defs += self._microarch_target_args()

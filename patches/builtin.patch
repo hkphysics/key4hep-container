@@ -23,7 +23,7 @@ index dac309b699..07f5ef4ac6 100644
 diff --git a/var/spack/repos/builtin/packages/openblas/openblas_parallel.patch b/var/spack/repos/builtin/packages/openblas/openblas_parallel.patch
 new file mode 100644
 index 00000000..652bbbff
---- /dev/null
+--- a/dev/null
 +++ b/var/spack/repos/builtin/packages/openblas/openblas_parallel.patch
 @@ -0,0 +1,37 @@
 +diff --git a/Makefile b/Makefile

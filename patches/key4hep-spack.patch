@@ -11,16 +11,6 @@ index 0161946..f7f47cd 100644
          return args
  
      def url_for_version(self, version):
---- a/packages/ced/package.py
-+++ b/packages/ced/package.py
-@@ -30,6 +30,7 @@ class Ced(CMakePackage, Ilcsoftpackage):
- 
-     depends_on('freeglut')
-     depends_on('ilcutil')
-+    patch('glut-link.patch')
- 
-     def cmake_args(self):
-         # install error if build_testing is on
 --- a/packages/ilcutil/package.py
 +++ b/packages/ilcutil/package.py
 @@ -21,6 +21,8 @@ class Ilcutil(CMakePackage, Ilcsoftpackage):

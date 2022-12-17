@@ -67,7 +67,7 @@ new file mode 100644
 index 00000000..2dc25968
 --- /dev/null
 +++ b/var/spack/repos/builtin/packages/gaudi/tbb.patch
-@@ -0,0 +1,13 @@
+@@ -0,0 +1,14 @@
 +diff --git a/GaudiHive/src/AvalancheSchedulerSvc.cpp b/GaudiHive/src/AvalancheSchedulerSvc.cpp
 +index 5bfff2f..166162f 100644
 +--- a/GaudiHive/src/AvalancheSchedulerSvc.cpp
@@ -78,6 +78,7 @@ index 00000000..2dc25968
 + #include "boost/tokenizer.hpp"
 +-// DP waiting for the TBB service
 +-#include "tbb/tbb_stddef.h"
+++#include "tbb/spin_rw_mutex.h"
 + 
 + // Instantiation of a static factory class used by clients to create instances of this service
 + DECLARE_COMPONENT( AvalancheSchedulerSvc )

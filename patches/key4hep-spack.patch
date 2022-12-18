@@ -130,3 +130,15 @@ index 0000000..020a108
 + #endif
 + 
 +   //////////////////////////////
+diff --git a/packages/key4hep-stack/common.py b/packages/key4hep-stack/common.py
+index 474944e..7445e55 100644
+--- a/packages/key4hep-stack/common.py
++++ b/packages/key4hep-stack/common.py
+@@ -25,6 +25,7 @@ try:
+ except ImportError:
+     from spack.package_base import PackageBase
+ 
++from shlex import quote as cmd_quote
+ 
+ def k4_setup_env_for_framework_tests(spec, env):
+     """Setup for tests that need the run environment.

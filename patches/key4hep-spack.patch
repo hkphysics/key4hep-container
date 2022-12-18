@@ -90,3 +90,43 @@ index 0000000..0a4a34c
 +-ELSE()
 +-  MESSAGE( STATUS "NOT building with CXX11 standard" )
 +-ENDIF()
+diff --git a/packages/k4clue/package.py b/packages/k4clue/package.py
+index e78eb08..4d83f97 100644
+--- a/packages/k4clue/package.py
++++ b/packages/k4clue/package.py
+@@ -38,6 +38,7 @@ class K4clue(CMakePackage, Key4hepPackage):
+     depends_on('marlinfastjet')
+     depends_on('lcfiplus')
+     depends_on('k4marlinwrapper')
++    patch('tbb.patch')
+ 
+     def cmake_args(self):
+         args = []
+diff --git a/packages/k4clue/tbb.patch b/packages/k4clue/tbb.patch
+new file mode 100644
+index 0000000..020a108
+--- /dev/null
++++ b/packages/k4clue/tbb.patch
+@@ -0,0 +1,22 @@
++diff --git a/src/main.cc b/src/main.cc
++index 40fda4e..214091d 100644
++--- a/src/main.cc
+++++ b/src/main.cc
++@@ -10,7 +10,7 @@
++ #else
++ #include "CLUEAlgoCupla.h"
++ #ifdef FOR_TBB
++-#include "tbb/task_scheduler_init.h"
+++#include "tbb/global_control.h"
++ #endif
++ #endif
++ 
++@@ -166,7 +166,7 @@ int main(int argc, char *argv[]) {
++   if (verbose) {
++     std::cout << "Setting up " << TBBNumberOfThread << " TBB Threads" << std::endl;
++   }
++-  tbb::task_scheduler_init init(TBBNumberOfThread);
+++  tbb::global_control(tbb::global_control::max_allowed_parallelism, TBBNumberOfThread);
++ #endif
++ 
++   //////////////////////////////

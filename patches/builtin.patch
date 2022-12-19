@@ -107,3 +107,20 @@ index 00000000..2cd06af8
 + 
 +     // Create the barrier for task synchronization at termination
 +     // (here we increase the number of threads by one to account for calling thread)
+diff --git a/var/spack/repos/builtin/packages/doxygen/package.py b/var/spack/repos/builtin/packages/doxygen/package.py
+index 69cb2f22..e00caf3c 100644
+--- a/var/spack/repos/builtin/packages/doxygen/package.py
++++ b/var/spack/repos/builtin/packages/doxygen/package.py
+@@ -89,6 +89,12 @@ def determine_variants(cls, exes, version_str):
+     # https://github.com/doxygen/doxygen/pull/6977/commits/788440279e0f0fdc7dce27ec266d7d5c11bcda1c
+     patch("cpp17_namespaces.patch", when="@1.8.15")
+ 
++    # Add utility include for exchange
++    patch(
++        "https://github.com/doxygen/doxygen/commit/5198966c8d5fec89116d025c74934ac03ea511fa.patch?full_index=1",
++        sha256="94a93f869a2dc63014ec4e9f1a31a45eefcab63931823979fdb4502f0caf625f",
++        when="@1.9.4")
++
+     # Workaround for gcc getting stuck in an infinite loop
+     patch("gcc-partial-inlining-bug.patch", when="@1.8.20: %gcc@7")
+ 

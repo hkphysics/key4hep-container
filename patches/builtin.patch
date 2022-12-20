@@ -125,17 +125,24 @@ index 69cb2f22..e00caf3c 100644
      patch("gcc-partial-inlining-bug.patch", when="@1.8.20: %gcc@7")
  
 diff --git a/var/spack/repos/builtin/packages/rivet/package.py b/var/spack/repos/builtin/packages/rivet/package.py
-index 6ea0deb3..9dde8be0 100644
+index 6ea0deb3..d90d596d 100644
 --- a/var/spack/repos/builtin/packages/rivet/package.py
 +++ b/var/spack/repos/builtin/packages/rivet/package.py
-@@ -332,6 +332,10 @@ def flag_handler(self, name, flags):
+@@ -329,8 +329,17 @@ def setup_build_environment(self, env):
+         env.unset("PYTHONHOME")
+ 
+     def flag_handler(self, name, flags):
++        new_flags = False
          if self.spec.satisfies("@3.1.2:") and name == "cxxflags":
              flags.append("-faligned-new")
-             return (None, None, flags)
-+        if self.spec.satisfies("%clang") and \
-+           ( name == "cxxflags" or name == "cflags" ):
++            new_flags = True
++        if self.spec.satisfies("%clang") and name == "cxxflags":
 +            flags.append("-fPIC")
-+            return (None, None, flags)
++            new_flags = True
++        if self.spec.satisfies("%clang") and name == "cflags":
++            flags.append("-fPIC")
++            new_flags = True
++        if new_flags:
+             return (None, None, flags)
          return (flags, None, None)
  
-     def configure_args(self):

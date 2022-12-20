@@ -44,7 +44,8 @@ dnf --installroot="$rootfsDir" \
     xz \
     python3-devel \
     patchelf \
-    python3-pip
+    python3-pip \
+    libomp-devel
 
 dnf --installroot="$rootfsDir" \
 	install \

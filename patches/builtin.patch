@@ -124,3 +124,18 @@ index 69cb2f22..e00caf3c 100644
      # Workaround for gcc getting stuck in an infinite loop
      patch("gcc-partial-inlining-bug.patch", when="@1.8.20: %gcc@7")
  
+diff --git a/var/spack/repos/builtin/packages/rivet/package.py b/var/spack/repos/builtin/packages/rivet/package.py
+index 6ea0deb3..9dde8be0 100644
+--- a/var/spack/repos/builtin/packages/rivet/package.py
++++ b/var/spack/repos/builtin/packages/rivet/package.py
+@@ -332,6 +332,10 @@ def flag_handler(self, name, flags):
+         if self.spec.satisfies("@3.1.2:") and name == "cxxflags":
+             flags.append("-faligned-new")
+             return (None, None, flags)
++        if self.spec.satisfies("%clang") and \
++           ( name == "cxxflags" or name == "cflags" ):
++            flags.append("-fPIC")
++            return (None, None, flags)
+         return (flags, None, None)
+ 
+     def configure_args(self):

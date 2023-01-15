@@ -146,3 +146,16 @@ index 6ea0deb3..d90d596d 100644
              return (None, None, flags)
          return (flags, None, None)
  
+diff --git a/var/spack/repos/builtin/packages/qt/package.py b/var/spack/repos/builtin/packages/qt/package.py
+index e55d0109..64890653 100644
+--- a/var/spack/repos/builtin/packages/qt/package.py
++++ b/var/spack/repos/builtin/packages/qt/package.py
+@@ -256,7 +256,7 @@ class Qt(Package):
+     compiler_mapping = {
+         "intel": ("icc",),
+         "apple-clang": ("clang-libc++", "clang"),
+-        "clang": ("clang-libc++", "clang"),
++        "clang": ("clang",),
+         "fj": ("clang",),
+         "gcc": ("g++",),
+     }

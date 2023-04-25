@@ -45,7 +45,23 @@ dnf --installroot="$rootfsDir" \
     python3-devel \
     patchelf \
     python3-pip \
-    libomp-devel
+    libomp-devel \
+    gcc-gfortran \
+    tar \
+    shadow-utils \
+    curl \
+    make \
+    fish \
+    patch \
+    zip \
+    unzip \
+    gcc-c++ \
+    cmake \
+    gzip \
+    bzip2 \
+    which \
+    procps-ng
+
 
 buildah run $container /usr/sbin/install-certs.sh
 
@@ -81,8 +97,6 @@ popd
 pushd $rootfsDir/opt/spack
 curl https://github.com/spack/spack/compare/develop...joequant:spack:dev/fixes.patch | patch -p1
 popd
-
-
 
 cp $scriptDir/packages.yaml $rootfsDir/etc/spack
 cp $scriptDir/packages-nightly.yaml $rootfsDir/etc/spack

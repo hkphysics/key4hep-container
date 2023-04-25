@@ -98,8 +98,8 @@ pushd $rootfsDir/opt/spack
 curl https://github.com/spack/spack/compare/develop...joequant:spack:dev/fixes.patch | patch -p1
 popd
 
-cp $scriptDir/packages.yaml $rootfsDir/etc/spack
-cp $scriptDir/packages-nightly.yaml $rootfsDir/etc/spack
+cp $scriptDir/packages.yaml $rootfsDir/opt/spack/etc/spack
+cp $scriptDir/packages-nightly.yaml $rootfsDir/opt/spack/etc/spack
 
 buildah run $container -- usermod -a -G wheel user
 buildah run $container -- usermod -a -G spack user

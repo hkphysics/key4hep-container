@@ -47,14 +47,6 @@ dnf --installroot="$rootfsDir" \
     python3-pip \
     libomp-devel
 
-dnf --installroot="$rootfsDir" \
-	install \
-    --setopt=install_weak_deps=False --best -v -y \
-    --nodocs --allowerasing \
-    --releasever="$releasever" \
-    --nogpgcheck \
-    spack
-
 buildah run $container /usr/sbin/install-certs.sh
 
 #rpm --rebuilddb --root $rootfsDir
@@ -69,6 +61,7 @@ rm -rf usr/lib/gcc/*/*/32
 popd
 
 /usr/sbin/useradd -G wheel -R $rootfsDir user || true
+/usr/sbin/useradd -G wheel -R $rootfsDir spack || true
 cat <<EOF > $rootfsDir/etc/sudoers.d/user
 %wheel        ALL=(ALL)       NOPASSWD: ALL
 EOF
@@ -76,24 +69,20 @@ cat <<EOF >> $rootfsDir/etc/distcc/hosts
 172.17.0.1
 EOF
 
-mkdir -p $rootfsDir/var/spack/repos/
-pushd $scriptDir
-git clone --depth=1 https://github.com/spack/spack.git spack.$$
-cp -R spack.$$/var/spack/repos/* $rootfsDir/var/spack/repos/
-popd
-rm -rf spack.$$
+git clone --depth=1 https://github.com/spack/spack.git $rootfsDir/opt/spack
 
-pushd $rootfsDir/var/spack/repos
+pushd $rootfsDir/opt/spack/var/spack/repos
 git clone --depth=1 https://github.com/key4hep/key4hep-spack.git
+pushd key4hep-spack
+curl https://github.com/joequant/key4hep-spack/compare/release...joequant:key4hep-spack:dev/fixes.patch | patch -p1
+popd
 popd
 
-pushd $rootfsDir
-patch -p1 < $scriptDir/patches/builtin.patch 
+pushd $rootfsDir/opt/spack
+curl https://github.com/spack/spack/compare/develop...joequant:spack:dev/fixes.patch | patch -p1
 popd
 
-pushd $rootfsDir/var/spack/repos/key4hep-spack
-patch -p1 < $scriptDir/patches/key4hep-spack.patch
-popd
+
 
 cp $scriptDir/packages.yaml $rootfsDir/etc/spack
 cp $scriptDir/packages-nightly.yaml $rootfsDir/etc/spack
@@ -103,23 +92,23 @@ buildah run $container -- usermod -a -G spack user
 buildah run $container -- mkdir -p /opt/spack
 
 buildah run $container -- mkdir -p /home/user/.spack/linux
-buildah copy $container $scriptDir/config.yaml /etc/spack
+buildah copy $container $scriptDir/config.yaml /opt/spack/etc/spack
 buildah copy $container $scriptDir/proxy.sh /usr/sbin
 buildah copy $container $scriptDir/build-spack.sh /usr/sbin
 buildah copy $container $scriptDir/build-spack-nightly.sh /usr/sbin
 buildah copy $container $scriptDir/build-spack-clang.sh /usr/sbin
-buildah copy $container $scriptDir/mirrors.yaml /etc/spack/defaults
+buildah copy $container $scriptDir/mirrors.yaml /opt/spack/etc/spack/defaults
 buildah copy $container $scriptDir/compilers.yaml.noproxy /home/user/.spack/linux
 buildah copy $container $scriptDir/compilers.yaml.proxy /home/user/.spack/linux
 buildah copy $container $scriptDir/compilers.yaml.clang /home/user/.spack/linux
 
-buildah run $container -- chown -R spack:spack /opt/spack /var/spack /etc/spack
-buildah run $container -- chmod -R ug+rw /opt/spack  /var/spack /etc/spack
-buildah run $container -- chmod -R o+r /opt/spack  /var/spack /etc/spack
-buildah run $container -- find /var/spack /opt/spack /etc/spack -type d -exec chmod 775 {} \;
+buildah run $container -- chown -R spack:spack /opt/spack
+buildah run $container -- chmod -R ug+rw /opt/spack
+buildah run $container -- chmod -R o+r /opt/spack
+buildah run $container -- find /opt/spack -type d -exec chmod 775 {} \;
 chmod 0755 $rootfsDir/usr/sbin/*.sh
 buildah run $container -- chown user:user -R /home/user/.spack
-buildah run $container -- sudo -u user spack repo add /var/spack/repos/key4hep-spack
+buildah run $container -- sudo -u user /opt/spack/bin/spack repo add /opt/spack/var/spack/repos/key4hep-spack
 buildah run $container --  update-distcc-symlinks
 #bootstrap clingo
 buildah run $container -- pip install clingo

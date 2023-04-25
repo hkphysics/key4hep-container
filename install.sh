@@ -123,6 +123,7 @@ buildah run $container -- find /opt/spack -type d -exec chmod 775 {} \;
 chmod 0755 $rootfsDir/usr/sbin/*.sh
 buildah run $container -- chown user:user -R /home/user/.spack
 buildah run $container -- chmod a+x /opt/spack/bin/spack
+buildah run $container -- chmod a+x /opt/spack/lib/spack/env/cc
 buildah run $container -- sudo -u user /opt/spack/bin/spack repo add /opt/spack/var/spack/repos/key4hep-spack
 buildah run $container --  update-distcc-symlinks
 #bootstrap clingo

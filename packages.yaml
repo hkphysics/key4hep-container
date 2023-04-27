@@ -36,8 +36,6 @@ packages:
     version: [master]
   evtgen:
     variants: +photos
-  gdb:
-    variants: -python
   py-setuptools-scm:
     variants: +toml
   binutils:

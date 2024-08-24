@@ -19,21 +19,18 @@ packages:
     variants: ~llvm+glx+opengl swr=none
   boost:
     variants: +python
-  dd4hep:
-    version: [master]
-    variants: +assimp+lcio+xercesc+hepmc3+edm4hep
   whizard:
     variants: ~fastjet~latex+lcio~lhapdf+openloops~openmp+pythia8 hepmc=2
   k4fwcore:
-    version: [master]
+    version: [main]
   cepcsw:
-    version: [master]
+    version: [main]
   k4reccalorimeter:
     version: [main]
   k4simdelphes:
     version: [main]
   edm4hep:
-    version: [master]
+    version: [main]
   evtgen:
     variants: +photos
   py-setuptools-scm:
@@ -41,10 +38,13 @@ packages:
   binutils:
     variants: +plugins
   k4marlinwrapper:
-    version: [master]
+    version: [main]
 # see https://github.com/key4hep/key4hep-spack/issues/379
   k4lcioreader:
-    version: [master]
+    version: [main]
 # https://github.com/key4hep/key4hep-spack/issues/380
   delphes:
     version: [master]
+# allow for gcc14
+  py-torch:
+    variants: +custom-protobuf

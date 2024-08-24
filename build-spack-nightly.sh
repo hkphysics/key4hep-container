@@ -5,7 +5,6 @@ set -e
 rm -f /opt/spack/.spack-db/prefix_lock
 export DISTCC_HOSTS='172.17.0.1,lzo'
 export PATH=$PATH":/opt/spack/bin"
-cp /opt/spack/etc/spack/packages-nightly.yaml /opt/spack/etc/spack/packages.yaml
 for pkg in "$@"
 do
     spack install -j16 -v $pkg

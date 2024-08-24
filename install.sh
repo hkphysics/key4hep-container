@@ -86,16 +86,8 @@ cat <<EOF >> $rootfsDir/etc/distcc/hosts
 EOF
 
 git clone --depth=1 https://github.com/spack/spack.git $rootfsDir/opt/spack
-
 pushd $rootfsDir/opt/spack/var/spack/repos
 git clone --depth=1 https://github.com/key4hep/key4hep-spack.git
-pushd key4hep-spack
-curl https://github.com/joequant/key4hep-spack/compare/main...joequant:key4hep-spack:dev/fixes.patch | patch -p1
-popd
-popd
-
-pushd $rootfsDir/opt/spack
-curl https://github.com/spack/spack/compare/develop...joequant:spack:dev/fixes.patch | patch -p1
 popd
 
 cp $scriptDir/packages.yaml $rootfsDir/opt/spack/etc/spack

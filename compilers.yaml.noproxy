@@ -1,6 +1,6 @@
 compilers:
 - compiler:
-    spec: gcc@12.2.1
+    spec: gcc@14.2.0
     paths:
       cc: /bin/gcc
       cxx: /bin/g++
@@ -8,7 +8,7 @@ compilers:
       fc: /bin/gfortran
     flags:
       fflags: -fallow-argument-mismatch
-      cxxflags: -I/usr/include/c++/12 -std=c++17
+      cxxflags: -I/usr/include/c++/14 -std=c++17
     operating_system: mageia10
     target: x86_64
     modules: []

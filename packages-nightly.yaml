@@ -45,6 +45,3 @@ packages:
 # https://github.com/key4hep/key4hep-spack/issues/380
   delphes:
     version: [master]
-# allow for gcc14
-  py-torch:
-    variants: +custom-protobuf

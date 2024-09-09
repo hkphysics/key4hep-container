@@ -108,7 +108,7 @@ buildah copy $container $scriptDir/compilers.yaml.noproxy /home/user/.spack/linu
 buildah copy $container $scriptDir/compilers.yaml.proxy /home/user/.spack/linux
 buildah copy $container $scriptDir/compilers.yaml.clang /home/user/.spack/linux
 
-buildah run $container -- chown -R spack:spack /opt/spack
+buildah run $container -- chown -R user:user /opt/spack
 buildah run $container -- chmod -R ug+rw /opt/spack
 buildah run $container -- chmod -R o+r /opt/spack
 buildah run $container -- find /opt/spack -type d -exec chmod 775 {} \;

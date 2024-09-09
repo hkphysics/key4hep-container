@@ -21,27 +21,11 @@ packages:
     variants: +python
   whizard:
     variants: ~fastjet~latex+lcio~lhapdf+openloops~openmp+pythia8 hepmc=2
-  k4fwcore:
-    version: [main]
-  cepcsw:
-    version: [main]
-  k4reccalorimeter:
-    version: [main]
-  k4simdelphes:
-    version: [main]
-  edm4hep:
-    version: [main]
   evtgen:
     variants: +photos
   py-setuptools-scm:
     variants: +toml
   binutils:
     variants: +plugins
-  k4marlinwrapper:
-    version: [main]
-# see https://github.com/key4hep/key4hep-spack/issues/379
-  k4lcioreader:
-    version: [main]
-# https://github.com/key4hep/key4hep-spack/issues/380
-  delphes:
-    version: [master]
+  python:
+    version: [3.11.9]

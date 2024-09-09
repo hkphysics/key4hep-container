@@ -29,8 +29,6 @@ packages:
     version: [main]
   k4simdelphes:
     version: [main]
-  edm4hep:
-    version: [main]
   evtgen:
     variants: +photos
   py-setuptools-scm:

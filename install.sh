@@ -104,9 +104,9 @@ buildah copy $container $scriptDir/build-spack.sh /usr/sbin
 buildah copy $container $scriptDir/build-spack-nightly.sh /usr/sbin
 buildah copy $container $scriptDir/build-spack-clang.sh /usr/sbin
 buildah copy $container $scriptDir/mirrors.yaml /opt/spack/etc/spack/defaults
-buildah copy $container $scriptDir/compilers.yaml.noproxy /home/user/.spack/linux
-buildah copy $container $scriptDir/compilers.yaml.proxy /home/user/.spack/linux
-buildah copy $container $scriptDir/compilers.yaml.clang /home/user/.spack/linux
+buildah copy $container $scriptDir/compilers.yaml.noproxy /etc
+buildah copy $container $scriptDir/compilers.yaml.proxy /etc
+buildah copy $container $scriptDir/compilers.yaml.clang /etc
 
 buildah run $container -- chown -R user:user /opt/spack
 buildah run $container -- chmod -R ug+rw /opt/spack

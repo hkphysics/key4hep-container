@@ -8,7 +8,7 @@ compilers:
       fc: /bin/gfortran
     flags:
       fflags: -fallow-argument-mismatch
-      cxxflags: -I/usr/include/c++/14 -std=c++17
+      cxxflags: -std=c++20
     operating_system: mageia10
     target: x86_64
     modules: []

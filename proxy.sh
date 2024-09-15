@@ -39,13 +39,13 @@ if [ $timeout_exit == 0 ] ; then
     export PATH=/usr/lib64/distcc:$PATH
     export DISTCC_HOSTS='172.17.0.1,cpp,lzo'
     eval `pump --startup`
-    if [ -f /home/user/.spack/linux/compilers.yaml.proxy ] ; then
-    cp -f /home/user/.spack/linux/compilers.yaml.proxy \
+    if [ -f /etc/compilers.yaml.proxy ] ; then
+    cp -f /etc/compilers.yaml.proxy \
        /home/user/.spack/linux/compilers.yaml
     fi
 else
-    if [ -f /home/user/.spack/linux/compilers.yaml.noproxy ] ; then
-    cp -f /home/user/.spack/linux/compilers.yaml.noproxy \
+    if [ -f /etc/compilers.yaml.noproxy ] ; then
+    cp -f /etc/compilers.yaml.noproxy \
        /home/user/.spack/linux/compilers.yaml
     fi
 fi

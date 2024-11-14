@@ -29,13 +29,13 @@ git config --global --add safe.directory /opt/spack
 pushd /opt/spack
 git fetch --depth 1 origin develop
 git reset --hard origin/develop
-curl https://github.com/spack/spack/compare/develop...joequant:spack:dev/fixes.patch | patch -p1
+curl https://github.com/spack/spack/compare/develop...hkphysics:spack:dev/fixes.patch | patch -p1
 popd
 git config --global --add safe.directory /opt/spack/var/spack/repos/key4hep-spack
 pushd /opt/spack/var/spack/repos/key4hep-spack
 git fetch --depth 1 origin main
 git reset --hard origin/main
-curl https://github.com/joequant/key4hep-spack/compare/main...joequant:key4hep-spack:dev/fixes.patch | patch -p1
+curl https://github.com/hkphysics/key4hep-spack/compare/main...hkphysics:key4hep-spack:dev/fixes.patch | patch -p1
 popd
 
 # remove locks

@@ -1,6 +1,6 @@
 compilers:
 - compiler:
-    spec: clang@17
+    spec: clang@19
     paths:
       cc: /usr/lib64/distcc/clang
       cxx: /usr/lib64/distcc/clang++

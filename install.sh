@@ -60,8 +60,8 @@ dnf --installroot="$rootfsDir" \
     gzip \
     bzip2 \
     which \
-    procps-ng
-
+    procps-ng \
+    libatomic-devel
 
 buildah run $container /usr/sbin/install-certs.sh
 

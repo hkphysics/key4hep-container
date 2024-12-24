@@ -31,8 +31,9 @@ git fetch origin develop
 git pull --unshallow
 
 git checkout develop .
-git checkout cb3d6549c988cb914583e4d220a2d1c0b0aa6ae2^ ./lib/spack/spack
-git checkout develop ./lib/spack/spack/util/ ./lib/spack/spack/version
+#git checkout develop .
+#git checkout cb3d6549c988cb914583e4d220a2d1c0b0aa6ae2^ ./lib/spack/spack
+#git checkout develop ./lib/spack/spack/util/ ./lib/spack/spack/version
 
 curl https://github.com/spack/spack/compare/develop...hkphysics:spack:dev/fixes.patch | patch -p1
 popd

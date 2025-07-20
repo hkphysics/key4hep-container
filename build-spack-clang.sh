@@ -25,30 +25,13 @@ function install_packages() {
 }
 
 . /usr/sbin/proxy.sh
-git config --global --add safe.directory /opt/spack
-pushd /opt/spack
-git fetch origin develop
-git pull --unshallow
-
-git checkout develop .
-# key4hep goes into infinite loop with key4hep-stack
-# see https://github.com/spack/spack/issues/47888
-#git checkout cb3d6549c988cb914583e4d220a2d1c0b0aa6ae2^ ./lib/spack/spack
-#git checkout 858c7ca1a2f4e0022e93faa9f91d7215a1c41b42 ./lib/spack/spack/util/ ./lib/spack/spack/version
-
-curl https://github.com/spack/spack/compare/develop...hkphysics:spack:dev/fixes.patch | patch -p1
-popd
-git config --global --add safe.directory /opt/spack/var/spack/repos/key4hep-spack
-pushd /opt/spack/var/spack/repos/key4hep-spack
-git fetch --depth 1 origin main
-git reset --hard origin/main
-curl https://github.com/hkphysics/key4hep-spack/compare/main...hkphysics:key4hep-spack:dev/fixes.patch | patch -p1
-popd
+. /opt/spack/share/spack/setup-env.sh
 
 mkdir -p /opt/spack/opt/spack
 pushd /opt/spack/opt/spack
 find . -name "repo.yaml" -size 0 -exec rm {} \;
 popd
+spack repo update
 
 # remove locks
 set -e

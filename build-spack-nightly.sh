@@ -1,5 +1,7 @@
 #!/bin/sh
 . /usr/sbin/proxy.sh
+. /opt/spack/share/spack/setup-env.sh
+spack repo update
 # remove locks
 set -e
 rm -f /opt/spack/.spack-db/prefix_lock

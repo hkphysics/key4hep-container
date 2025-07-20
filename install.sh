@@ -87,10 +87,6 @@ cat <<EOF >> $rootfsDir/etc/distcc/hosts
 EOF
 
 git clone --depth=1 https://github.com/spack/spack.git $rootfsDir/opt/spack
-pushd $rootfsDir/opt/spack/var/spack/repos
-git clone --depth=1 https://github.com/key4hep/key4hep-spack.git
-popd
-
 cp $scriptDir/packages.yaml $rootfsDir/opt/spack/etc/spack
 cp $scriptDir/packages-nightly.yaml $rootfsDir/opt/spack/etc/spack
 
@@ -99,6 +95,7 @@ buildah run $container -- usermod -a -G spack user
 buildah run $container -- mkdir -p /opt/spack
 
 buildah run $container -- mkdir -p /home/user/.spack/linux
+buildah copy $container $scriptDir/repos.yaml /opt/spack/etc/spack
 buildah copy $container $scriptDir/config.yaml /opt/spack/etc/spack
 buildah copy $container $scriptDir/proxy.sh /usr/sbin
 buildah copy $container $scriptDir/build-spack.sh /usr/sbin
@@ -117,8 +114,7 @@ chmod 0755 $rootfsDir/usr/sbin/*.sh
 chmod 0755 $rootfsDir/etc/compilers.yaml.*
 buildah run $container -- chown user:user -R /home/user/.spack
 buildah run $container -- chmod a+x /opt/spack/bin/spack
-buildah run $container -- chmod a+x /opt/spack/lib/spack/env/cc
-buildah run $container -- sudo -u user /opt/spack/bin/spack repo add /opt/spack/var/spack/repos/key4hep-spack
+#buildah run $container -- chmod a+x /opt/spack/lib/spack/env/cc
 buildah run $container --  update-distcc-symlinks
 #bootstrap clingo
 buildah run $container -- pip install clingo

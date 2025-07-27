@@ -18,7 +18,7 @@ function install_packages() {
             *)
                 pkg=$1
                 shift
-                spack install -j16 -v  ${FLAGS[@]} "$pkg"
+                spack install -j16 -v  ${FLAGS[@]} "$pkg" os=mageia10
                 ;;
         esac
     done
@@ -40,9 +40,3 @@ rm -f /opt/spack/.spack-db/prefix_lock
 export DISTCC_HOSTS='172.17.0.1,lzo'
 export PATH=$PATH":/opt/spack/bin"
 install_packages "$@"
-
-if [ -f /etc/compilers.yaml.noproxy ] ; then
-pushd /home/user/.spack/linux
-cp -f /etc/compilers.yaml.noproxy compilers.yaml
-popd
-fi

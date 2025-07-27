@@ -1,16 +1,15 @@
 packages:
-  gcc:
+  clang:
     externals:
-    - spec: gcc@15.1.0 languages='c,c++,fortran'
+    - spec: clang@20 languages='c,c++,fortran'
       prefix: /usr
       extra_attributes:
         compilers:
-          c: /usr/lib64/distcc/gcc
-          cxx: /usr/lib64/distcc/g++
+          c: /usr/lib64/distcc/clang
+          cxx: /usr/lib64/distcc/clang++
           fortran: /bin/gfortran
         flags:
           fflags: -fallow-argument-mismatch
-          cxxflags: -std=c++20
   all:
     target: [zen2]
     variants: build_type=Release cxxstd=20

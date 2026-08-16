@@ -8,7 +8,7 @@ compilers:
       fc: /bin/gfortran
     flags:
       fflags: -fallow-argument-mismatch
-    operating_system: mageia10
+    operating_system: mageia11
     target: x86_64
     modules: []
     environment: {}

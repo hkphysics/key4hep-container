@@ -18,7 +18,7 @@ function install_packages() {
             *)
                 pkg=$1
                 shift
-                spack install -j16 -v  ${FLAGS[@]} "$pkg"
+                spack install -p4 -j8 -v  ${FLAGS[@]} "$pkg"
                 ;;
         esac
     done
@@ -31,8 +31,9 @@ mkdir -p /opt/spack/opt/spack
 pushd /opt/spack/opt/spack
 find . -name "repo.yaml" -size 0 -exec rm {} \;
 popd
+git config pull.rebase true
 spack repo update
-
+spack repo ls | awk '{print $4}' | xargs -I {} sh -c 'cd "{}" && git pull'
 # remove locks
 set -e
 pushd /home/user/.spack/linux

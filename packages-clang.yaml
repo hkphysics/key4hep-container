@@ -12,7 +12,7 @@ packages:
           fflags: -fallow-argument-mismatch
   all:
     target: [zen2]
-    variants: build_type=Release cxxstd=20
+    variants: build_type=Release
   dd4hep:
     require: +edm4hep+lcio+xercesc+hepmc3+relaxpyver
   gaudi:
@@ -79,3 +79,5 @@ packages:
     version: [ main ]
   dual-readout:
     version: [ master ]
+  llvm:
+    require: ~clang

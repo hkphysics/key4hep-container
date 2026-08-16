@@ -23,7 +23,7 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
 
 dnf --installroot="$rootfsDir" \
 	install \
-    --setopt=install_weak_deps=False --best -v -y \
+    --setopt=install_weak_deps=False --best -y \
     --nodocs --allowerasing \
     --releasever="$releasever" \
     --nogpgcheck \
@@ -62,7 +62,8 @@ dnf --installroot="$rootfsDir" \
     which \
     procps-ng \
     libatomic-devel \
-    strace
+    strace \
+    lib64mesagl-devel
 
 buildah run $container /usr/sbin/install-certs.sh
 

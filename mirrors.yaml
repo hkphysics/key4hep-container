@@ -1,2 +1,3 @@
 mirrors:
-  spack-public: http://spack-llnl-mirror.s3-us-west-2.amazonaws.com/
+  spack-public: https://binaries.spack.io/develop
+

@@ -1,5 +1,7 @@
 # key4hep-container
 
+[![DOI](https://zenodo.org/badge/286859293.svg)](https://doi.org/10.5281/zenodo.4553189)
+
 This is builds a container for the key4hep project.  https://github.com/key4hep/key4hep-spack/
 
 Please contact joequant@bitquant.com.hk
